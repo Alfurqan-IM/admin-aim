@@ -1,0 +1,201 @@
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import React from "react";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
+import DataTable from "examples/Tables/DataTable";
+// Data
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// import { useUploadEmployeeImages } from "features/employees/employeesThunk";
+import { Link } from "react-router-dom";
+import { CustomButton } from "components copy";
+import { Loader1 } from "components copy/Loader";
+import PaginationControlled from "components copy/component's_Tables/Pagination";
+import nokTableData from "./data/nokTableData";
+import { changePage } from "features/nok/nokSlice";
+import NokSearchModal from "components copy/searchModals/NokSearchModal";
+import { useCreateNok } from "features/nok/nokThunk";
+import { useUpdateNok } from "features/nok/nokThunk";
+import { useNok } from "hooks/DashDetails_2";
+import { resetValues } from "features/nok/nokSlice";
+import styles from "../styles/thead.module.scss";
+import styling from "../styles/createupdate.module.scss";
+import AddIcon from "@mui/icons-material/Add";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Icon } from "@mui/material";
+
+function Noks() {
+  const {
+    isGettingAllNok = false, // Default value to prevent errors
+    employeesNOK = [], // Ensure default is an empty array
+    genderTypeCount = 0,
+    numOfPages = 1,
+    totalEmployeesNOK = 0,
+    count = 0,
+    relationshipTypeCount = 0,
+    refetch,
+    columns = [], // Default to an empty array
+    rows = [], // Default to an empty array
+  } = nokTableData() || {}; // Ensure nokTableData() returns something
+
+  const {
+    pages = 1,
+    emp_id,
+    fullname,
+    email,
+    address,
+    phone,
+    gender,
+    relationship,
+    sort,
+  } = useSelector((store) => store.noks) || {};
+
+  const dispatch = useDispatch();
+
+  const handleChange = (event, value) => {
+    event.preventDefault();
+    dispatch(changePage(value));
+  };
+
+  // Always call useEffect unconditionally
+  React.useEffect(() => {
+    if (refetch) {
+      refetch();
+    }
+  }, [emp_id, fullname, email, address, phone, gender, relationship, pages, sort, refetch]);
+
+  return (
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDBox pt={6} pb={3}>
+        <Grid container spacing={6}>
+          <Grid item xs={12}>
+            <Card>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="info"
+                borderRadius="lg"
+                coloredShadow="info"
+              >
+                <MDTypography className={styles.wrapper} variant="h6" color="white">
+                  <MDBox className={styles.inner}>
+                    <MDTypography color="white">Next of Kin</MDTypography>
+                    <MDTypography color="white">
+                      {count}/{totalEmployeesNOK}
+                    </MDTypography>
+                  </MDBox>
+                  <MDBox className={styles.inner}>
+                    <Link onClick={() => dispatch(resetValues())} to="/createupdatenok/add">
+                      <AddIcon
+                        sx={{ fill: "white" }}
+                        fontSize="medium"
+                        titleAccess="add next of kin"
+                      />
+                    </Link>
+                    <NokSearchModal isGettingAllNok={isGettingAllNok} />
+                  </MDBox>
+                </MDTypography>
+              </MDBox>
+              <MDBox pt={3}>
+                <DataTable
+                  table={{ columns, rows }}
+                  isSorted={false}
+                  entriesPerPage={false}
+                  showTotalEntries={false}
+                  noEndBorder
+                />
+              </MDBox>
+            </Card>
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+          </Grid>
+        </Grid>
+      </MDBox>
+      <Footer />
+    </DashboardLayout>
+  );
+}
+
+export default Noks;
+
+export const CreateUpdateNok = () => {
+  const { id } = useParams();
+  const { createNok, isCreatingNok } = useCreateNok();
+  const { updateNok, isUpdatingNok } = useUpdateNok();
+  const { nokDetails: nokInput } = useNok();
+  const { emp_id, fullname, email, address, phone, gender, relationship, isEdit } = useSelector(
+    (store) => store.noks
+  );
+  const nokDetails = {
+    emp_id,
+    fullname,
+    email,
+    address,
+    phone,
+    gender,
+    relationship,
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValid = Object.values(nokDetails).every(
+      (value) => value !== undefined && value !== null && value !== ""
+    );
+    if (!isValid) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+    if (isEdit) return updateNok({ nokDetails, id });
+    createNok(nokDetails);
+  };
+  return (
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDBox mt={5} mb={3}>
+        <Grid className={styling.wrapper} container spacing={1}>
+          <div>
+            {/* <Link to="/noks">Go back</Link> */}
+            <div>
+              <Link to="/noks">
+                <ArrowBackIcon />
+              </Link>
+              <h6>{isEdit ? `Update ${fullname} details` : "Create Next Of Kin"} </h6>
+              <div></div>
+            </div>
+            <form className={styling.form} onSubmit={handleSubmit}>
+              {nokInput
+                .filter((detail) => detail.name !== "sort")
+                .map((detail) => {
+                  const { name, TextField } = detail;
+                  return <div key={name}>{TextField}</div>;
+                })}
+              <CustomButton
+                background={"inherit"}
+                backgroundhover={"grey"}
+                size={"100%"}
+                height={"3vh"}
+                type="submit"
+                // disabled={!isValid}
+              >
+                {isCreatingNok === "pendiNokuseCreateNok " || isUpdatingNok === "pending" ? (
+                  <Loader1 />
+                ) : isEdit ? (
+                  "Update"
+                ) : (
+                  "Submit"
+                )}
+              </CustomButton>
+            </form>
+          </div>
+        </Grid>
+      </MDBox>
+      <Footer />
+    </DashboardLayout>
+  );
+};

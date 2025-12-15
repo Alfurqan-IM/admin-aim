@@ -1,0 +1,231 @@
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import React from "react";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
+import DataTable from "examples/Tables/DataTable";
+// Data
+// import employeesTableData from "layouts/tables/data/employeesTableData";
+import projectsTableData from "layouts/tables/data/projectsTableData";
+// import { useSingleEmployee } from "features/employees/employeesThunk";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// import { useUploadEmployeeImages } from "features/employees/employeesThunk";
+import { Link } from "react-router-dom";
+import { CustomButton } from "components copy";
+import { Loader1 } from "components copy/Loader";
+import PaginationControlled from "components copy/component's_Tables/Pagination";
+import StationSearchModal from "components copy/searchModals/StationSearchModal";
+// import { useSingleStation } from "features/stations/stationsThunk";
+import LogoAsana from "assets/images/small-logos/logo-asana.svg";
+import moment from "moment";
+import reportTableData from "./data/reportTableData";
+import { ReportSearchModal } from "components copy";
+import { useCatchReports } from "hooks/DashDetails_2";
+import { useUpdateReport } from "features/catch_reports/reportsThunk";
+import { useCreateReport } from "features/catch_reports/reportsThunk";
+import { resetValues } from "features/catch_reports/reportSlice";
+import { changePage } from "features/catch_reports/reportSlice";
+import styles from "../styles/thead.module.scss";
+import styling from "../styles/createupdate.module.scss";
+import AddIcon from "@mui/icons-material/Add";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Icon } from "@mui/material";
+function Reports() {
+  const {
+    columns,
+    rows,
+    numOfPages,
+    count,
+    refetch,
+    isGettingAllReports,
+    totalReports,
+    totalboxesAssigned,
+    totalColonized,
+    totalUnColonized,
+  } = reportTableData();
+  const dispatch = useDispatch();
+  const handleChange = (event, value) => {
+    event.preventDefault();
+    dispatch(changePage(value));
+  };
+  const {
+    total_boxes_assigned,
+    colonized_boxes,
+    uncolonized_boxes,
+    catch_date,
+    catch_status,
+    season,
+    sort,
+    pages,
+  } = useSelector((store) => store.reports);
+  React.useEffect(() => {
+    refetch();
+  }, [
+    pages,
+    total_boxes_assigned,
+    colonized_boxes,
+    uncolonized_boxes,
+    catch_date,
+    catch_status,
+    season,
+    sort,
+  ]);
+  return (
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDBox pt={6} pb={3}>
+        <Grid container spacing={6}>
+          <Grid item xs={12}>
+            <Card>
+              <MDBox
+                mx={2}
+                mt={-3}
+                py={3}
+                px={2}
+                variant="gradient"
+                bgColor="info"
+                borderRadius="lg"
+                coloredShadow="info"
+              >
+                <MDTypography className={styles.wrapper} variant="h6" color="white">
+                  <MDBox className={styles.inner}>
+                    <MDTypography color="white">Harvest Reports</MDTypography>
+                    <MDTypography color="white">
+                      {count}/{totalReports}
+                    </MDTypography>
+                  </MDBox>
+                  <MDBox className={styles.inner}>
+                    <Link onClick={() => dispatch(resetValues())} to="/createupdatereport/add">
+                      <AddIcon
+                        sx={{ fill: "white" }}
+                        fontSize="medium"
+                        titleAccess="add a new report"
+                      />
+                    </Link>
+                    <ReportSearchModal isGettingAllReports={isGettingAllReports} />
+                  </MDBox>
+                </MDTypography>
+              </MDBox>
+              <MDBox pt={3}>
+                <DataTable
+                  table={{ columns, rows }}
+                  isSorted={false}
+                  entriesPerPage={false}
+                  showTotalEntries={false}
+                  noEndBorder
+                />
+              </MDBox>
+            </Card>
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+          </Grid>
+        </Grid>
+      </MDBox>
+      <Footer />
+    </DashboardLayout>
+  );
+}
+export default Reports;
+
+export const CreateUpdateReport = () => {
+  const { id } = useParams();
+  const { reportInputs } = useCatchReports();
+  const { isUpdatingReport, updateReport } = useUpdateReport();
+  const { createReport, isCreatingReport } = useCreateReport();
+  const {
+    hunter_id,
+    assigned_supervisor,
+    total_boxes_assigned,
+    colonized_boxes,
+    uncolonized_boxes,
+    delivered_to_apiary,
+    date_assigned,
+    catch_date,
+    catch_location,
+    catch_status,
+    season,
+    notes,
+    isEdit,
+  } = useSelector((store) => store.reports);
+  const reportDetails = {
+    hunter_id,
+    assigned_supervisor,
+    total_boxes_assigned,
+    colonized_boxes,
+    uncolonized_boxes,
+    delivered_to_apiary,
+    date_assigned,
+    catch_date,
+    catch_location,
+    catch_status,
+    season,
+    notes,
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValid = Object.values(reportDetails).every(
+      (value) => value !== undefined && value !== null && value !== ""
+    );
+    if (!isValid) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+    if (isEdit) return updateReport({ reportDetails, id });
+    createReport(reportDetails);
+  };
+  return (
+    <DashboardLayout>
+      <DashboardNavbar />
+      <MDBox mt={5} mb={3}>
+        {isEdit ? (
+          <Link to="/stations">
+            <Icon title="back to stations" fontSize="large">
+              business
+            </Icon>
+          </Link>
+        ) : (
+          ""
+        )}
+        <Grid className={styling.wrapper} container spacing={1}>
+          <div>
+            <div>
+              <Link to={`/reports`}>
+                <ArrowBackIcon />
+              </Link>
+              <h6>{isEdit ? `Update report details` : "Create a new Report"} </h6>
+              <div></div>
+            </div>
+            <form className={styling.form} onSubmit={handleSubmit}>
+              {reportInputs
+                .filter((detail) => detail.name !== "sort")
+                .map((detail) => {
+                  const { name, TextField } = detail;
+                  return <div key={name}>{TextField}</div>;
+                })}
+              <CustomButton
+                background={"inherit"}
+                backgroundhover={"grey"}
+                size={"100%"}
+                height={"3vh"}
+                type="submit"
+                // disabled={!isValid}
+              >
+                {isCreatingReport === "pending" || isUpdatingReport === "pending" ? (
+                  <Loader1 />
+                ) : isEdit ? (
+                  "Update"
+                ) : (
+                  "Submit"
+                )}
+              </CustomButton>
+            </form>
+          </div>
+        </Grid>
+      </MDBox>
+      <Footer />
+    </DashboardLayout>
+  );
+};
