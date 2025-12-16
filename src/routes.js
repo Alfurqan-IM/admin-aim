@@ -4,11 +4,11 @@ import { lazy } from "react";
 import Icon from "@mui/material/Icon";
 
 // Authentication........
-const CheckEmail = lazy(() =>
-  import("./layouts/authentication/email").then((module) => ({
-    default: module.default,
-  }))
-);
+// const CheckEmail = lazy(() =>
+//   import("./layouts/authentication/email").then((module) => ({
+//     default: module.default,
+//   }))
+// );
 const SignUp = lazy(() =>
   import("./layouts/authentication/sign-up").then((module) => ({
     default: module.default,
@@ -242,7 +242,7 @@ const UpdateReview = lazy(() =>
 const routes = [
   {
     type: "collapse",
-    name: "Dashboard",
+    name: "Overview",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
@@ -395,14 +395,14 @@ const routes = [
   
 ];
 export const authRoutes = [
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    // icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/check",
-    component: <CheckEmail />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign In",
+  //   key: "sign-in",
+  //   // icon: <Icon fontSize="small">login</Icon>,
+  //   route: "/authentication/check",
+  //   component: <CheckEmail />,
+  // },
   {
     type: "collapse",
     name: "Sign Up",

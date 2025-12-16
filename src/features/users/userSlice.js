@@ -9,13 +9,17 @@ const searchQueryParams = {
 };
 const initialState = {
   email: "",
-  //   validationError: false,
-  fullname: "",
+  first_name: "",
+  last_name: "",
+  user_name: "",
   password: "",
   address: "",
+  city: "",
+  state: "",
+  country: "",
   phone: "",
   gender: "",
-  emailNotification: true,
+  notification: true,
   ...searchQueryParams,
 };
 

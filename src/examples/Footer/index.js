@@ -56,10 +56,9 @@ function Footer({ company, links }) {
         by
         <Link to={"#"} target="_blank">
           <MDTypography variant="button" fontWeight="medium">
-            &nbsp;Apiaries 16&nbsp;
+            &nbsp;Alfurqan Intl&nbsp;
           </MDTypography>
         </Link>
-        pure, raw, local.
       </MDBox>
       <MDBox
         component="ul"

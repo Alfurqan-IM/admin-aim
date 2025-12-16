@@ -16,7 +16,7 @@ import Header from "./profile/components/Header";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import PaginationControlled from "components copy/component's_Tables/Pagination";
+// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import usersTableData from "./data/usersTableData";
 import { changePage } from "features/users/userSlice";
 import { UserSearchModal } from "components copy";
@@ -42,7 +42,7 @@ function Users() {
     sort,
     pages,
     email,
-    fullname,
+    last_name,
     phone,
     gender,
   } = useSelector((store) => store.users);
@@ -62,7 +62,7 @@ function Users() {
     sort,
     pages,
     email,
-    fullname,
+    last_name,
     phone,
     gender,
     blacklisting,
@@ -106,7 +106,7 @@ function Users() {
                 />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>
@@ -124,8 +124,8 @@ export function SingleUser() {
     address,
     blacklisted,
     email,
-    emailNotification,
-    fullname,
+    notification,
+    last_name,
     gender,
     image,
     isVerified,
@@ -140,7 +140,7 @@ export function SingleUser() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      <Header info={{ image, fullname, address, role }}>
+      <Header info={{ image, last_name, address, role }}>
         <MDBox mt={5} mb={3}>
           <Link to="/users">
             {" "}
@@ -153,7 +153,7 @@ export function SingleUser() {
                 title=""
                 description=""
                 info={{
-                  fullname,
+                  last_name,
                   id: user_id,
                   email,
                   mobile: phone,
@@ -172,7 +172,7 @@ export function SingleUser() {
                   address,
                   gender,
                   blacklisted: blacklisted ? "YES" : "No",
-                  Notification: emailNotification ? "YES" : "No",
+                  Notification: notification ? "YES" : "No",
                 }}
                 shadow={false}
               />
@@ -186,22 +186,22 @@ export function SingleUser() {
                 description=""
                 info={{
                   Verified: isVerified ? "YES" : "No",
-                  ...(paymentStatusCount.length > 0 && {
-                    paymentStatusCount: paymentStatusCount
-                      .map(
-                        ({ paymentStatus, count }, index) =>
-                          `Order ${index + 1}: Status: ${paymentStatus}, Number: ${count}`
-                      )
-                      .join(" | "), // Join them as a single string with a separator like " | " or "\n"
-                  }),
-                  ...(deliveryStatusCount.length > 0 && {
-                    deliveryStatusCount: deliveryStatusCount
-                      .map(
-                        ({ deliveryStatus, count }, index) =>
-                          `delivery ${index + 1}: Status: ${deliveryStatus}, Number: ${count}`
-                      )
-                      .join(" | "), // Join them as a single string with a separator like " | " or "\n"
-                  }),
+                  // ...(paymentStatusCount.length > 0 && {
+                  //   paymentStatusCount: paymentStatusCount
+                  //     .map(
+                  //       ({ paymentStatus, count }, index) =>
+                  //         `Order ${index + 1}: Status: ${paymentStatus}, Number: ${count}`
+                  //     )
+                  //     .join(" | "), // Join them as a single string with a separator like " | " or "\n"
+                  // }),
+                  // ...(deliveryStatusCount.length > 0 && {
+                  //   deliveryStatusCount: deliveryStatusCount
+                  //     .map(
+                  //       ({ deliveryStatus, count }, index) =>
+                  //         `delivery ${index + 1}: Status: ${deliveryStatus}, Number: ${count}`
+                  //     )
+                  //     .join(" | "), // Join them as a single string with a separator like " | " or "\n"
+                  // }),
                 }}
                 shadow={false}
               />

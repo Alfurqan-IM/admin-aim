@@ -18,7 +18,7 @@ const Author = ({ image, name, email, user_id }) => (
     </MDBox>
   </MDBox>
 );
-const Job = ({ title, description }) => (
+const Job = ({ title, description, add }) => (
   <MDBox lineHeight={1} textAlign="left">
     <MDTypography
       display="block"
@@ -28,7 +28,9 @@ const Job = ({ title, description }) => (
     >
       {title}
     </MDTypography>
-    <MDTypography variant="caption">{description}</MDTypography>
+    <MDTypography title={add} variant="caption">
+      {description}
+    </MDTypography>
   </MDBox>
 );
 export default function usersTableData() {
@@ -47,17 +49,27 @@ export default function usersTableData() {
   const rows = Users.map((user, i) => {
     const {
       user_id,
-      fullname,
+      first_name,
+      last_name,
+      user_name,
       email,
       phone,
       gender,
       image,
       role,
       address,
-      emailNotification,
+      city,
+      state,
+      country,
+      notification,
       blacklisted,
       isVerified,
     } = user;
+    const fullAddress = `${address}, ${city}, ${state}, ${country}.`;
+    const MAX_LENGTH = 40;
+    const formatAddress = (text) =>
+      text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
+
     const handleActivation = () => {
       const confirmation = window.confirm(
         `You are about to ${blacklisted ? "activate" : "blacklist"} a user, ARE YOU SURE?`
@@ -76,8 +88,20 @@ export default function usersTableData() {
       }
     };
     return {
-      users: <Author image={image} name={`${fullname}`} email={email} user_id={user_id} />,
-      details: <Job title={role} description={address} />,
+      users: (
+        <Author
+          image={image}
+          name={`${first_name}  ${last_name}`}
+          email={email}
+          user_id={user_id}
+        />
+      ),
+      username: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {user_name}
+        </MDTypography>
+      ),
+      details: <Job title={role} description={formatAddress(fullAddress)} add={fullAddress} />,
       gender: (
         <MDBox ml={-1}>
           <MDBadge
@@ -96,8 +120,8 @@ export default function usersTableData() {
       notification: (
         <MDBox ml={-1}>
           <MDBadge
-            badgeContent={emailNotification ? "Disabled" : "Enabled"}
-            color={emailNotification ? "error" : "success"}
+            badgeContent={notification ? "Disabled" : "Enabled"}
+            color={notification ? "error" : "success"}
             variant="gradient"
             size="sm"
           />
@@ -144,7 +168,7 @@ export default function usersTableData() {
   return {
     columns: [
       { Header: "users", accessor: "users", width: "45%", align: "left" },
-      // { Header: "role", accessor: "role", align: "center" },
+      { Header: "username", accessor: "username", align: "center" },
       { Header: "details", accessor: "details", align: "left" },
       { Header: "gender", accessor: "gender", align: "center" },
       { Header: "phone", accessor: "phone", align: "center" },

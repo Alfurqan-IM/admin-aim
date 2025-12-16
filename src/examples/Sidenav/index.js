@@ -21,7 +21,8 @@ import MDButton from "components/MDButton";
 
 // Material Dashboard 2 React example components
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
-import apiaries from "assets/images/apiaries_16.jpeg";
+//import apiaries from "assets/images/apiaries_16.jpeg";
+import alfurqan from 'assets/images/aimlogo.png';
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
@@ -154,7 +155,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           </MDTypography>
         </MDBox>
         <MDBox component={NavLink} to="/" display="flex" alignItems="center">
-          <MDBox component="img" src={apiaries} alt="Brand" width="2rem" />
+          <MDBox component="img" src={alfurqan} alt="Brand" width="2rem" />
           {/* {brand && <MDBox component="img" src={apiaries} alt="Brand" width="2rem" />} */}
           <MDBox
             width={!brandName && "100%"}
@@ -162,7 +163,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           >
             <MDTypography component="h6" variant="button" fontWeight="medium" color={textColor}>
               {/* {brandName} */}
-              Apiaries 16
+              Alfurqan Intl
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -185,7 +186,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           fullWidth
           onClick={() => handleLogout()}
         >
-          log Out
+          Sign Out
         </MDButton>
       </MDBox>
     </SidenavRoot>

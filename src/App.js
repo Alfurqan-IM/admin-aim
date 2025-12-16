@@ -221,7 +221,7 @@ export default function App() {
             {getauthRoutes(authRoutes)}
             {getRoutes(routes)}
             {getRoutes(singleroutes)}
-            <Route path="*" element={<Navigate to="/authentication/check" />} />
+            <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
           </Routes>
 
           <ToastContainer

@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-import PaginationControlled from "components copy/component's_Tables/Pagination";
+// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import LogoAsana from "assets/images/small-logos/logo-asana.svg";
 import moment from "moment";
 import servicesTableData from "./data/servicesTableData";
@@ -97,7 +97,7 @@ function Services() {
                 />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>

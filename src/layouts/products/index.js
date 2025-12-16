@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-import PaginationControlled from "components copy/component's_Tables/Pagination";
+// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
@@ -138,7 +138,7 @@ function Products() {
                 />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>

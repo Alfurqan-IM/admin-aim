@@ -26,12 +26,13 @@ import { convertToDateOnly } from "../utils";
 const useRegister = () => {
   const {
     email,
-    fullname,
+    first_name,
+    last_name,
     password,
     address,
     phone,
     gender,
-    emailNotification,
+    notification,
     //..................search params
     gendersearch,
     isVerified,
@@ -55,7 +56,7 @@ const useRegister = () => {
       const isValidEmail = validateEmail(value);
       setValidationError(!isValidEmail);
     }
-    if (name === "emailNotification") {
+    if (name === "notification") {
       value = e.target.checked;
       return dispatch(handelChange({ name, value }));
     }
@@ -82,9 +83,9 @@ const useRegister = () => {
 
   const userDetails = [
     {
-      name: "fullname",
+      name: "last_name",
       TextField: (
-        <UserInput name={"fullname"} value={fullname} type={"text"} handleChange={getInput} />
+        <UserInput name={"last_name"} value={last_name} type={"text"} handleChange={getInput} />
       ),
     },
 
@@ -121,8 +122,8 @@ const useRegister = () => {
       name: "subscribe",
       TextField: (
         <Subscribe
-          name={"emailNotification"}
-          value={emailNotification}
+          name={"notification"}
+          value={notification}
           type={"checkbox"}
           handleChange={getInput}
         />
@@ -138,9 +139,9 @@ const useRegister = () => {
 
   const searchUsers = [
     {
-      name: "fullname",
+      name: "last_name",
       TextField: (
-        <UserInput name={"fullname"} value={fullname} type={"text"} handleChange={getInput} />
+        <UserInput name={"last_name"} value={last_name} type={"text"} handleChange={getInput} />
       ),
     },
     {

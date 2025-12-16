@@ -9,7 +9,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 // Data
 // import employeesTableData from "layouts/tables/data/employeesTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+//import projectsTableData from "layouts/tables/data/projectsTableData";
 // import { useSingleEmployee } from "features/employees/employeesThunk";
 import { useParams } from "react-router-dom";
 import Divider from "@mui/material/Divider";
@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-import PaginationControlled from "components copy/component's_Tables/Pagination";
+// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import stationTableData from "./data/stationTableData";
 import { changePage } from "features/stations/stationSlice";
 import { resetValues } from "features/stations/stationSlice";
@@ -129,7 +129,7 @@ function Stations() {
                 />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>

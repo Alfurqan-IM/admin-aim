@@ -46,10 +46,9 @@ function Footer({ light }) {
             by
             <Link to="#">
               <MDTypography variant="button" fontWeight="medium" color={light ? "white" : "dark"}>
-                &nbsp;Apiaries 16&nbsp;
+                &nbsp;AlFurqan International&nbsp;
               </MDTypography>
             </Link>
-            {" "} pure, raw, local.
           </MDBox>
           <MDBox
             component="ul"

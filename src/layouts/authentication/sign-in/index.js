@@ -11,7 +11,11 @@ import { Loader1 } from "components copy/Loader";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { Link } from "react-router-dom";
-
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Grid from "@mui/material/Grid";
+import MuiLink from "@mui/material/Link";
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
@@ -19,9 +23,12 @@ function Basic() {
   // State for form input
   const { email, password } = useSelector((store) => store.users);
   const { loginUser, isLoginIn } = useLoginUser();
-  const { userDetails } = useRegister();
+  const {
+    userDetails,
+    status: { TextField },
+  } = useRegister();
   const navigate = useNavigate();
-  const { data: currentUser, refetch, isCheckingCurrentUser } = useCurrentUser();
+  const { refetch, isCheckingCurrentUser } = useCurrentUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,16 +64,21 @@ function Basic() {
           mb={1}
           textAlign="center"
         >
-          <MDTypography variant="h6" fontWeight="medium" color="white" mt={1}>
+          {/* <MDTypography variant="h6" fontWeight="medium" color="white" mt={1}>
             Glad to see you back again !!
           </MDTypography>
           <MDTypography variant="h6" fontWeight="small" color="white" mt={1}>
             Enter your password to retrieve your info...
+          </MDTypography> */}
+          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+            Sign in
           </MDTypography>
+          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
+          </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form" onSubmit={handleSubmit}>
-            <MDBox mt={0} mb={0} textAlign="start">
+            {/* <MDBox mt={0} mb={0} textAlign="start">
               <MDTypography fontFamily="inherit" fontWeight="bold" variant="button" color="text">
                 Not your Email?{" "}
                 <MDTypography
@@ -102,7 +114,8 @@ function Basic() {
                   </MDTypography>
                 )}
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
+            <MDBox mb={2}>{TextField}</MDBox>
             <MDBox mb={2}>{userDetails[1].TextField}</MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton
@@ -115,7 +128,7 @@ function Basic() {
                 {isLoginIn === "pending" ? <Loader1 /> : "Sign in"}
               </MDButton>
             </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
+            {/* <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Forgot password?{" "}
                 <MDTypography
@@ -129,7 +142,7 @@ function Basic() {
                   reset it
                 </MDTypography>
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
           </MDBox>
         </MDBox>
       </Card>

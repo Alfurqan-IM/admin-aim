@@ -3,6 +3,7 @@ import customFetch from "../../utils";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // user authentication
 export const useCheckUserOndB = (email) => {
   const {
@@ -47,8 +48,8 @@ export const useCurrentUser = () => {
     queryKey: ["currentuser"],
     // enabled: false, // Disable the query from running on component mount
     queryFn: async () => {
-      const { data } = await customFetch.get(`authflow/showme`);
-        // console.log(data);
+      const { data } = await customFetch.get(`authentication/showme`);
+      // console.log(data);
       return data;
     },
     onSuccess: ({ data }) => {
@@ -113,15 +114,14 @@ export const useVerifyUser = () => {
 };
 
 export const useLoginUser = () => {
-  //   const dispatch = useDispatch();
+  const { refetch } = useCurrentUser();
   const { mutate: loginUser, status: isLoginIn } = useMutation({
     mutationFn: async (userDetails) => {
-      const { data } = await customFetch.post("authflow/login", userDetails);
+      const { data } = await customFetch.post("authentication/login", userDetails);
       return data;
     },
     onSuccess: ({ msg }) => {
-      //   dispatch(setLoginDetails(msg));
-      //   console.log(msg);
+      refetch();
       toast.success(msg);
     },
     onError: (error) => {
@@ -140,7 +140,7 @@ export const useForgetPassword = () => {
     isError,
   } = useMutation({
     mutationFn: async (email) => {
-      const { data } = await customFetch.post("authflow/forgotpassword", email);
+      const { data } = await customFetch.post("authentication/forgotpassword", email);
       return data;
     },
     onSuccess: ({ msg }) => {
@@ -179,12 +179,12 @@ export const useResetPassword = () => {
 export const useLogOutUser = () => {
   const { mutate: logOutUser, status: isLoginOut } = useMutation({
     mutationFn: async () => {
-      const { data } = await customFetch.delete("authflow/logout");
+      const { data } = await customFetch.delete("authentication/logout");
       return data;
     },
     onSuccess: ({ msg }) => {
-      toast.error(msg);
       window.location.reload();
+      toast.error(msg);
     },
     onError: (error) => {
       toast.error(error.response.data.msg);
@@ -196,18 +196,26 @@ export const useLogOutUser = () => {
 // user  admin management
 
 export const usegetAllUser = () => {
-  const { gendersearch, isVerified, blacklisted, subscribed, sort, pages, email, fullname, phone } =
-    useSelector((store) => store.users);
-  // const url1 = `users/?pages=${pages}&sort=${sort}&email=${email}&fullname=${fullname}&gender=${gendersearch}&phone=${phone || ""}`;
-  const url = `users/?pages=${pages}&sort=${sort}&email=${email}&fullname=${fullname}&gender=${gendersearch}&isVerified=${
+  const {
+    gendersearch,
+    isVerified,
+    blacklisted,
+    subscribed,
+    sort,
+    pages,
+    email,
+    last_name,
+    phone,
+  } = useSelector((store) => store.users);
+  const url = `users/?pages=${pages}&sort=${sort}&email=${email}&last_name=${last_name}&gender=${gendersearch}&isVerified=${
     isVerified === "verified" ? true : isVerified === "not verified" ? false : "---"
   }&blacklisted=${
     blacklisted === "blacklisted" ? true : blacklisted === "not blacklisted" ? false : "---"
-  }&emailNotification=${
+  }&notification=${
     subscribed === "subscribed" ? true : subscribed === "not subscribed" ? false : "---"
   }&phone=${phone || ""}`;
 
-  // console.log(url);
+  //console.log(url);
   const {
     status: isGettingAllUser,
     data: users,
@@ -283,7 +291,7 @@ export const useBlacklistUser = () => {
     mutationFn: async (blacklistDetails) => {
       // console.log(blacklistDetails, "here");
       const { data } = await customFetch.patch(
-        `authflow/blacklist/${blacklistDetails.user_id}`,
+        `admin/blacklist/${blacklistDetails.user_id}`,
         blacklistDetails
       );
       return data;

@@ -9,7 +9,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 // Data
 import employeesTableData from "layouts/tables/data/employeesTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+//import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useSingleEmployee } from "features/employees/employeesThunk";
 import { useParams } from "react-router-dom";
 import Divider from "@mui/material/Divider";
@@ -33,7 +33,7 @@ import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
 import { handleReset } from "features/employees/employeesSlice";
 import EmployeeSearchModal from "components copy/searchModals/EmployeeSearchModal";
-import PaginationControlled from "components copy/component's_Tables/Pagination";
+// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import { changePage } from "features/employees/employeesSlice";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -104,7 +104,7 @@ function Empoloyees() {
                 />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>

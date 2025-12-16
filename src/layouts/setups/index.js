@@ -9,7 +9,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 // Data
 // import employeesTableData from "layouts/tables/data/employeesTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+//import projectsTableData from "layouts/tables/data/projectsTableData";
 // import { useSingleEmployee } from "features/employees/employeesThunk";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-import PaginationControlled from "components copy/component's_Tables/Pagination";
+// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import LogoAsana from "assets/images/small-logos/logo-asana.svg";
 import moment from "moment";
 import apiarySetupTableData from "./data/apiarySetupTableData";
@@ -90,7 +90,7 @@ function Setup() {
                 />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>

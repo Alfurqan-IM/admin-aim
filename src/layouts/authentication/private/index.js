@@ -11,7 +11,7 @@ const PrivateRoute = ({ children }) => {
   React.useEffect(() => {
     // Check if currentUser is defined and has keys
     if (!currentUser) {
-      navigate("/authentication/check");
+      navigate("/authentication/sign-in");
     }
   }, [currentUser, navigate]);
 
