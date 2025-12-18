@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { handelChange, handleDob } from "../features/stations/stationSlice";
+//import { handelChange, handleDob } from "../features/campaigns/stationSlice";
 import { handleDate, handleChangeEquip } from "../features/equuipments/equipmentSlice";
 import { convertToDateOnly } from "../utils";
 import {
@@ -13,126 +13,109 @@ import { useSelector } from "react-redux";
 import { handleChangeSupp, handleDateSupp } from "../features/supplies/suppliesSlice";
 import { handleDateProducts } from "features/products/productsSlice";
 import { handleChangeProducts } from "features/products/productsSlice";
+import { handelChange } from "features/campaigns/campaignSlice";
+import { handleDateCamp } from "features/campaigns/campaignSlice";
 
 export const useDashDetails_1 = () => {
   const dispatch = useDispatch();
-  const {
-    station_name,
-    supervisor_int,
-    supervisor_ext,
-    location,
-    longitude,
-    latitude,
-    station_size,
-    number_of_hive_boxes,
-    status,
-    station_maintainace_history,
-    last_inspection_date,
-    next_inspection_date,
-    notes,
-    sort,
-  } = useSelector((store) => store.stations);
+  const { status, title, description, donation_url, start_date, end_date, sort } = useSelector(
+    (store) => store.campaigns
+  );
   const getInput = (e) => {
     const { name, value } = e.target;
-    const numericFields = [
-      "supervisor_int",
-      "supervisor_ext",
-      "longitude",
-      "latitude",
-      "number_of_hive_boxes",
-    ];
+    // const numericFields = [
+    //   "supervisor_int",
+    //   "supervisor_ext",
+    //   "longitude",
+    //   "latitude",
+    //   "number_of_hive_boxes",
+    // ];
 
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (
-      numericFields.includes(name) &&
-      !["longitude", "latitude"].includes(name) &&
-      processedValue < 1
-    ) {
-      processedValue = 1;
-    }
-    dispatch(handelChange({ name, value: processedValue }));
+    // let processedValue = numericFields.includes(name) ? Number(value) : value;
+    // if (
+    //   numericFields.includes(name) &&
+    //   !["longitude", "latitude"].includes(name) &&
+    //   processedValue < 1
+    // ) {
+    //   processedValue = 1;
+    // }
+    dispatch(handelChange({ name, value }));
   };
 
   const getDob = (e) => {
     const { name, value } = e.target;
-    const formattedDate = convertToDateOnly(value.toISOString());
-    dispatch(handleDob({ name, date: formattedDate }));
+     const isoDate = new Date(value).toISOString();
+     dispatch(handleDateCamp({ name, date: isoDate }));
   };
-  const station_details = [
+  const campaign_details = [
     {
-      name: "station_name",
+      name: "title",
+      TextField: <UserInput name={"title"} value={title} type={"text"} handleChange={getInput} />,
+    },
+    {
+      name: "donation_url",
       TextField: (
         <UserInput
-          name={"station_name"}
-          value={station_name}
-          type={"name"}
+          name={"donation_url"}
+          value={donation_url}
+          type={"url"}
+          placeholder="https://example.com"
           handleChange={getInput}
         />
       ),
     },
-    {
-      name: "supervisor_int",
-      TextField: (
-        <UserInput
-          name={"supervisor_int"}
-          value={supervisor_int}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "supervisor_ext",
-      TextField: (
-        <UserInput
-          name={"supervisor_ext"}
-          value={supervisor_ext}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "location",
-      TextField: (
-        <UserInput name={"location"} value={location} type={"name"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "longitude",
-      TextField: (
-        <UserInput name={"longitude"} value={longitude} type={"number"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "latitude",
-      TextField: (
-        <UserInput name={"latitude"} value={latitude} type={"number"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "station_size",
-      TextField: (
-        <GenderInput
-          name={"station_size"}
-          value={station_size}
-          type={"text"}
-          gender={["---", "small", "medium", "large"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "number_of_hive_boxes",
-      TextField: (
-        <UserInput
-          name={"number_of_hive_boxes"}
-          value={number_of_hive_boxes}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
+    // {
+    //   name: "supervisor_ext",
+    //   TextField: (
+    //     <UserInput
+    //       name={"supervisor_ext"}
+    //       value={supervisor_ext}
+    //       type={"number"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "location",
+    //   TextField: (
+    //     <UserInput name={"location"} value={location} type={"name"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "longitude",
+    //   TextField: (
+    //     <UserInput name={"longitude"} value={longitude} type={"number"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "latitude",
+    //   TextField: (
+    //     <UserInput name={"latitude"} value={latitude} type={"number"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "station_size",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"station_size"}
+    //       value={station_size}
+    //       type={"text"}
+    //       gender={["---", "small", "medium", "large"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "number_of_hive_boxes",
+    //   TextField: (
+    //     <UserInput
+    //       name={"number_of_hive_boxes"}
+    //       value={number_of_hive_boxes}
+    //       type={"number"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
     {
       name: "status",
       TextField: (
@@ -140,76 +123,64 @@ export const useDashDetails_1 = () => {
           name={"status"}
           value={status}
           type={"text"}
-          gender={["---", "active", "inactive", "terminated"]}
+          gender={["---", "active", "completed", "pending"]}
           handleChange={getInput}
         />
       ),
     },
     {
-      name: "station_maintainace_history",
+      name: "description",
       TextField: (
         <MultiLineInput
-          name={"station_maintainace_history"}
-          value={station_maintainace_history}
+          name={"description"}
+          value={description}
           type={"text"}
           handleChange={getInput}
         />
       ),
     },
     {
-      name: "last_inspection_date",
-      TextField: (
-        <DateRegister
-          name={"last_inspection_date"}
-          value={last_inspection_date}
-          onChange={getDob}
-        />
-      ),
+      name: "start_date",
+      TextField: <DateRegister name={"start_date"} value={start_date} onChange={getDob} />,
     },
     {
-      name: "next_inspection_date",
-      TextField: (
-        <DateRegister
-          name={"next_inspection_date"}
-          value={next_inspection_date}
-          onChange={getDob}
-        />
-      ),
+      name: "end_date",
+      TextField: <DateRegister name={"end_date"} value={end_date} onChange={getDob} />,
     },
-    {
-      name: "notes",
-      TextField: (
-        <MultiLineInput name={"notes"} value={notes} type={"text"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "A-Z", "Z-A", "high-low", "low-high"]}
-          handleChange={getInput}
-        />
-      ),
-    },
+    // {
+    //   name: "notes",
+    //   TextField: (
+    //     <MultiLineInput name={"notes"} value={notes} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "sort",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"sort"}
+    //       value={sort}
+    //       type={"text"}
+    //       gender={["---", "A-Z", "Z-A", "high-low", "low-high"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
   ];
-  const searchStations = station_details.filter((detail) =>
-    [
-      "station_name",
-      "location",
-      "station_size",
-      "status",
-      "supervisor_int",
-      "supervisor_ext",
-      "number_of_hive_boxes",
-      "sort",
-      //   "last_inspection_date",
-      //   "next_inspection_date",
-    ].includes(detail.name)
-  );
-  return { station_details, searchStations };
+  // const searchStations = station_details.filter((detail) =>
+  //   [
+  //     "station_name",
+  //     "location",
+  //     "station_size",
+  //     "status",
+  //     "supervisor_int",
+  //     "supervisor_ext",
+  //     "number_of_hive_boxes",
+  //     "sort",
+  //     //   "last_inspection_date",
+  //     //   "next_inspection_date",
+  //   ].includes(detail.name)
+  // );
+  return { campaign_details };
 };
 
 export const useEquipments = () => {
@@ -648,7 +619,13 @@ export const useProductsInputs = () => {
     {
       name: "priceRangePP",
       TextField: (
-        <RangeSlider name={"priceRangePP"} value={priceRangePP} min={1000} max={100000} step={2000} />
+        <RangeSlider
+          name={"priceRangePP"}
+          value={priceRangePP}
+          min={1000}
+          max={100000}
+          step={2000}
+        />
       ),
     },
     {

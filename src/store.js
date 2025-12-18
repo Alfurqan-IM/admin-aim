@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/users/userSlice";
-import employeesReducer from "./features/employees/employeesSlice";
-import stationReducer from "./features/stations/stationSlice";
+import bannerReducer from "./features/banners/bannerSlice";
+import campaignReducer from "./features/campaigns/campaignSlice";
 import equipmentReducer from "./features/equuipments/equipmentSlice";
 import suppliesReducer from "./features/supplies/suppliesSlice";
-import nokReducer from "./features/nok/nokSlice";
+import eventReducer from "./features/events/eventSlice";
 import HarvestReducer from "./features/harvest/honey_harvestSlice";
 import HunterReducer from "./features/hunters/huntersSlice";
 import HiveReducer from "./features/hives/hiveSlice";
@@ -20,11 +20,11 @@ import ReviewReducer from "./features/reviews/reviewSlice";
 const store = configureStore({
   reducer: {
     users: userReducer,
-    employees: employeesReducer,
-    stations: stationReducer,
+    banners: bannerReducer,
+    campaigns: campaignReducer,
     equipments: equipmentReducer,
     supplies: suppliesReducer,
-    noks: nokReducer,
+    events: eventReducer,
     harvests: HarvestReducer,
     hunters: HunterReducer,
     hives: HiveReducer,

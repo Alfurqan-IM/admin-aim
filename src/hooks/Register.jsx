@@ -13,12 +13,14 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { handelChange, handlePhoneInput } from "../features/users/userSlice";
-import {
-  handelChangeEmp,
-  handleDob,
-  handlePhoneInputEmp,
-} from "../features/employees/employeesSlice";
+// import {
+//   handelChangeEmp,
+//   handleDob,
+//   handlePhoneInputEmp,
+// } from "../features/banners/employeesSlice";
 import { convertToDateOnly } from "../utils";
+import { handelChangeBan } from "features/banners/bannerSlice";
+import { handleDate } from "features/banners/bannerSlice";
 // import { useUploadEmployeeImages } from "../features/employees/employeesThunk";
 // import RangeSlider from "../components/TextField";
 // import { InputFileUpload } from "../components/TextField";
@@ -229,26 +231,10 @@ const useRegister = () => {
 
 export default useRegister;
 
-export const useEmployee = () => {
-  const {
-    email,
-    first_name,
-    last_name,
-    address,
-    phone,
-    gender,
-    role,
-    department,
-    dob,
-    joining_date,
-    salary,
-    skill,
-    notes,
-    employment_status,
-    employment_type,
-    salaryRange,
-    sort,
-  } = useSelector((store) => store.employees);
+export const useBanner = () => {
+  const { title, description, time, year, start_date, end_date, isEdit, pages, sort } = useSelector(
+    (store) => store.banners
+  );
   const dispatch = useDispatch();
   const [validationError, setValidationError] = React.useState(false);
   const validateEmail = (email) => {
@@ -267,188 +253,205 @@ export const useEmployee = () => {
     }
     if (name === "salary") {
       value = Number(e.target.value);
-      return dispatch(handelChangeEmp({ name, value }));
+      return dispatch(handelChangeBan({ name, value }));
     }
-    dispatch(handelChangeEmp({ name, value }));
+    dispatch(handelChangeBan({ name, value }));
   };
-  const getPhoneNumber = (phone) => {
-    dispatch(handlePhoneInputEmp(phone));
-  };
+  // const getPhoneNumber = (phone) => {
+  //   dispatch(handlePhoneInputEmp(phone));
+  // };
 
-  const getDob = (e) => {
+  const getDate = (e) => {
     const { name, value } = e.target;
-    const formattedDate = convertToDateOnly(value.toISOString());
-    dispatch(handleDob({ name, date: formattedDate }));
-    // const date = value.getTime(); // Convert Date to timestamp
-    // dispatch(handleDob({ name, date }));
+    const isoDate = new Date(value).toISOString();
+    dispatch(handleDate({ name, date: isoDate }));
   };
 
-  const employeeDetails = [
+  const bannerDetails = [
     {
-      name: "first_name",
-      TextField: (
-        <UserInput name={"first_name"} value={first_name} type={"text"} handleChange={getInput} />
-      ),
+      name: "title",
+      TextField: <UserInput name={"title"} value={title} type={"text"} handleChange={getInput} />,
     },
     {
-      name: "last_name",
+      name: "description",
       TextField: (
-        <UserInput name={"last_name"} value={last_name} type={"text"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "gender",
-      TextField: (
-        <GenderInput
-          name={"gender"}
-          value={gender}
+        <MultiLineInput
+          name={"description"}
+          value={description}
           type={"text"}
-          gender={["male", "female"]}
           handleChange={getInput}
         />
       ),
     },
+    // {
+    //   name: "gender",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"gender"}
+    //       value={gender}
+    //       type={"text"}
+    //       gender={["male", "female"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "phone",
+    //   TextField: (
+    //     <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
+    //   ),
+    // },
     {
-      name: "phone",
-      TextField: (
-        <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
-      ),
-    },
-    {
-      name: "dob",
-      TextField: <DateRegister name={"dob"} value={dob} onChange={getDob} />,
-    },
-    {
-      name: "joining_date",
-      TextField: <DateRegister name={"joining_date"} value={joining_date} onChange={getDob} />,
-    },
-    {
-      name: "email",
+      name: "time",
       TextField: (
         <UserInput
-          name={"email"}
-          value={email}
-          type={"email"}
-          handleChange={getInput}
-          validationError={validationError}
-          message={"Please provide a valid email address"}
-        />
-      ),
-    },
-    {
-      name: "address",
-      TextField: (
-        <MultiLineInput name={"address"} value={address} type={"text"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "role",
-      TextField: <UserInput name={"role"} value={role} type={"text"} handleChange={getInput} />,
-    },
-    {
-      name: "department",
-      TextField: (
-        <GenderInput
-          name={"department"}
-          value={department}
+          name={"time"}
+          value={time}
           type={"text"}
-          gender={["---", "beekeeping", "operation", "administration"]}
           handleChange={getInput}
+          placeholder="4 hours per week"
         />
       ),
     },
     {
-      name: "salary",
-      TextField: <UserInput name={"salary"} value={salary} type={"text"} handleChange={getInput} />,
+      name: "year",
+      TextField: <UserInput name={"year"} value={year} type={"number"} handleChange={getInput} />,
     },
     {
-      name: "employment_status",
-      TextField: (
-        <GenderInput
-          name={"employment_status"}
-          value={employment_status}
-          type={"text"}
-          gender={["---", "active", "inactive", "terminated"]}
-          handleChange={getInput}
-        />
-      ),
+      name: "start_date",
+      TextField: <DateRegister name={"start_date"} value={start_date} onChange={getDate} />,
     },
     {
-      name: "employment_type",
-      TextField: (
-        <GenderInput
-          name={"employment_type"}
-          value={employment_type}
-          type={"text"}
-          gender={["---", "full staff", "contract staff", "station supervisor(ext)"]}
-          handleChange={getInput}
-        />
-      ),
+      name: "end_date",
+      TextField: <DateRegister name={"end_date"} value={end_date} onChange={getDate} />,
     },
-    {
-      name: "skill",
-      TextField: (
-        <MultiLineInput name={"skill"} value={skill} type={"text"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "notes",
-      TextField: (
-        <MultiLineInput name={"notes"} value={notes} type={"text"} handleChange={getInput} />
-      ),
-    },
+    // {
+    //   name: "email",
+    //   TextField: (
+    //     <UserInput
+    //       name={"email"}
+    //       value={email}
+    //       type={"email"}
+    //       handleChange={getInput}
+    //       validationError={validationError}
+    //       message={"Please provide a valid email address"}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "address",
+    //   TextField: (
+    //     <MultiLineInput name={"address"} value={address} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "role",
+    //   TextField: <UserInput name={"role"} value={role} type={"text"} handleChange={getInput} />,
+    // },
+    // {
+    //   name: "department",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"department"}
+    //       value={department}
+    //       type={"text"}
+    //       gender={["---", "beekeeping", "operation", "administration"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "salary",
+    //   TextField: <UserInput name={"salary"} value={salary} type={"text"} handleChange={getInput} />,
+    // },
+    // {
+    //   name: "employment_status",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"employment_status"}
+    //       value={employment_status}
+    //       type={"text"}
+    //       gender={["---", "active", "inactive", "terminated"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "employment_type",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"employment_type"}
+    //       value={employment_type}
+    //       type={"text"}
+    //       gender={["---", "full staff", "contract staff", "station supervisor(ext)"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "skill",
+    //   TextField: (
+    //     <MultiLineInput name={"skill"} value={skill} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "notes",
+    //   TextField: (
+    //     <MultiLineInput name={"notes"} value={notes} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
   ];
   // Filtering the relevant fields
-  const searchEmployees = employeeDetails.filter((detail) =>
-    ["first_name", "last_name", "role", "dob", "joining_date"].includes(detail.name)
-  );
+  // const searchEmployees = bannerDetails.filter((detail) =>
+  //   ["first_name", "last_name", "role", "dob", "joining_date"].includes(detail.name)
+  // );
 
-  const remainingFields = [
-    {
-      name: "salaryRange",
-      TextField: (
-        <RangeSlider name={"salaryRange"} value={salaryRange} min={1000} max={100000} step={1000} />
-      ),
-    },
+  // const remainingFields = [
+  //   {
+  //     name: "salaryRange",
+  //     TextField: (
+  //       <RangeSlider name={"salaryRange"} value={salaryRange} min={1000} max={100000} step={1000} />
+  //     ),
+  //   },
 
-    {
-      name: "employment_status",
-      TextField: (
-        <GenderInput
-          name={"employment_status"}
-          value={employment_status}
-          type={"text"}
-          gender={["---", "active", "inactive", "terminated"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "employment_type",
-      TextField: (
-        <GenderInput
-          name={"employment_type"}
-          value={employment_type}
-          type={"text"}
-          gender={["---", "full staff", "contract staff", "station supervisor(ext)"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "A-Z", "Z-A", "high-low", "low-high", "youngest", "oldest"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-  ];
-  searchEmployees.push(...remainingFields);
+  //   {
+  //     name: "employment_status",
+  //     TextField: (
+  //       <GenderInput
+  //         name={"employment_status"}
+  //         value={employment_status}
+  //         type={"text"}
+  //         gender={["---", "active", "inactive", "terminated"]}
+  //         handleChange={getInput}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     name: "employment_type",
+  //     TextField: (
+  //       <GenderInput
+  //         name={"employment_type"}
+  //         value={employment_type}
+  //         type={"text"}
+  //         gender={["---", "full staff", "contract staff", "station supervisor(ext)"]}
+  //         handleChange={getInput}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     name: "sort",
+  //     TextField: (
+  //       <GenderInput
+  //         name={"sort"}
+  //         value={sort}
+  //         type={"text"}
+  //         gender={["---", "A-Z", "Z-A", "high-low", "low-high", "youngest", "oldest"]}
+  //         handleChange={getInput}
+  //       />
+  //     ),
+  //   },
+  // ];
+  // searchEmployees.push(...remainingFields);
 
-  return { employeeDetails, searchEmployees };
+  return { bannerDetails };
 };

@@ -30,8 +30,8 @@ const ResetPassword = lazy(() =>
   }))
 );
 //pages...............
-const Employees = lazy(() =>
-  import("./layouts/tables").then((module) => ({
+const Banners = lazy(() =>
+  import("./layouts/banners").then((module) => ({
     default: module.default,
   }))
 );
@@ -56,13 +56,13 @@ const Supplies = lazy(() =>
   }))
 );
 
-const Stations = lazy(() =>
-  import("./layouts/stations").then((module) => ({
+const Campaigns = lazy(() =>
+  import("./layouts/campaigns").then((module) => ({
     default: module.default,
   }))
 );
-const Noks = lazy(() =>
-  import("./layouts/noks").then((module) => ({
+const Events = lazy(() =>
+  import("./layouts/events").then((module) => ({
     default: module.default,
   }))
 );
@@ -122,16 +122,16 @@ const Reviews = lazy(() =>
   }))
 );
 //single pages........................
-const SingleEmployee = lazy(() =>
-  import("./layouts/tables").then((module) => ({
-    default: module.SingleEmployee,
-  }))
-);
-const SingleStation = lazy(() =>
-  import("./layouts/stations").then((module) => ({
-    default: module.SingleStation,
-  }))
-);
+// const SingleEmployee = lazy(() =>
+//   import("./layouts/banners").then((module) => ({
+//     default: module.SingleEmployee,
+//   }))
+// );
+// const SingleStation = lazy(() =>
+//   import("./layouts/campaigns").then((module) => ({
+//     default: module.SingleStation,
+//   }))
+// );
 const SingleHunter = lazy(() =>
   import("./layouts/hunters").then((module) => ({
     default: module.SingleHunter,
@@ -154,14 +154,14 @@ const SingleProduct = lazy(() =>
 );
 
 //create update pages.................
-const CreateUpdateEmployee = lazy(() =>
-  import("./layouts/tables").then((module) => ({
-    default: module.CreateUpdateEmployee,
+const CreateUpdateBanner = lazy(() =>
+  import("./layouts/banners").then((module) => ({
+    default: module.CreateUpdateBanner,
   }))
 );
-const CreateUpdateStation = lazy(() =>
-  import("./layouts/stations").then((module) => ({
-    default: module.CreateUpdateStation,
+const CreateUpdateCampaign = lazy(() =>
+  import("./layouts/campaigns").then((module) => ({
+    default: module.CreateUpdateCampaign,
   }))
 );
 const CreateUpdateSupply = lazy(() =>
@@ -169,9 +169,9 @@ const CreateUpdateSupply = lazy(() =>
     default: module.CreateUpdateSupply,
   }))
 );
-const CreateUpdateNok = lazy(() =>
-  import("./layouts/noks").then((module) => ({
-    default: module.CreateUpdateNok,
+const CreateUpdateEvent = lazy(() =>
+  import("./layouts/events").then((module) => ({
+    default: module.CreateUpdateEvent,
   }))
 );
 const CreateUpdateHarvest = lazy(() =>
@@ -258,19 +258,19 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Employees",
-    key: "employees",
-    icon: <Icon fontSize="small">supervised_user_circle</Icon>,
-    route: "/employees",
-    component: <Employees />,
+    name: "Banners",
+    key: "banners",
+    icon: <Icon fontSize="small">view_carousel</Icon>,
+    route: "/banners",
+    component: <Banners />,
   },
   {
     type: "collapse",
-    name: "Stations",
-    key: "stations",
-    icon: <Icon fontSize="small">business</Icon>, // Business icon for stations
-    route: "/stations",
-    component: <Stations />,
+    name: "Campaigns",
+    key: "campaigns",
+    icon: <Icon fontSize="small">campaign</Icon>,
+    route: "/campaigns",
+    component: <Campaigns />,
   },
   {
     type: "collapse",
@@ -298,11 +298,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Noks",
-    key: "noks",
-    icon: <Icon fontSize="small">family_restroom</Icon>, // Build icon for noks (suggesting tools/setup)
-    route: "/noks",
-    component: <Noks />,
+    name: "Events",
+    key: "events",
+    icon: <Icon fontSize="small">mosque</Icon>, 
+    route: "/events",
+    component: <Events />,
   },
   {
     type: "collapse",
@@ -392,7 +392,6 @@ const routes = [
     route: "/supplies",
     component: <Supplies />,
   },
-  
 ];
 export const authRoutes = [
   // {
@@ -438,13 +437,13 @@ export const authRoutes = [
 ];
 export const singleroutes = [
   //pages
-  {
-    type: "collapse",
-    name: "single employee",
-    key: "single_employee",
-    route: "/employees/:id",
-    component: <SingleEmployee />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "single employee",
+  //   key: "single_employee",
+  //   route: "/employees/:id",
+  //   component: <SingleEmployee />,
+  // },
   {
     type: "collapse",
     name: "single product",
@@ -452,13 +451,13 @@ export const singleroutes = [
     route: "/products/:id",
     component: <SingleProduct />,
   },
-  {
-    type: "collapse",
-    name: "single station",
-    key: "single_station",
-    route: "/stations/:id",
-    component: <SingleStation />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "single station",
+  //   key: "single_station",
+  //   route: "/stations/:id",
+  //   component: <SingleStation />,
+  // },
   {
     type: "collapse",
     name: "single hunter",
@@ -482,17 +481,17 @@ export const singleroutes = [
   },
   {
     type: "collapse",
-    name: "updatecreateemployee",
-    key: "updatecreateemployee",
-    route: "/admin/createupdateemployees/:id",
-    component: <CreateUpdateEmployee />,
+    name: "updatecreatebanner",
+    key: "updatecreatebanner",
+    route: "/admin/createupdatebanner/:id",
+    component: <CreateUpdateBanner />,
   },
   {
     type: "collapse",
-    name: "updatecreatestation",
-    key: "updatecreatestation",
-    route: "/createupdatestation/:id",
-    component: <CreateUpdateStation />,
+    name: "updatecreatecampaign",
+    key: "updatecreatecampaign",
+    route: "/createupdatecampaign/:id",
+    component: <CreateUpdateCampaign />,
   },
   {
     type: "collapse",
@@ -510,10 +509,10 @@ export const singleroutes = [
   },
   {
     type: "collapse",
-    name: "updatecreatenok",
-    key: "updatecreatenok",
-    route: "/createupdatenok/:id",
-    component: <CreateUpdateNok />,
+    name: "updatecreateevent",
+    key: "updatecreateevent",
+    route: "/createupdateevent/:id",
+    component: <CreateUpdateEvent />,
   },
   {
     type: "collapse",

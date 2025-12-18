@@ -28,9 +28,18 @@ const inputStyle = {
   fontFamily: '"Quicksand", sans-serif',
 };
 
-export function UserInput({ name, value, type, handleChange, validationError, message }) {
+export function UserInput({
+  name,
+  value,
+  type,
+  handleChange,
+  validationError,
+  message,
+  placeholder,
+}) {
   return (
     <TextField
+      placeholder={placeholder}
       error={validationError}
       name={name}
       value={value}
@@ -169,7 +178,6 @@ export function PasswordInput({ name, value, handleChange }) {
 }
 
 export function GenderInput({ name, value, type, handleChange, gender }) {
-
   return (
     <>
       <InputLabel
@@ -258,7 +266,7 @@ export function Subscribe({ name, value, type, handleChange, show }) {
           marginRight: 1,
         }}
       />
-      
+
       <span style={{ ...inputStyle }}>{helpertext}</span>
     </>
   );
@@ -291,7 +299,7 @@ export function DateRegister({ name, value, onChange }) {
       <DatePicker
         selected={selectedDate}
         onChange={handleDateChange}
-        showIcon
+       // showIcon
         toggleCalendarOnIconClick
         isClearable={false}
         placeholderText={moment(new Date()).format("YYYY-MM-DD")}
@@ -313,7 +321,7 @@ import Button from "@mui/material/Button";
 import { Loader1 } from "./Loader";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useDispatch } from "react-redux";
-import { updateSalaryRange } from "../features/employees/employeesSlice";
+//import { updateSalaryRange } from "../features/banners/employeesSlice";
 import { updatePriceRange } from "../features/apiarySetup/setupCompSlice";
 import { updatePriceRangeConsultation } from "../features/consultation/consultationSlice";
 import { updatePriceRangePolServ } from "../features/pollination/polservicesSlice";
@@ -389,7 +397,7 @@ export default function RangeSlider({ name, value, min, max, step }) {
       return;
     }
     // Dispatch the updated value with a static lower range
-    dispatch(updateSalaryRange(updatedValue));
+    //dispatch(updateSalaryRange(updatedValue));
   };
   return (
     <Box>

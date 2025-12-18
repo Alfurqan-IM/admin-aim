@@ -15,44 +15,30 @@ import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
 // import PaginationControlled from "components copy/component's_Tables/Pagination";
-import nokTableData from "./data/nokTableData";
-import { changePage } from "features/nok/nokSlice";
-import NokSearchModal from "components copy/searchModals/NokSearchModal";
-import { useCreateNok } from "features/nok/nokThunk";
-import { useUpdateNok } from "features/nok/nokThunk";
-import { useNok } from "hooks/DashDetails_2";
-import { resetValues } from "features/nok/nokSlice";
+// import nokTableData from "./data/eventTableData";
+// import { changePage } from "features/nok/nokSlice";
+// import NokSearchModal from "components copy/searchModals/NokSearchModal";
+// import { useCreateNok } from "features/nok/nokThunk";
+// import { useUpdateNok } from "features/nok/nokThunk";
+// import { useNok } from "hooks/DashDetails_2";
+// import { resetValues } from "features/nok/nokSlice";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Icon } from "@mui/material";
+import eventsTableData from "./data/eventTableData";
+import { useCreateEvent } from "features/events/eventThunk";
+import { useUpdateEvent } from "features/events/eventThunk";
+import { useEventInputs } from "hooks/DashDetails_2";
+import { resetValues } from "features/events/eventSlice";
+import { useUploadEventImages } from "features/events/eventThunk";
+import { InputFileUpload } from "components copy";
+//import { Icon } from "@mui/material";
 
-function Noks() {
-  const {
-    isGettingAllNok = false, // Default value to prevent errors
-    employeesNOK = [], // Ensure default is an empty array
-    genderTypeCount = 0,
-    numOfPages = 1,
-    totalEmployeesNOK = 0,
-    count = 0,
-    relationshipTypeCount = 0,
-    refetch,
-    columns = [], // Default to an empty array
-    rows = [], // Default to an empty array
-  } = nokTableData() || {}; // Ensure nokTableData() returns something
-
-  const {
-    pages = 1,
-    emp_id,
-    fullname,
-    email,
-    address,
-    phone,
-    gender,
-    relationship,
-    sort,
-  } = useSelector((store) => store.noks) || {};
+function Events() {
+  const { isGettingAllEvents, numOfPages, totalEvent, currentCount, refetch, rows, columns } =
+    eventsTableData();
+  const { title, status, event_url, pages, isEdit } = useSelector((store) => store.events) || {};
 
   const dispatch = useDispatch();
 
@@ -66,7 +52,7 @@ function Noks() {
     if (refetch) {
       refetch();
     }
-  }, [emp_id, fullname, email, address, phone, gender, relationship, pages, sort, refetch]);
+  }, [pages, refetch]);
 
   return (
     <DashboardLayout>
@@ -87,20 +73,20 @@ function Noks() {
               >
                 <MDTypography className={styles.wrapper} variant="h6" color="white">
                   <MDBox className={styles.inner}>
-                    <MDTypography color="white">Next of Kin</MDTypography>
+                    <MDTypography color="white">Events</MDTypography>
                     <MDTypography color="white">
-                      {count}/{totalEmployeesNOK}
+                      {currentCount}/{totalEvent}
                     </MDTypography>
                   </MDBox>
                   <MDBox className={styles.inner}>
-                    <Link onClick={() => dispatch(resetValues())} to="/createupdatenok/add">
+                    <Link onClick={() => dispatch(resetValues())} to="/createupdateevent/add">
                       <AddIcon
                         sx={{ fill: "white" }}
                         fontSize="medium"
-                        titleAccess="add next of kin"
+                        titleAccess="add new Event"
                       />
                     </Link>
-                    <NokSearchModal isGettingAllNok={isGettingAllNok} />
+                    {/* <NokSearchModal isGettingAllNok={isGettingAllNok} /> */}
                   </MDBox>
                 </MDTypography>
               </MDBox>
@@ -123,37 +109,46 @@ function Noks() {
   );
 }
 
-export default Noks;
+export default Events;
 
-export const CreateUpdateNok = () => {
+export const CreateUpdateEvent = () => {
   const { id } = useParams();
-  const { createNok, isCreatingNok } = useCreateNok();
-  const { updateNok, isUpdatingNok } = useUpdateNok();
-  const { nokDetails: nokInput } = useNok();
-  const { emp_id, fullname, email, address, phone, gender, relationship, isEdit } = useSelector(
-    (store) => store.noks
-  );
-  const nokDetails = {
-    emp_id,
-    fullname,
-    email,
-    address,
-    phone,
-    gender,
-    relationship,
+  const { createEvent, isCreatingEvent } = useCreateEvent();
+  const { updateEvent, isUpdatingEvent } = useUpdateEvent();
+  const { eventInputDetails } = useEventInputs();
+  const { uploadEventImgs, isUploadingEventImages } = useUploadEventImages(id);
+
+  const { title, status, event_url, isEdit, description } = useSelector((store) => store.events);
+  const eventDetails = {
+    title,
+    status,
+    event_url,
+    description,
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = Object.values(nokDetails).every(
+    const isValid = Object.values(eventDetails).every(
       (value) => value !== undefined && value !== null && value !== ""
     );
     if (!isValid) {
       alert("Please fill out all required fields.");
       return;
     }
-    if (isEdit) return updateNok({ nokDetails, id });
-    createNok(nokDetails);
+    if (isEdit) return updateEvent({ eventDetails, id });
+    createEvent(eventDetails);
   };
+  const uploadEventFlyer = (e) => {
+    const file = e.target.files[0]; // Get the first file from the input
+    const formData = new FormData();
+    if (file) {
+      formData.append("image", file); // Append only one file with key "image"
+      uploadEventImgs(formData);
+      // console.log(file, formData);
+    } else {
+      alert("Please select a file to upload.");
+    }
+  };
+  //uploadEventImgs, isUploadingEventImages;
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -162,15 +157,25 @@ export const CreateUpdateNok = () => {
           <div>
             {/* <Link to="/noks">Go back</Link> */}
             <div>
-              <Link to="/noks">
+              <Link to="/events">
                 <ArrowBackIcon />
               </Link>
-              <h6>{isEdit ? `Update ${fullname} details` : "Create Next Of Kin"} </h6>
-              <div></div>
+              <h6>{isEdit ? `Update Event details` : "Create New Event"} </h6>
+              <div>
+                {isEdit ? (
+                  <InputFileUpload
+                    name={"Event Flyer"}
+                    handleChange={uploadEventFlyer}
+                    uploading={isUploadingEventImages}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             <form className={styling.form} onSubmit={handleSubmit}>
-              {nokInput
-                .filter((detail) => detail.name !== "sort")
+              {eventInputDetails
+                // .filter((detail) => detail.name !== "sort")
                 .map((detail) => {
                   const { name, TextField } = detail;
                   return <div key={name}>{TextField}</div>;
@@ -183,7 +188,7 @@ export const CreateUpdateNok = () => {
                 type="submit"
                 // disabled={!isValid}
               >
-                {isCreatingNok === "pendiNokuseCreateNok " || isUpdatingNok === "pending" ? (
+                {isCreatingEvent === "pending" || isUpdatingEvent === "pending" ? (
                   <Loader1 />
                 ) : isEdit ? (
                   "Update"

@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -39,7 +37,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-import GlobalContext from "hooks/GlobalContext";
+//import GlobalContext from "hooks/GlobalContext";
 import Loader from "components copy/Loader";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
@@ -159,7 +157,7 @@ export default function App() {
 
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
-      <GlobalContext>
+      <>
         <Suspense fallback={<Loader />}>
           <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
             <CssBaseline />
@@ -195,10 +193,10 @@ export default function App() {
             />
           </ThemeProvider>
         </Suspense>
-      </GlobalContext>
+      </>
     </CacheProvider>
   ) : (
-    <GlobalContext>
+    <>
       <Suspense fallback={<Loader />}>
         <ThemeProvider theme={darkMode ? themeDark : theme}>
           <CssBaseline />
@@ -237,6 +235,6 @@ export default function App() {
           />
         </ThemeProvider>
       </Suspense>
-    </GlobalContext>
+    </>
   );
 }

@@ -20,53 +20,53 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Loader from "components copy/Loader";
 import { CustomCharts } from "components copy";
 import React from "react";
-import { useAllEmployess } from "features/employees/employeesThunk";
+//import { useAllEmployess } from "features/employees/employeesThunk";
 import { usegetAllUser } from "features/users/userThunk";
-import { useStations } from "features/stations/stationsThunk";
-import { useHoneyHarvest } from "features/harvest/honey_harvestThunk";
-import { useHunters } from "features/hunters/huntersThunk";
-import { useHives } from "features/hives/hivesThunk";
-import { useOrders } from "features/orders/ordersThunk";
-import { useProducts } from "features/products/productthunk";
-import { useServices } from "features/services/servicesThunk";
+// import { useStations } from "features/stations/stationsThunk";
+// import { useHoneyHarvest } from "features/harvest/honey_harvestThunk";
+// import { useHunters } from "features/hunters/huntersThunk";
+// import { useHives } from "features/hives/hivesThunk";
+// import { useOrders } from "features/orders/ordersThunk";
+// import { useProducts } from "features/products/productthunk";
+// import { useServices } from "features/services/servicesThunk";
 
 function Dashboard() {
-  const { isGettingAllEmployees, employees } = useAllEmployess();
+ // const { isGettingAllEmployees, employees } = useAllEmployess();
   const { isGettingAllUser, users } = usegetAllUser();
-  const { isGettingStations, stations } = useStations();
-  const { isGettingAllHarvest, honey_harvest } = useHoneyHarvest();
-  const { isGettingAllHunters, hunters } = useHunters();
-  const { isGettingAllHives, hives, refetch: refecthHives } = useHives();
-  const { isGettingAllOrders, data: orders } = useOrders();
-  const { isGettingAllProducts, data: products } = useProducts();
+  // const { isGettingStations, stations } = useStations();
+  // const { isGettingAllHarvest, honey_harvest } = useHoneyHarvest();
+  // const { isGettingAllHunters, hunters } = useHunters();
+  // const { isGettingAllHives, hives, refetch: refecthHives } = useHives();
+  // const { isGettingAllOrders, data: orders } = useOrders();
+  // const { isGettingAllProducts, data: products } = useProducts();
   // const { isGettingAllReviews, reviews } = useReviews();
-  const { isGettingAllServices, services } = useServices();
-  const totalEmployees = employees?.totalEmployees ?? "N/A";
-  const totalStations = stations?.totalStations ?? "N/A";
-  const totalHives = stations?.totalHives ?? "N/A";
+  // const { isGettingAllServices, services } = useServices();
+  // const totalEmployees = employees?.totalEmployees ?? "N/A";
+  // const totalStations = stations?.totalStations ?? "N/A";
+  // const totalHives = stations?.totalHives ?? "N/A";
   const totalUsers = users?.totalUsers ?? "N/A";
-  const salaryData = employees?.salaryData ?? [];
-  const totalHarvestQuantity = honey_harvest?.totalHarvestQuantity ?? "N/A";
-  const harvestedVolumeByYear = honey_harvest?.harvestedVolumeByYear ?? [];
-  const colonizationCount = hives?.colonizationCount ?? [];
-  const stationLocationCount = stations?.stationLocationCount ?? [];
-  const hiveCurrentLocationCount = hives?.hiveCurrentLocationCount ?? [];
-  const paymentStatusCount = orders?.paymentStatusCount ?? [];
-  const deliveryStatusCount = orders?.deliveryStatusCount ?? [];
-  const monthlyRevenue = orders?.monthlyRevenue ?? [];
-  const totalQuantity = products?.totalQuantity ?? [];
-  const totalHunters = hunters?.totalHunters ?? "N/A";
-  const serviceItems = services?.service ?? [];
+  // const salaryData = employees?.salaryData ?? [];
+  // const totalHarvestQuantity = honey_harvest?.totalHarvestQuantity ?? "N/A";
+  // const harvestedVolumeByYear = honey_harvest?.harvestedVolumeByYear ?? [];
+  // const colonizationCount = hives?.colonizationCount ?? [];
+  // const stationLocationCount = stations?.stationLocationCount ?? [];
+  // const hiveCurrentLocationCount = hives?.hiveCurrentLocationCount ?? [];
+  // const paymentStatusCount = orders?.paymentStatusCount ?? [];
+  // const deliveryStatusCount = orders?.deliveryStatusCount ?? [];
+  // const monthlyRevenue = orders?.monthlyRevenue ?? [];
+  // const totalQuantity = products?.totalQuantity ?? [];
+  // const totalHunters = hunters?.totalHunters ?? "N/A";
+  // const serviceItems = services?.service ?? [];
   const genderCount = users?.genderCount ?? [];
-  const verificationCount = users?.verificationCount ?? [];
-  const procesed_harv_vol = harvestedVolumeByYear.map((item) => ({
-    ...item,
-    harvested_volume: Number(item.harvested_volume),
-  }));
-  const procesed_monthly_rev = monthlyRevenue.map((item) => ({
-    ...item,
-    total_revenue: Number(item.total_revenue),
-  }));
+   const verificationCount = users?.verificationCount ?? [];
+  // const procesed_harv_vol = harvestedVolumeByYear.map((item) => ({
+  //   ...item,
+  //   harvested_volume: Number(item.harvested_volume),
+  // }));
+  // const procesed_monthly_rev = monthlyRevenue.map((item) => ({
+  //   ...item,
+  //   total_revenue: Number(item.total_revenue),
+  // }));
   // console.log(totalQuantity, products, "quantity here");
   return (
     <DashboardLayout>

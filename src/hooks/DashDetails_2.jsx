@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { handelChangeNok, handlePhoneInputNok } from "../features/nok/nokSlice";
-import { DateRegister, GenderInput, MultiLineInput, PhoneInputs, UserInput } from "../components copy";
+import { handelChangeEvent } from "../features/events/eventSlice";
+import {
+  DateRegister,
+  GenderInput,
+  MultiLineInput,
+  PhoneInputs,
+  UserInput,
+} from "../components copy";
 import { useSelector } from "react-redux";
 import { handleChangeHarv, handleDateHarv } from "../features/harvest/honey_harvestSlice";
 import { convertToDateOnly } from "../utils";
@@ -13,110 +19,122 @@ import {
 } from "../features/hunters/huntersSlice";
 import { handleChangeHive, handleDateHive } from "../features/hives/hiveSlice";
 import { handleChangeReport, handleDateReport } from "../features/catch_reports/reportSlice";
-export const useNok = () => {
-  const { emp_id, fullname, email, address, phone, gender, relationship, sort } = useSelector(
-    (store) => store.noks
-  );
+export const useEventInputs = () => {
+  const { title, status, event_url, description } = useSelector((store) => store.events);
   const dispatch = useDispatch();
-  const [validationError, setValidationError] = React.useState(false);
-  const validateEmail = (email) => {
-    // Regular expression for validating an email address
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // const [validationError, setValidationError] = React.useState(false);
+  // const validateEmail = (email) => {
+  //   // Regular expression for validating an email address
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
   const getInput = (e) => {
     const { name, value } = e.target;
-    const numericFields = ["emp_id"];
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (numericFields.includes(name) && processedValue < 1) {
-      processedValue = 1;
-    }
-    if (name === "email") {
-      const isValidEmail = validateEmail(value);
-      setValidationError(!isValidEmail);
-    }
-    dispatch(handelChangeNok({ name, value: processedValue }));
+    // const numericFields = ["emp_id"];
+    // let processedValue = numericFields.includes(name) ? Number(value) : value;
+    // if (numericFields.includes(name) && processedValue < 1) {
+    //   processedValue = 1;
+    // }
+    // if (name === "email") {
+    //   const isValidEmail = validateEmail(value);
+    //   setValidationError(!isValidEmail);
+    // }
+    dispatch(handelChangeEvent({ name, value }));
   };
 
-  const getPhoneNumber = (phone) => {
-    dispatch(handlePhoneInputNok(phone));
-  };
-  const nokDetails = [
+  // const getPhoneNumber = (phone) => {
+  //   dispatch(handlePhoneInputNok(phone));
+  // };
+  const eventInputDetails = [
     {
-      name: "emp_id",
+      name: "title",
+      TextField: <UserInput name={"title"} value={title} type={"text"} handleChange={getInput} />,
+    },
+    {
+      name: "description",
+      TextField: <MultiLineInput name={"description"} value={description} type={"text"} handleChange={getInput} />,
+    },
+    // {
+    //   name: "fullname",
+    //   TextField: (
+    //     <UserInput name={"fullname"} value={fullname} type={"name"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "email",
+    //   TextField: (
+    //     <UserInput
+    //       name={"email"}
+    //       value={email}
+    //       type={"email"}
+    //       handleChange={getInput}
+    //       validationError={validationError}
+    //       message={"Please provide a valid email address"}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "address",
+    //   TextField: (
+    //     <MultiLineInput name={"address"} value={address} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
+    {
+      name: "status",
       TextField: (
-        <UserInput name={"emp_id"} value={emp_id} type={"number"} handleChange={getInput} />
+        <GenderInput
+          name={"status"}
+          value={status}
+          type={"text"}
+          gender={["---", "ongoing", "upcoming", "completed"]}
+          handleChange={getInput}
+        />
       ),
     },
     {
-      name: "fullname",
-      TextField: (
-        <UserInput name={"fullname"} value={fullname} type={"name"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "email",
+      name: "event_url",
       TextField: (
         <UserInput
-          name={"email"}
-          value={email}
-          type={"email"}
-          handleChange={getInput}
-          validationError={validationError}
-          message={"Please provide a valid email address"}
-        />
-      ),
-    },
-    {
-      name: "address",
-      TextField: (
-        <MultiLineInput name={"address"} value={address} type={"text"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "gender",
-      TextField: (
-        <GenderInput
-          name={"gender"}
-          value={gender}
-          type={"text"}
-          gender={["---", "male", "female"]}
+          name={"event_url"}
+          value={event_url}
+          type={"url"}
+          placeholder="https://example.com"
           handleChange={getInput}
         />
       ),
     },
-    {
-      name: "relationship",
-      TextField: (
-        <GenderInput
-          name={"relationship"}
-          value={relationship}
-          type={"text"}
-          gender={["---", "spouse", "parent", "guardian", "sibling"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "phone",
-      TextField: (
-        <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "A-Z", "Z-A", "male", "female"]}
-          handleChange={getInput}
-        />
-      ),
-    },
+    // {
+    //   name: "relationship",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"relationship"}
+    //       value={relationship}
+    //       type={"text"}
+    //       gender={["---", "spouse", "parent", "guardian", "sibling"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "phone",
+    //   TextField: (
+    //     <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
+    //   ),
+    // },
+    // {
+    //   name: "sort",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"sort"}
+    //       value={sort}
+    //       type={"text"}
+    //       gender={["---", "A-Z", "Z-A", "male", "female"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
   ];
-  return { nokDetails };
+  return { eventInputDetails };
 };
 
 export const useHarvest = () => {

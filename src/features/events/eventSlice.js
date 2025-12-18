@@ -1,32 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  emp_id: 0,
-  fullname: "",
-  email: "",
-  address: "",
-  phone: "",
-  gender: "---",
-  relationship: "---",
+  title: "",
+  event_url: "",
+  description: "",
+  status: "upcoming",
   isEdit: false,
   pages: 1,
   sort: "---",
 };
-const nokSlice = createSlice({
-  name: "nok",
+const eventSlice = createSlice({
+  name: "event",
   initialState,
   reducers: {
-    handelChangeNok: (state, { payload }) => {
+    handelChangeEvent: (state, { payload }) => {
       const { name, value } = payload;
       state[name] = value;
     },
-    handlePhoneInputNok: (state, { payload }) => {
-      return {
-        ...state,
-        phone: payload,
-      };
-    },
+    // handlePhoneInputNok: (state, { payload }) => {
+    //   return {
+    //     ...state,
+    //     phone: payload,
+    //   };
+    // },
 
-    handleDob: (state, { payload }) => {
+    handleDateEvent: (state, { payload }) => {
       const { name, date } = payload;
       console.log({ name, date });
       state[name] = date;
@@ -34,7 +31,8 @@ const nokSlice = createSlice({
     handleReset: (state) => {
       return { ...initialState };
     },
-    setUpdateNok: (state, { payload }) => {
+    setUpdateEvent: (state, { payload }) => {
+      //console.log(payload);
       return { ...state, ...payload, isEdit: true };
     },
     resetValues: (state) => {
@@ -49,12 +47,12 @@ const nokSlice = createSlice({
 });
 
 export const {
-  handelChangeNok,
-  handlePhoneInputNok,
-  handleDob,
+  handelChangeEvent,
+  //handlePhoneInputNok,
+  handleDateEvent,
   handleReset,
-  setUpdateNok,
+  setUpdateEvent,
   resetValues,
   changePage,
-} = nokSlice.actions;
-export default nokSlice.reducer;
+} = eventSlice.actions;
+export default eventSlice.reducer;

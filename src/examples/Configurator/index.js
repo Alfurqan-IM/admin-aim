@@ -298,7 +298,7 @@ function Configurator() {
         </MDBox> */}
         <MDBox mt={2} textAlign="center">
           <MDBox mb={0.5}>
-            <MDTypography variant="h6">Apiaries 16</MDTypography>
+            <MDTypography variant="h6">Alfurqan Intl</MDTypography>
           </MDBox>
 
           {/* <MDBox display="flex" justifyContent="center">

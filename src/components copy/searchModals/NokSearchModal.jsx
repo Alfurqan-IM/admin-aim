@@ -10,8 +10,8 @@ import { CustomButton } from "../Button";
 // import { useEmployee } from "../../hooks/register";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
-import { resetValues } from "../../features/nok/nokSlice";
-import { useNok } from "../../hooks/DashDetails_2";
+import { resetValues } from "../../features/events/eventSlice";
+//import { useNok } from "../../hooks/DashDetails_2";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../layouts/styles/modal.module.scss";
 
