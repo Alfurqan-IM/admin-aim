@@ -14,7 +14,7 @@ import SetupReducer from "./features/apiarySetup/setupCompSlice";
 import ConsultationReducer from "./features/consultation/consultationSlice";
 import PolServReducer from "./features/pollination/polservicesSlice";
 import ProvisionReducer from "./features/supplyProvision/supplyProvSlice";
-import ProductReducer from "./features/products/productsSlice";
+import ProgrammeReducer from "./features/programmes/programmeSlice";
 import OrderReducer from "./features/orders/ordersSlice";
 import ReviewReducer from "./features/reviews/reviewSlice";
 const store = configureStore({
@@ -34,7 +34,7 @@ const store = configureStore({
     consultations: ConsultationReducer,
     polservices: PolServReducer,
     provisions: ProvisionReducer,
-    products: ProductReducer,
+    programmes: ProgrammeReducer,
     orders: OrderReducer,
     reviews: ReviewReducer,
   },

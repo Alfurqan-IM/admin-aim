@@ -106,8 +106,8 @@ const Pollination = lazy(() =>
     default: module.default,
   }))
 );
-const Products = lazy(() =>
-  import("./layouts/products").then((module) => ({
+const Programmes = lazy(() =>
+  import("./layouts/programmes").then((module) => ({
     default: module.default,
   }))
 );
@@ -147,9 +147,9 @@ const SingleUser = lazy(() =>
     default: module.SingleUser,
   }))
 );
-const SingleProduct = lazy(() =>
-  import("./layouts/products").then((module) => ({
-    default: module.SingleProduct,
+const SingleProgramme = lazy(() =>
+  import("./layouts/programmes").then((module) => ({
+    default: module.SingleProgramme,
   }))
 );
 
@@ -224,9 +224,9 @@ const CreateUpdateEquipment = lazy(() =>
     default: module.CreateUpdateEquipment,
   }))
 );
-const CreateUpdateProduct = lazy(() =>
-  import("./layouts/products").then((module) => ({
-    default: module.CreateUpdateProduct,
+const CreateUpdateProgramme = lazy(() =>
+  import("./layouts/programmes").then((module) => ({
+    default: module.CreateUpdateProgramme,
   }))
 );
 const UpdateOrder = lazy(() =>
@@ -330,11 +330,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Products",
-    key: "products",
+    name: "Programmes",
+    key: "programmes",
     icon: <Icon fontSize="small">storefront</Icon>,
-    route: "/products",
-    component: <Products />,
+    route: "/programmes",
+    component: <Programmes />,
   },
   {
     type: "collapse",
@@ -446,10 +446,10 @@ export const singleroutes = [
   // },
   {
     type: "collapse",
-    name: "single product",
-    key: "single_product",
-    route: "/products/:id",
-    component: <SingleProduct />,
+    name: "single programme",
+    key: "single_programme",
+    route: "/programmes/:id",
+    component: <SingleProgramme />,
   },
   // {
   //   type: "collapse",
@@ -495,10 +495,10 @@ export const singleroutes = [
   },
   {
     type: "collapse",
-    name: "updatecreateproduct",
-    key: "updatecreateproduct",
-    route: "/createupdateproduct/:id",
-    component: <CreateUpdateProduct />,
+    name: "updatecreateprogramme",
+    key: "updatecreateprogramme",
+    route: "/createupdateprogramme/:id",
+    component: <CreateUpdateProgramme />,
   },
   {
     type: "collapse",
