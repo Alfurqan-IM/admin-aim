@@ -36,6 +36,7 @@ import { useUpdateProgrammeOutcome } from "features/programmes/programmeThunk";
 import { InputFileUpload } from "components copy";
 import { useGetSinglProgramme } from "features/programmes/programmeThunk";
 import { useUploadProgrammeImages } from "features/programmes/programmeThunk";
+import { convertToDateOnly } from "utils";
 // import productsTableData from "./data/programmesTableData";
 // import { changePage } from "features/products/productsSlice";
 // import { resetValues } from "features/products/productsSlice";
@@ -376,7 +377,7 @@ export function SingleProgramme() {
                   about,
                   time,
                   year,
-                  start_date,
+                  start_date: convertToDateOnly(start_date),
                 }}
                 shadow={false}
               />
@@ -389,7 +390,7 @@ export function SingleProgramme() {
                 title=""
                 description=""
                 info={{
-                  end_date,
+                  end_date: convertToDateOnly(end_date),
                   outcome1,
                   outcome2,
                   outcome3,
