@@ -9,7 +9,7 @@ import {
   UserInput,
 } from "../components copy";
 import { useSelector } from "react-redux";
-import { handleChangeHarv, handleDateHarv } from "../features/harvest/honey_harvestSlice";
+import { handleChangeEnq } from "../features/enquiries/enquirySlice";
 import { convertToDateOnly } from "../utils";
 import {
   handleChangeHunter,
@@ -52,7 +52,14 @@ export const useEventInputs = () => {
     },
     {
       name: "description",
-      TextField: <MultiLineInput name={"description"} value={description} type={"text"} handleChange={getInput} />,
+      TextField: (
+        <MultiLineInput
+          name={"description"}
+          value={description}
+          type={"text"}
+          handleChange={getInput}
+        />
+      ),
     },
     // {
     //   name: "fullname",
@@ -137,148 +144,137 @@ export const useEventInputs = () => {
   return { eventInputDetails };
 };
 
-export const useHarvest = () => {
-  const {
-    harvest_year,
-    station_id,
-    station_name,
-    harvest_date,
-    quantity_collected,
-    colouration,
-    unit,
-    quality_rating,
-    note,
-    sort,
-  } = useSelector((store) => store.harvests);
+export const useEnqInp = () => {
+  const { status } = useSelector((store) => store.enquiries);
   const dispatch = useDispatch();
   const getInput = (e) => {
     const { name, value } = e.target;
-    const numericFields = ["station_id", "quantity_collected", "quality_rating", "harvest_year"];
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (numericFields.includes(name) && processedValue < 1) {
-      processedValue = 1;
-    }
-    if (name === "quality_rating") {
-      if (processedValue < 1) {
-        processedValue = 1;
-      } else if (processedValue > 5) {
-        processedValue = 5;
-      }
-    }
-    dispatch(handleChangeHarv({ name, value: processedValue }));
+    // const numericFields = ["station_id", "quantity_collected", "quality_rating", "harvest_year"];
+    // let processedValue = numericFields.includes(name) ? Number(value) : value;
+    // if (numericFields.includes(name) && processedValue < 1) {
+    //   processedValue = 1;
+    // }
+    // if (name === "quality_rating") {
+    //   if (processedValue < 1) {
+    //     processedValue = 1;
+    //   } else if (processedValue > 5) {
+    //     processedValue = 5;
+    //   }
+    // }
+    dispatch(handleChangeEnq({ name, value }));
   };
 
-  const getDob = (e) => {
-    const { name, value } = e.target;
-    const formattedDate = convertToDateOnly(value.toISOString());
-    dispatch(handleDateHarv({ name, date: formattedDate }));
-  };
-  const harvestInputs = [
+  // const getDob = (e) => {
+  //   const { name, value } = e.target;
+  //   const formattedDate = convertToDateOnly(value.toISOString());
+  //   dispatch(handleDateHarv({ name, date: formattedDate }));
+  // };
+  const enqInput = [
+    // {
+    //   name: "harvest_year",
+    //   TextField: (
+    //     <UserInput
+    //       name={"harvest_year"}
+    //       value={harvest_year}
+    //       type={"number"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "station_id",
+    //   TextField: (
+    //     <UserInput name={"station_id"} value={station_id} type={"number"} handleChange={getInput} />
+    //   ),
+    // },
+    // {
+    //   name: "station_name",
+    //   TextField: (
+    //     <UserInput
+    //       name={"station_name"}
+    //       value={station_name}
+    //       type={"name"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "harvest_date",
+    //   TextField: <DateRegister name={"harvest_date"} value={harvest_date} onChange={getDob} />,
+    // },
+    // {
+    //   name: "quantity_collected",
+    //   TextField: (
+    //     <UserInput
+    //       name={"quantity_collected"}
+    //       value={quantity_collected}
+    //       type={"number"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "colouration",
+    //   TextField: (
+    //     <UserInput
+    //       name={"colouration"}
+    //       value={colouration}
+    //       type={"colouration"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
     {
-      name: "harvest_year",
-      TextField: (
-        <UserInput
-          name={"harvest_year"}
-          value={harvest_year}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "station_id",
-      TextField: (
-        <UserInput name={"station_id"} value={station_id} type={"number"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "station_name",
-      TextField: (
-        <UserInput
-          name={"station_name"}
-          value={station_name}
-          type={"name"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "harvest_date",
-      TextField: <DateRegister name={"harvest_date"} value={harvest_date} onChange={getDob} />,
-    },
-    {
-      name: "quantity_collected",
-      TextField: (
-        <UserInput
-          name={"quantity_collected"}
-          value={quantity_collected}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "colouration",
-      TextField: (
-        <UserInput
-          name={"colouration"}
-          value={colouration}
-          type={"colouration"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "unit",
-      TextField: (
-        <GenderInput
-          name={"unit"}
-          value={unit}
-          type={"text"}
-          gender={["---", "litres", "kg"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "quality_rating",
-      TextField: (
-        <UserInput
-          name={"quality_rating"}
-          value={quality_rating}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "sort",
+      name: "status",
       TextField: (
         <GenderInput
-          name={"sort"}
-          value={sort}
+          name={"status"}
+          value={status}
           type={"text"}
-          gender={[
-            "---",
-            "high_volume",
-            "low_volume",
-            "high-rating",
-            "low-rating",
-            "latest-harvest",
-            "oldest-harvest",
-          ]}
+          gender={["---", "resolved", "pending"]}
           handleChange={getInput}
         />
       ),
     },
-    {
-      name: "note",
-      TextField: (
-        <MultiLineInput name={"note"} value={note} type={"text"} handleChange={getInput} />
-      ),
-    },
+    // {
+    //   name: "quality_rating",
+    //   TextField: (
+    //     <UserInput
+    //       name={"quality_rating"}
+    //       value={quality_rating}
+    //       type={"number"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "sort",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"sort"}
+    //       value={sort}
+    //       type={"text"}
+    //       gender={[
+    //         "---",
+    //         "high_volume",
+    //         "low_volume",
+    //         "high-rating",
+    //         "low-rating",
+    //         "latest-harvest",
+    //         "oldest-harvest",
+    //       ]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "note",
+    //   TextField: (
+    //     <MultiLineInput name={"note"} value={note} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
   ];
-  return { harvestInputs };
+  return { enqInput };
 };
 
 export const useHunters = () => {

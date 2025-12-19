@@ -66,8 +66,8 @@ const Events = lazy(() =>
     default: module.default,
   }))
 );
-const Harvests = lazy(() =>
-  import("./layouts/harvests").then((module) => ({
+const Enquiries = lazy(() =>
+  import("./layouts/enquiries").then((module) => ({
     default: module.default,
   }))
 );
@@ -174,9 +174,9 @@ const CreateUpdateEvent = lazy(() =>
     default: module.CreateUpdateEvent,
   }))
 );
-const CreateUpdateHarvest = lazy(() =>
-  import("./layouts/harvests").then((module) => ({
-    default: module.CreateUpdateHarvest,
+const CreateUpdateEnquiry = lazy(() =>
+  import("./layouts/enquiries").then((module) => ({
+    default: module.CreateUpdateEnquiry,
   }))
 );
 const CreateUpdateHunter = lazy(() =>
@@ -300,17 +300,17 @@ const routes = [
     type: "collapse",
     name: "Events",
     key: "events",
-    icon: <Icon fontSize="small">mosque</Icon>, 
+    icon: <Icon fontSize="small">mosque</Icon>,
     route: "/events",
     component: <Events />,
   },
   {
     type: "collapse",
-    name: "Harvests",
-    key: "harvests",
-    icon: <Icon fontSize="small">emoji_nature</Icon>, // Agriculture icon for honey harvest
-    route: "/harvests",
-    component: <Harvests />,
+    name: "Enquiries",
+    key: "enquiries",
+    icon: <Icon fontSize="small">contact_support</Icon>,
+    route: "/enquiries",
+    component: <Enquiries />,
   },
   {
     type: "collapse",
@@ -516,10 +516,10 @@ export const singleroutes = [
   },
   {
     type: "collapse",
-    name: "updatecreateharvest",
-    key: "updatecreateharvest",
-    route: "/createupdateharvest/:id",
-    component: <CreateUpdateHarvest />,
+    name: "updatecreateenquiry",
+    key: "updatecreateenquiry",
+    route: "/createupdateenquiry/:id",
+    component: <CreateUpdateEnquiry />,
   },
   {
     type: "collapse",

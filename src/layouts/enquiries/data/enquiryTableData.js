@@ -3,77 +3,69 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
-
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
-import { useDeleteEvent } from "features/events/eventThunk";
-import { useAllEvent } from "features/events/eventThunk";
-import { setUpdateEvent } from "features/events/eventSlice";
-export default function eventsTableData() {
-  const { deleteEvent } = useDeleteEvent();
+import logoInvesion from "assets/images/small-logos/logo-invision.svg";
+import { useDeleteEnq } from "features/enquiries/enquiryThunk";
+import { useGetAllEnquiries } from "features/enquiries/enquiryThunk";
+import { setUpdateEnq } from "features/enquiries/enquirySlice";
+// import { useHoneyHarvest } from "features/harvest/honey_harvestThunk";
+// import { useDeleteHarvest } from "features/harvest/honey_harvestThunk";
+// import { setUpdateHarvest } from "features/harvest/honey_harvestSlice";
+
+export default function enquiryTableData() {
   const dispatch = useDispatch();
+  const { deleteEnq } = useDeleteEnq();
   const {
-    isGettingAllEvents,
+    isGettingAllEnq,
+    enquiries: { enquiries: ENQ = [], currentCount = 0, numOfPages = 0, totalEnq = 0 } = {},
     refetch,
-    events: { event: Events = [], currentCount = 0, numOfPages, totalEvent = 0 } = {},
-  } = useAllEvent();
-  const Author = ({ image, name, description, event_id, index }) => (
+  } = useGetAllEnquiries();
+  const Author = ({ image, name, email }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDAvatar src={image} name={name} size="sm" />
       <MDBox ml={2} lineHeight={1}>
-        <MDTypography title={index} display="block" variant="button" fontWeight="medium">
+        <MDTypography display="block" variant="button" fontWeight="medium">
           {name}
         </MDTypography>
-        <MDTypography variant="caption">{description}</MDTypography>
+        <MDTypography variant="caption">{email}</MDTypography>
       </MDBox>
     </MDBox>
   );
 
-  const rows = Events.map((event, i) => {
-    const { event_id, image_url, title, status, event_url, description } = event;
+  const rows = ENQ.map((enq, i) => {
+    const { name, email, message, status, enq_id } = enq;
     const payload = {
-      event_id,
-      image_url,
-      title,
       status,
-      event_url,
-      description,
     };
     const handleEdit = () => {
-      dispatch(setUpdateEvent(payload));
+      dispatch(setUpdateEnq(payload));
     };
     const handleDelete = () => {
       const confirmation = window.confirm(
-        "You are about to Delete an next of kin records permanently, ARE YOU SURE?"
+        "You are about to Delete an enquiry record permanently, ARE YOU SURE?"
       );
       if (!confirmation) return;
-      deleteEvent(event_id);
+      deleteEnq(enq_id);
     };
-    const MAX_LENGTH = 40;
-    const formatDescription = (text) =>
-      text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
-
     return {
-      events: (
-        <Author
-          image={image_url}
-          name={title}
-          description={formatDescription(description)}
-          event_id={event_id}
-          index={description}
-        />
-      ),
-      event_url: (
+      enq: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          <Link to={event_url}>{event_url}</Link>
+          {enq_id}
+        </MDTypography>
+      ),
+      email: <Author image={logoInvesion} email={email} name={name} />,
+      message: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {message}
         </MDTypography>
       ),
       status: (
         <MDBox ml={-1}>
           <MDBadge
             badgeContent={status}
-            color={status === "ongoing" ? "success" : status === "completed" ? "info" : "warning"}
+            color={status === "resolved" ? "success"  : "warning"}
             variant="gradient"
             size="sm"
           />
@@ -85,7 +77,7 @@ export default function eventsTableData() {
             onClick={() => {
               handleEdit();
             }}
-            to={`/createupdateevent/${event_id}`}
+            to={`/createupdateenquiry/${enq_id}`}
           >
             Edit
           </Link>
@@ -106,17 +98,18 @@ export default function eventsTableData() {
   });
   return {
     columns: [
-      { Header: "events", accessor: "events", width: "45%", align: "left" },
-      { Header: "event_url", accessor: "event_url", width: "45%", align: "left" },
-      { Header: "status", accessor: "status", align: "left" },
+      { Header: "enq", accessor: "enq", width: "45%", align: "left" },
+      { Header: "email", accessor: "email", width: "45%", align: "left" },
+      { Header: "message", accessor: "message", align: "left" },
+      { Header: "status", accessor: "status", align: "center" },
       { Header: "update", accessor: "update", align: "center" },
       { Header: "remove", accessor: "remove", align: "center" },
     ],
     rows: rows,
-    isGettingAllEvents,
     numOfPages,
-    totalEvent,
     currentCount,
     refetch,
+    totalEnq,
+    isGettingAllEnq
   };
 }

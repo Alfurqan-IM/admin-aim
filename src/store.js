@@ -5,7 +5,7 @@ import campaignReducer from "./features/campaigns/campaignSlice";
 import equipmentReducer from "./features/equuipments/equipmentSlice";
 import suppliesReducer from "./features/supplies/suppliesSlice";
 import eventReducer from "./features/events/eventSlice";
-import HarvestReducer from "./features/harvest/honey_harvestSlice";
+import EnquiryReducer from "./features/enquiries/enquirySlice";
 import HunterReducer from "./features/hunters/huntersSlice";
 import HiveReducer from "./features/hives/hiveSlice";
 import ReportReducer from "./features/catch_reports/reportSlice";
@@ -25,7 +25,7 @@ const store = configureStore({
     equipments: equipmentReducer,
     supplies: suppliesReducer,
     events: eventReducer,
-    harvests: HarvestReducer,
+    enquiries: EnquiryReducer,
     hunters: HunterReducer,
     hives: HiveReducer,
     reports: ReportReducer,

@@ -10,52 +10,31 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { useUploadEmployeeImages } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-//import PaginationControlled from "components copy/component's_Tables/Pagination";
-import moment from "moment";
-import harvestTableData from "./data/harvestTableData";
-import { changePage } from "features/harvest/honey_harvestSlice";
-import { HarvestSearchModal } from "components copy";
-import { resetValues } from "features/harvest/honey_harvestSlice";
-import { useHarvest } from "hooks/DashDetails_2";
-import { useUpdateHarvest } from "features/harvest/honey_harvestThunk";
-import { useCreateHarvest } from "features/harvest/honey_harvestThunk";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import enquiryTableData from "./data/enquiryTableData";
+import { changePage } from "features/enquiries/enquirySlice";
+import { resetValues } from "features/enquiries/enquirySlice";
+import { useEnqInp } from "hooks/DashDetails_2";
+import { useUpdateEnq } from "features/enquiries/enquiryThunk";
 
-function Harvests() {
+function Enquiries() {
   const {
-    columns = [], // Default to an empty array
-    rows = [], // Default to an empty array
-    harvest,
+    columns = [],
+    rows = [],
     numOfPages,
-    count,
+    currentCount,
     refetch,
-    isGettingAllHarvest,
-    totalHarvestQuantity,
-    harvestedVolumeByYear,
-    qualityRatingCount,
-    totalHarvest,
-  } = harvestTableData() || {}; // Ensure nokTableData() returns something
+    totalEnq,
+    isGettingAllEnq,
+  } = enquiryTableData() || {};
 
-  const {
-    pages,
-    harvest_year,
-    station_id,
-    station_name,
-    harvest_date,
-    quantity_collected,
-    colouration,
-    unit,
-    quality_rating,
-    note,
-    sort,
-  } = useSelector((store) => store.harvests) || {};
+  const { pages } = useSelector((store) => store.enquiries) || {};
   const dispatch = useDispatch();
 
   const handleChange = (event, value) => {
@@ -68,20 +47,7 @@ function Harvests() {
     if (refetch) {
       refetch();
     }
-  }, [
-    pages,
-    harvest_year,
-    station_id,
-    station_name,
-    harvest_date,
-    quantity_collected,
-    colouration,
-    unit,
-    quality_rating,
-    note,
-    sort,
-    refetch,
-  ]);
+  }, [pages, refetch]);
 
   return (
     <DashboardLayout>
@@ -102,21 +68,21 @@ function Harvests() {
               >
                 <MDTypography className={styles.wrapper} variant="h6" color="white">
                   <MDBox className={styles.inner}>
-                    <MDTypography color="white"> Honey Harvest</MDTypography>
+                    <MDTypography color="white"> Enquiries</MDTypography>
                     <MDTypography color="white">
-                      {count}/{totalHarvest}
+                      {currentCount}/{totalEnq}
                     </MDTypography>
                   </MDBox>
-                  <MDBox className={styles.inner}>
-                    <Link onClick={() => dispatch(resetValues())} to="/createupdateharvest/add">
+                  {/* <MDBox className={styles.inner}>
+                    <Link onClick={() => dispatch(resetValues())} to="/createupdateenquiry/add">
                       <AddIcon
                         sx={{ fill: "white" }}
                         fontSize="medium"
-                        titleAccess="add a new harvest details"
+                        titleAccess="add a new enquiry details"
                       />
                     </Link>
                     <HarvestSearchModal isGettingAllHarvest={isGettingAllHarvest} />
-                  </MDBox>
+                  </MDBox> */}
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -138,47 +104,27 @@ function Harvests() {
   );
 }
 
-export default Harvests;
+export default Enquiries;
 
-export const CreateUpdateHarvest = () => {
+export const CreateUpdateEnquiry = () => {
   const { id } = useParams();
-  const { harvestInputs } = useHarvest();
-  const { isUpdatingHarvest, updateHarvest } = useUpdateHarvest();
-  const { createHarvest, isCreatingHarvest } = useCreateHarvest();
-  const {
-    harvest_year,
-    station_id,
-    station_name,
-    harvest_date,
-    quantity_collected,
-    colouration,
-    unit,
-    quality_rating,
-    note,
-    isEdit,
-  } = useSelector((store) => store.harvests);
-  const harvestDetails = {
-    harvest_year,
-    station_id,
-    station_name,
-    harvest_date,
-    quantity_collected,
-    colouration,
-    unit,
-    quality_rating,
-    note,
+  const { enqInput } = useEnqInp();
+  const { isUpdatingEnq, updateEnq } = useUpdateEnq();
+  const { status, isEdit } = useSelector((store) => store.enquiries);
+  const enquiryDetails = {
+    status,
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = Object.values(harvestDetails).every(
-      (value) => value !== undefined && value !== null && value !== ""
-    );
-    if (!isValid) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-    if (isEdit) return updateHarvest({ harvestDetails, id });
-    createHarvest(harvestDetails);
+    // const isValid = Object.values(harvestDetails).every(
+    //   (value) => value !== undefined && value !== null && value !== ""
+    // );
+    // if (!isValid) {
+    //   alert("Please fill out all required fields.");
+    //   return;
+    // }
+    if (isEdit) return updateEnq({ status, id });
+    //createHarvest(harvestDetails);
   };
   return (
     <DashboardLayout>
@@ -188,17 +134,15 @@ export const CreateUpdateHarvest = () => {
           <div>
             {/* <Link to={`/harvests`}>Go back</Link> */}
             <div>
-              <Link to="/harvests">
+              <Link to="/enquiries">
                 <ArrowBackIcon />
               </Link>
-              <h6>
-                {isEdit ? `Update harvest details for ${station_name}` : `Create harvest details`}{" "}
-              </h6>
+              <h6>{isEdit && `Update enquiry details for  Enquiry ${id}`} </h6>
               <div></div>
             </div>
             <form className={styling.form} onSubmit={handleSubmit}>
-              {harvestInputs
-                .filter((detail) => detail.name !== "sort")
+              {enqInput
+                // .filter((detail) => detail.name !== "sort")
                 .map((detail) => {
                   const { name, TextField } = detail;
                   return <div key={name}>{TextField}</div>;
@@ -211,13 +155,7 @@ export const CreateUpdateHarvest = () => {
                 type="submit"
                 // disabled={!isValid}
               >
-                {isCreatingHarvest === "pending" || isUpdatingHarvest === "pending" ? (
-                  <Loader1 />
-                ) : isEdit ? (
-                  "Update"
-                ) : (
-                  "Submit"
-                )}
+                {isUpdatingEnq === "pending" ? <Loader1 /> : isEdit ? "Update" : "Update"}
               </CustomButton>
             </form>
           </div>

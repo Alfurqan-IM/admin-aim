@@ -11,8 +11,8 @@ import { CustomButton } from "../Button";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
 // import { resetValues } from "../../features/nok/nokSlice";
-import { useHarvest, useNok } from "../../hooks/DashDetails_2";
-import { resetValues } from "../../features/harvest/honey_harvestSlice";
+//import { useHarvest, useNok } from "../../hooks/DashDetails_2";
+import { resetValues } from "../../features/enquiries/enquirySlice";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../layouts/styles/modal.module.scss";
 const style = {
