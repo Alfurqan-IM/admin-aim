@@ -81,13 +81,13 @@ const Hunters = lazy(() =>
     default: module.default,
   }))
 );
-const Hives = lazy(() =>
-  import("./layouts/hives").then((module) => ({
+const Registerations = lazy(() =>
+  import("./layouts/registerations").then((module) => ({
     default: module.default,
   }))
 );
-const Services = lazy(() =>
-  import("./layouts/services").then((module) => ({
+const Feedbacks = lazy(() =>
+  import("./layouts/feedbacks").then((module) => ({
     default: module.default,
   }))
 );
@@ -137,11 +137,11 @@ const SingleHunter = lazy(() =>
     default: module.SingleHunter,
   }))
 );
-const SingleHive = lazy(() =>
-  import("./layouts/hives").then((module) => ({
-    default: module.SingleHive,
-  }))
-);
+// const SingleHive = lazy(() =>
+//   import("./layouts/hives").then((module) => ({
+//     default: module.SingleHive,
+//   }))
+// );
 const SingleUser = lazy(() =>
   import("./layouts/users").then((module) => ({
     default: module.SingleUser,
@@ -184,9 +184,9 @@ const CreateUpdateHunter = lazy(() =>
     default: module.CreateUpdateHunter,
   }))
 );
-const CreateUpdateHive = lazy(() =>
-  import("./layouts/hives").then((module) => ({
-    default: module.CreateUpdateHive,
+const CreateUpdateRegisteration = lazy(() =>
+  import("./layouts/registerations").then((module) => ({
+    default: module.CreateUpdateRegisteration,
   }))
 );
 const CreateUpdateReport = lazy(() =>
@@ -194,11 +194,11 @@ const CreateUpdateReport = lazy(() =>
     default: module.CreateUpdateReport,
   }))
 );
-const CreateUpdateService = lazy(() =>
-  import("./layouts/services").then((module) => ({
-    default: module.CreateUpdateService,
-  }))
-);
+// const CreateUpdateService = lazy(() =>
+//   import("./layouts/services").then((module) => ({
+//     default: module.CreateUpdateService,
+//   }))
+// );
 const CreateUpdateSetup = lazy(() =>
   import("./layouts/setups").then((module) => ({
     default: module.CreateUpdateSetup,
@@ -252,7 +252,7 @@ const routes = [
     type: "collapse",
     name: "Users",
     key: "users",
-    icon: <Icon fontSize="small">people</Icon>, // "people" icon better represents users
+    icon: <Icon fontSize="small">people</Icon>, 
     route: "/users",
     component: <Users />,
   },
@@ -338,19 +338,19 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Hives",
-    key: "hives",
-    icon: <Icon fontSize="small">hive</Icon>, // Hive icon for hives
-    route: "/hives",
-    component: <Hives />,
+    name: "Registerations",
+    key: "registerations",
+    icon: <Icon fontSize="small">how_to_reg</Icon>,
+    route: "/registerations",
+    component: <Registerations />,
   },
   {
     type: "collapse",
-    name: "Services",
-    key: "services",
-    icon: <Icon fontSize="small">miscellaneous_services</Icon>, // Services icon for services
-    route: "/services",
-    component: <Services />,
+    name: "Feedbacks",
+    key: "feedbacks",
+    icon: <Icon fontSize="small">feedback</Icon>, 
+    route: "/feedbacks",
+    component: <Feedbacks />,
   },
   {
     type: "collapse",
@@ -465,13 +465,13 @@ export const singleroutes = [
     route: "/hunters/:id",
     component: <SingleHunter />,
   },
-  {
-    type: "collapse",
-    name: "single hive",
-    key: "single_hive",
-    route: "/hives/:id",
-    component: <SingleHive />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "single hive",
+  //   key: "single_hive",
+  //   route: "/hives/:id",
+  //   component: <SingleHive />,
+  // },
   {
     type: "collapse",
     name: "single user",
@@ -530,10 +530,10 @@ export const singleroutes = [
   },
   {
     type: "collapse",
-    name: "updatecreatehive",
-    key: "updatecreatehive",
-    route: "/createupdatehive/:id",
-    component: <CreateUpdateHive />,
+    name: "updatecreateregisteration",
+    key: "updatecreateregisteration",
+    route: "/createupdateregisteration/:id",
+    component: <CreateUpdateRegisteration />,
   },
   {
     type: "collapse",
@@ -549,13 +549,13 @@ export const singleroutes = [
     route: "/createupdatepollination/:id",
     component: <CreateUpdatePollination />,
   },
-  {
-    type: "collapse",
-    name: "updatecreateservice",
-    key: "updatecreateservice",
-    route: "/createupdateservice/:id",
-    component: <CreateUpdateService />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "updatecreateservice",
+  //   key: "updatecreateservice",
+  //   route: "/createupdateservice/:id",
+  //   component: <CreateUpdateService />,
+  // },
   {
     type: "collapse",
     name: "updatecreatesetup",

@@ -7,8 +7,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { CustomButton } from "../Button";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
-import { useServiceInputs } from "../../hooks/ServicesDetails";
-import { resetValues } from "../../features/services/serviceSlice";
+//import { useServiceInputs } from "../../hooks/ServicesDetails";
+//import { resetValues } from "../../features/feedbacks/serviceSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../layouts/styles/modal.module.scss";
 

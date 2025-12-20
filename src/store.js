@@ -7,9 +7,9 @@ import suppliesReducer from "./features/supplies/suppliesSlice";
 import eventReducer from "./features/events/eventSlice";
 import EnquiryReducer from "./features/enquiries/enquirySlice";
 import HunterReducer from "./features/hunters/huntersSlice";
-import HiveReducer from "./features/hives/hiveSlice";
+import RegisterationReducer from "./features/registerations/registerationSlice";
 import ReportReducer from "./features/catch_reports/reportSlice";
-import ServiceReducer from "./features/services/serviceSlice";
+import feedbackReducer from "./features/feedbacks/feedbackSlice";
 import SetupReducer from "./features/apiarySetup/setupCompSlice";
 import ConsultationReducer from "./features/consultation/consultationSlice";
 import PolServReducer from "./features/pollination/polservicesSlice";
@@ -27,9 +27,9 @@ const store = configureStore({
     events: eventReducer,
     enquiries: EnquiryReducer,
     hunters: HunterReducer,
-    hives: HiveReducer,
+    registerations: RegisterationReducer,
     reports: ReportReducer,
-    services: ServiceReducer,
+    feedbacks: feedbackReducer,
     setups: SetupReducer,
     consultations: ConsultationReducer,
     polservices: PolServReducer,

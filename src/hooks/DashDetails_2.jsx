@@ -17,7 +17,7 @@ import {
   handleEmerInput,
   handlePhoneInput,
 } from "../features/hunters/huntersSlice";
-import { handleChangeHive, handleDateHive } from "../features/hives/hiveSlice";
+import { handleChangeReg } from "../features/registerations/registerationSlice";
 import { handleChangeReport, handleDateReport } from "../features/catch_reports/reportSlice";
 export const useEventInputs = () => {
   const { title, status, event_url, description } = useSelector((store) => store.events);
@@ -424,159 +424,153 @@ export const useHunters = () => {
   return { hunterInputs };
 };
 
-export const useHives = () => {
-  const {
-    assigned_hunter,
-    hive_type,
-    num_of_frames,
-    colonized,
-    status,
-    use_condition,
-    first_installation,
-    current_location,
-    last_inspection_date,
-    note,
-    sort,
-  } = useSelector((store) => store.hives);
+export const useRegInp = () => {
+  const { programme, category, discovery_method } = useSelector((store) => store.registerations);
   const dispatch = useDispatch();
 
   const getInput = (e) => {
     const { name, value } = e.target;
-    const numericFields = ["assigned_hunter", "num_of_frames"];
+    // const numericFields = ["assigned_hunter", "num_of_frames"];
 
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (numericFields.includes(name) && processedValue < 0) {
-      processedValue = 0;
-    }
-    dispatch(handleChangeHive({ name, value: processedValue }));
+    // let processedValue = numericFields.includes(name) ? Number(value) : value;
+    // if (numericFields.includes(name) && processedValue < 0) {
+    //   processedValue = 0;
+    // }
+    dispatch(handleChangeReg({ name, value }));
   };
 
-  const getDob = (e) => {
-    const { name, value } = e.target;
-    const formattedDate = convertToDateOnly(value.toISOString());
-    dispatch(handleDateHive({ name, date: formattedDate }));
-  };
+  // const getDob = (e) => {
+  //   const { name, value } = e.target;
+  //   const formattedDate = convertToDateOnly(value.toISOString());
+  //   dispatch(handleDateHive({ name, date: formattedDate }));
+  // };
 
-  const hiveInputs = [
+  const regInputs = [
     {
-      name: "assigned_hunter",
+      name: "programme",
       TextField: (
-        <UserInput
-          name={"assigned_hunter"}
-          value={assigned_hunter}
-          type={"number"}
-          handleChange={getInput}
-        />
+        <UserInput name={"programme"} value={programme} type={"text"} handleChange={getInput} />
       ),
     },
-    {
-      name: "num_of_frames",
-      TextField: (
-        <UserInput
-          name={"num_of_frames"}
-          value={num_of_frames}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
+    // {
+    //   name: "num_of_frames",
+    //   TextField: (
+    //     <UserInput
+    //       name={"num_of_frames"}
+    //       value={num_of_frames}
+    //       type={"number"}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
 
+    // {
+    //   name: "first_installation",
+    //   TextField: (
+    //     <DateRegister name={"first_installation"} value={first_installation} onChange={getDob} />
+    //   ),
+    // },
+    // {
+    //   name: "last_inspection_date",
+    //   TextField: (
+    //     <DateRegister
+    //       name={"last_inspection_date"}
+    //       value={last_inspection_date}
+    //       onChange={getDob}
+    //     />
+    //   ),
+    // },
     {
-      name: "first_installation",
-      TextField: (
-        <DateRegister name={"first_installation"} value={first_installation} onChange={getDob} />
-      ),
-    },
-    {
-      name: "last_inspection_date",
-      TextField: (
-        <DateRegister
-          name={"last_inspection_date"}
-          value={last_inspection_date}
-          onChange={getDob}
-        />
-      ),
-    },
-    {
-      name: "hive_type",
+      name: "category",
       TextField: (
         <GenderInput
-          name={"hive_type"}
-          value={hive_type}
+          name={"category"}
+          value={category}
           type={"text"}
-          gender={["---", "langstroth", "top bar", "local"]}
+          gender={["---", "Youth", "Adult"]}
           handleChange={getInput}
         />
       ),
     },
     {
-      name: "colonized",
+      name: "discovery_method",
       TextField: (
         <GenderInput
-          name={"colonized"}
-          value={colonized}
+          name={"discovery_method"}
+          value={discovery_method}
           type={"text"}
-          gender={["---", "pending", "confirmed", "installed"]}
+          gender={[
+            "---",
+            "Masjid",
+            "Social_Media",
+            "Email_Campaign",
+            "Referral",
+            "Website",
+            "Event/Workshop",
+            "Advertisement",
+            "Friends",
+            "Other",
+          ]}
           handleChange={getInput}
         />
       ),
     },
-    {
-      name: "status",
-      TextField: (
-        <GenderInput
-          name={"status"}
-          value={status}
-          type={"text"}
-          gender={["---", "unuse", "inuse", "empty"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "use_condition",
-      TextField: (
-        <GenderInput
-          name={"use_condition"}
-          value={use_condition}
-          type={"text"}
-          gender={["---", "need repair", "used", "new"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "current_location",
-      TextField: (
-        <GenderInput
-          name={"current_location"}
-          value={current_location}
-          type={"text"}
-          gender={["---", "swarm field", "station", "warehouse"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "high-low", "low-high", "recent", "old"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "note",
-      TextField: (
-        <MultiLineInput name={"note"} value={note} type={"text"} handleChange={getInput} />
-      ),
-    },
+    // {
+    //   name: "status",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"status"}
+    //       value={status}
+    //       type={"text"}
+    //       gender={["---", "unuse", "inuse", "empty"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "use_condition",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"use_condition"}
+    //       value={use_condition}
+    //       type={"text"}
+    //       gender={["---", "need repair", "used", "new"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "current_location",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"current_location"}
+    //       value={current_location}
+    //       type={"text"}
+    //       gender={["---", "swarm field", "station", "warehouse"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "sort",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"sort"}
+    //       value={sort}
+    //       type={"text"}
+    //       gender={["---", "high-low", "low-high", "recent", "old"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "note",
+    //   TextField: (
+    //     <MultiLineInput name={"note"} value={note} type={"text"} handleChange={getInput} />
+    //   ),
+    // },
   ];
-  return { hiveInputs };
+  return { regInputs };
 };
 
 export const useCatchReports = () => {

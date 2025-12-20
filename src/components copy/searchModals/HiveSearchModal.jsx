@@ -10,8 +10,8 @@ import { CustomButton } from "../Button";
 // import { useEmployee } from "../../hooks/register";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
-import { useHives } from "../../hooks/DashDetails_2";
-import { resetValues } from "../../features/hives/hiveSlice";
+//import { useHives } from "../../hooks/DashDetails_2";
+import { resetValues } from "../../features/registerations/registerationSlice";
 const style = {
   position: "absolute",
   bgcolor: "background.paper",

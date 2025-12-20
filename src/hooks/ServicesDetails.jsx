@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { handleChangeService } from "../features/services/serviceSlice";
+//import { handleChangeService } from "../features/feedbacks/serviceSlice";
 import { useDispatch } from "react-redux";
 import { GenderInput, MultiLineInput, RangeSlider, UserInput } from "../components copy";
 // import { GenderInput, MultiLineInput, RangeSlider, UserInput } from "../components copy";
@@ -10,89 +10,89 @@ import { handleChangeProvision } from "../features/supplyProvision/supplyProvSli
 import { handleChangeOrder } from "features/orders/ordersSlice";
 import { handleChangeReviews } from "features/reviews/reviewSlice";
 
-export const useServiceInputs = () => {
-  const dispatch = useDispatch();
-  const { service_name, description, numOfTimesRendered, category, sort } = useSelector(
-    (store) => store.services
-  );
-  const getInput = (e) => {
-    const { name, value } = e.target;
-    const numericFields = ["numOfTimesRendered"];
+// export const useServiceInputs = () => {
+//   const dispatch = useDispatch();
+//   const { service_name, description, numOfTimesRendered, category, sort } = useSelector(
+//     (store) => store.services
+//   );
+//   const getInput = (e) => {
+//     const { name, value } = e.target;
+//     const numericFields = ["numOfTimesRendered"];
 
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (numericFields.includes(name) && processedValue < 0) {
-      processedValue = 0;
-    }
-    dispatch(handleChangeService({ name, value: processedValue }));
-  };
-  const serviceInputs = [
-    {
-      name: "service_name",
-      TextField: (
-        <UserInput
-          name={"service_name"}
-          value={service_name}
-          type={"name"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "description",
-      TextField: (
-        <MultiLineInput
-          name={"description"}
-          value={description}
-          type={"text"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "numOfTimesRendered",
-      TextField: (
-        <UserInput
-          name={"numOfTimesRendered"}
-          value={numOfTimesRendered}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "category",
-      TextField: (
-        <GenderInput
-          name={"category"}
-          value={category}
-          type={"text"}
-          gender={[
-            "---",
-            "Consultancy",
-            "Apiary Setup",
-            "Supply Provision",
-            "Pollination",
-            "Other",
-          ]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "high-low", "low-high"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-  ];
-  return { serviceInputs };
-};
+//     let processedValue = numericFields.includes(name) ? Number(value) : value;
+//     if (numericFields.includes(name) && processedValue < 0) {
+//       processedValue = 0;
+//     }
+//     dispatch(handleChangeService({ name, value: processedValue }));
+//   };
+//   const serviceInputs = [
+//     {
+//       name: "service_name",
+//       TextField: (
+//         <UserInput
+//           name={"service_name"}
+//           value={service_name}
+//           type={"name"}
+//           handleChange={getInput}
+//         />
+//       ),
+//     },
+//     {
+//       name: "description",
+//       TextField: (
+//         <MultiLineInput
+//           name={"description"}
+//           value={description}
+//           type={"text"}
+//           handleChange={getInput}
+//         />
+//       ),
+//     },
+//     {
+//       name: "numOfTimesRendered",
+//       TextField: (
+//         <UserInput
+//           name={"numOfTimesRendered"}
+//           value={numOfTimesRendered}
+//           type={"number"}
+//           handleChange={getInput}
+//         />
+//       ),
+//     },
+//     {
+//       name: "category",
+//       TextField: (
+//         <GenderInput
+//           name={"category"}
+//           value={category}
+//           type={"text"}
+//           gender={[
+//             "---",
+//             "Consultancy",
+//             "Apiary Setup",
+//             "Supply Provision",
+//             "Pollination",
+//             "Other",
+//           ]}
+//           handleChange={getInput}
+//         />
+//       ),
+//     },
+//     {
+//       name: "sort",
+//       TextField: (
+//         <GenderInput
+//           name={"sort"}
+//           value={sort}
+//           type={"text"}
+//           gender={["---", "high-low", "low-high"]}
+//           handleChange={getInput}
+//         />
+//       ),
+//     },
+//   ];
+//   return { serviceInputs };
+// };
 export const useSetupInputs = () => {
   const dispatch = useDispatch();
   const { service_id, priceRange, component_name, description, stock, price, sort } = useSelector(
@@ -536,12 +536,7 @@ export const useReviewInputs = () => {
     {
       name: "comment",
       TextField: (
-        <MultiLineInput
-          name={"comment"}
-          value={comment}
-          type={"text"}
-          handleChange={getInput}
-        />
+        <MultiLineInput name={"comment"} value={comment} type={"text"} handleChange={getInput} />
       ),
     },
     {
