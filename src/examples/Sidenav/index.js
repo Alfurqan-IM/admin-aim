@@ -1,6 +1,4 @@
-
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { useLocation, NavLink } from "react-router-dom";
@@ -22,7 +20,7 @@ import MDButton from "components/MDButton";
 // Material Dashboard 2 React example components
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 //import apiaries from "assets/images/apiaries_16.jpeg";
-import alfurqan from 'assets/images/aimlogo.png';
+import alfurqan from "assets/images/aimlogo.png";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
@@ -35,9 +33,11 @@ import {
   setWhiteSidenav,
 } from "context";
 import { useLogOutUser } from "features/users/userThunk";
+import ConfirmDialog from "components copy/ConfirmDialog";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
+  const [openConfirm, setOpenConfirm] = useState(false);
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
@@ -72,6 +72,16 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
+  const handleLogout = () => {
+    setOpenConfirm(true);
+  };
+  const closeConfirm = () => {
+    setOpenConfirm(false);
+  };
+  const handleConfirmLogout = () => {
+    logOutUser();
+    setOpenConfirm(false);
+  };
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
@@ -84,14 +94,12 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           target="_blank"
           rel="noreferrer"
           sx={{ textDecoration: "none" }}
-         
         >
           <SidenavCollapse
             name={name}
             icon={icon}
             active={key === collapseName}
             noCollapse={noCollapse}
-            
           />
         </Link>
       ) : (
@@ -131,11 +139,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return returnValue;
   });
   const { logOutUser, isLoginOut } = useLogOutUser();
-  const handleLogout = () => {
-    const confirmation = window.confirm("Are you sure you want to logout?");
-    if (!confirmation) return;
-    logOutUser();
-  };
+  // const handleLogout = () => {
+  //   const confirmation = window.confirm("Are you sure you want to logout?");
+  //   if (!confirmation) return;
+  //   logOutUser();
+  // };
   return (
     <SidenavRoot
       {...rest}
@@ -190,6 +198,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         >
           Sign Out
         </MDButton>
+        <ConfirmDialog
+          open={openConfirm}
+          onClose={closeConfirm}
+          onConfirm={handleConfirmLogout}
+          title="Sign out from session"
+          message="You are about to sign out from this session. Are you sure?"
+          confirmText="Sign Out"
+        />
       </MDBox>
     </SidenavRoot>
   );
