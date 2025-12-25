@@ -6,8 +6,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 export const useAllBanners = () => {
-  const { pages, sort } = useSelector((store) => store.banners);
+  const { pages} = useSelector((store) => store.banners);
   const url = `banners/?pages=${pages}`;
+ // console.log(url);
   const {
     status: isGettingAllbanners,
     data: banners,
@@ -113,7 +114,7 @@ export const useDeletebanner = () => {
   const queryClient = useQueryClient();
   const { mutate: deletebanner, status: isDeletingbanner } = useMutation({
     mutationFn: async (id) => {
-      console.log(id, "here");
+      //console.log(id, "here");
       const { data } = await customFetch.delete(`banners/${id}`);
       return data;
     },
@@ -150,4 +151,3 @@ export const useUploadbannerImages = (id) => {
   });
   return { uploadbannerImgs, isUploadingbannerImages };
 };
-

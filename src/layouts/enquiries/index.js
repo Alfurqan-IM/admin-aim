@@ -22,6 +22,8 @@ import { changePage } from "features/enquiries/enquirySlice";
 import { resetValues } from "features/enquiries/enquirySlice";
 import { useEnqInp } from "hooks/DashDetails_2";
 import { useUpdateEnq } from "features/enquiries/enquiryThunk";
+import PaginationControlled from "components copy/Pagination";
+import ConfirmDialog from "components copy/ConfirmDialog";
 
 function Enquiries() {
   const {
@@ -32,6 +34,9 @@ function Enquiries() {
     refetch,
     totalEnq,
     isGettingAllEnq,
+    openConfirm,
+    closeConfirm,
+    handleConfirmDelete,
   } = enquiryTableData() || {};
 
   const { pages } = useSelector((store) => store.enquiries) || {};
@@ -61,8 +66,8 @@ function Enquiries() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -93,9 +98,16 @@ function Enquiries() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirm}
+                  onConfirm={handleConfirmDelete}
+                  title="Confirm Deletion"
+                  message="You are about to delete this enquiry permanently. This action cannot be undone."
+                />
               </MDBox>
             </Card>
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>

@@ -9,7 +9,7 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import { Loader1 } from "components copy/Loader";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/eidbackground.jpg";
 import { Link } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -54,10 +54,10 @@ function Basic() {
     <BasicLayout image={bgImage}>
       <Card>
         <MDBox
-          variant="gradient"
-          bgColor="info"
+          variant="contained"
+          bgColor="forest"
           borderRadius="lg"
-          coloredShadow="info"
+          coloredShadow="forest"
           mx={2}
           mt={-3}
           p={2}
@@ -73,8 +73,7 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-          </Grid>
+          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}></Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form" onSubmit={handleSubmit}>
@@ -121,8 +120,8 @@ function Basic() {
               <MDButton
                 type="submit"
                 disabled={!password}
-                variant="gradient"
-                color="info"
+                variant="contained"
+                color="forest"
                 fullWidth
               >
                 {isLoginIn === "pending" ? <Loader1 /> : "Sign in"}

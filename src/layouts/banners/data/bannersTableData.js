@@ -7,13 +7,20 @@ import MDAvatar from "components/MDAvatar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import { setUpdateEmployee } from "features/employees/employeesSlice";
-import React from "react";
+import React, { useState } from "react";
 import { useAllBanners } from "features/banners/bannerThunk";
 import { setUpdateBanner } from "features/banners/bannerSlice";
 import { useDeletebanner } from "features/banners/bannerThunk";
 import { convertToDateOnly } from "utils";
-
+//import ConfirmDialog from "components/ConfirmDialog";
+import { IconButton } from "@mui/material";
+//import ConfirmDialog from "components copy/ConfirmDialog";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 export default function bannersTableData() {
+  const dispatch = useDispatch();
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedBannerId, setSelectedBannerId] = useState(null);
   const { isGettingAllbanners, banners, refetch } = useAllBanners();
   const { deletebanner } = useDeletebanner();
   const {
@@ -50,6 +57,19 @@ export default function bannersTableData() {
       </MDTypography>
     </MDBox>
   );
+  const handleDelete = (bannerId) => {
+    //console.log("delete banner")
+    setSelectedBannerId(bannerId);
+    setOpenConfirm(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!selectedBannerId) return;
+    deletebanner(selectedBannerId);
+    setOpenConfirm(false);
+    setSelectedBannerId(null);
+  };
+
   const rows = Banners.map((banner, i) => {
     const { banner_id, title, description, year, start_date, end_date, image, time } = banner;
     const payload = {
@@ -62,14 +82,19 @@ export default function bannersTableData() {
       image,
       time,
     };
-    const dispatch = useDispatch();
     const handleEdit = () => {
       dispatch(setUpdateBanner(payload));
     };
     const MAX_LENGTH = 40;
     const formatDescription = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
+    // //delete
+    // const handleDelete = () => setOpenConfirm(true);
 
+    // const handleConfirmDelete = () => {
+    //   deletebanner(banner_id);
+    //   setOpenConfirm(false);
+    // };
     return {
       title: <Author image={image} time={time} year={year} banner_id={banner_id} />,
       details: (
@@ -87,36 +112,36 @@ export default function bannersTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
-            onClick={() => {
-              handleEdit();
-            }}
-            to={`/admin/createupdatebanner/${banner_id}`}
-          >
-            Edit
+          <Link to={`/admin/createupdatebanner/${banner_id}`}>
+            <IconButton
+              color="primary"
+              size="small"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Link>
         </MDTypography>
       ),
       remove: (
-        <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
-            onClick={() => {
-              deletebanner(banner_id);
+        <>
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(banner_id);
             }}
-            to={`#`}
           >
-            remove
-          </Link>
-        </MDTypography>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </>
       ),
     };
   });
-  const { title, description, time, year, start_date, end_date, isEdit, pages, sort } = useSelector(
-    (store) => store.banners
-  );
-  React.useEffect(() => {
-    refetch();
-  }, [title, description, time, year, start_date, end_date, isEdit, pages, sort]);
+
   return {
     columns: [
       { Header: "title", accessor: "title", width: "45%", align: "left" },
@@ -131,6 +156,9 @@ export default function bannersTableData() {
     totalBanners,
     currentCount,
     isGettingAllbanners,
-    pages,
+    refetch,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
   };
 }

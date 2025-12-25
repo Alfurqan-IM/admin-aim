@@ -7,7 +7,7 @@ import MDBadge from "components/MDBadge";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Tooltip from "@mui/material/Tooltip";
-import React from "react";
+import React, { useState } from "react";
 // import { useStations } from "features/stations/stationsThunk";
 // import { setUpdateStation } from "features/stations/stationSlice";
 import LogoAsana from "assets/images/small-logos/logo-asana.svg";
@@ -16,7 +16,12 @@ import { setUpdateCampaign } from "features/campaigns/campaignSlice";
 import { convertToDateOnly } from "utils";
 import { useDeleteCampaign } from "features/campaigns/campaignThunk";
 import { useGetAllDonorCampaigns } from "features/campaigns/campaignThunk";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 export default function campaignTableData() {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedCampaignId, setSelectedCampaignId] = useState(null);
   const { deleteCampaign } = useDeleteCampaign();
   const dispatch = useDispatch();
   const {
@@ -48,6 +53,17 @@ export default function campaignTableData() {
       </MDTypography>
     </MDBox>
   );
+  const handleDelete = (campaignId) => {
+    setSelectedCampaignId(campaignId);
+    setOpenConfirm(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!selectedCampaignId) return;
+    deleteCampaign(selectedCampaignId);
+    setOpenConfirm(false);
+    setSelectedCampaignId(null);
+  };
   const rows = Campaign.map((campaign, i) => {
     const {
       campaign_id,
@@ -102,27 +118,49 @@ export default function campaignTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleEdit();
             }}
             to={`/createupdatecampaign/${campaign_id}`}
           >
             Edit
+          </Link> */}
+          <Link to={`/createupdatecampaign/${campaign_id}`}>
+            <IconButton
+              color="warning"
+              size="small"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Link>
         </MDTypography>
       ),
       remove: (
-        <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+        <>
+          {/* <Link
             onClick={() => {
               deleteCampaign(campaign_id);
             }}
             to={`#`}
           >
             remove
-          </Link>
-        </MDTypography>
+          </Link> */}
+
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(campaign_id);
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </>
       ),
     };
   });
@@ -142,6 +180,9 @@ export default function campaignTableData() {
     totalCampaign,
     numOfPages,
     refetch,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
   };
 }
 

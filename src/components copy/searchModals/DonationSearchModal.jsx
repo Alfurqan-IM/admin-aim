@@ -7,8 +7,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { CustomButton } from "../Button";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
-import { useProvisionInputs } from "../../hooks/ServicesDetails";
-import { resetValues } from "../../features/supplyProvision/supplyProvSlice";
+//import { useProvisionInputs } from "../../hooks/ServicesDetails";
+import { resetValues } from "../../features/donations/donationSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../layouts/styles/modal.module.scss";
 
@@ -19,10 +19,13 @@ const style = {
   p: 4,
 };
 
-export default function ProvisionSearchModal({ isGettingAllprovisions }) {
+export default function DonationSearchModal({ isGettingAllDonations, refetch }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    refetch();
+    setOpen(false);
+  };
   //   const { theme } = useThemeContext();
   //   const isDarkMode = theme === "dark-theme";
   return (
@@ -43,21 +46,18 @@ export default function ProvisionSearchModal({ isGettingAllprovisions }) {
       >
         <Box sx={{ ...style, background: "white" }} className={styles.box}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Search Services <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
+            Search Donations <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
           </Typography>
-          <p>which service are you looking for?</p>
-          <SearchProvision
-            handleClose={handleClose}
-            isGettingAllprovisions={isGettingAllprovisions}
-          />
+          <p>which donation are you looking for?</p>
+          <SearchDonation handleClose={handleClose} isGettingAllDonations={isGettingAllDonations} />
         </Box>
       </Modal>
     </div>
   );
 }
 
-const SearchProvision = ({ handleClose, isGettingAllprovisions }) => {
-  const { provisionInputs } = useProvisionInputs();
+const SearchDonation = ({ handleClose, isGettingAllDonations }) => {
+  const { donationInputs } = useDonationInputs();
   const dispatch = useDispatch();
   const resetQuery = () => {
     dispatch(resetValues());
@@ -65,13 +65,13 @@ const SearchProvision = ({ handleClose, isGettingAllprovisions }) => {
 
   return (
     <form className={styles.paper}>
-      {provisionInputs
-        .filter(
-          (detail) =>
-            detail.name !== "description" &&
-            detail.name !== "service_id" &&
-            detail.name !== "price_NGN"
-        )
+      {donationInputs
+        // .filter(
+        //   (detail) =>
+        //     detail.name !== "description" &&
+        //     detail.name !== "service_id" &&
+        //     detail.name !== "price_NGN"
+        // )
         .map((input) => {
           const { name, TextField } = input;
           return <div key={name}>{TextField}</div>;
@@ -101,18 +101,20 @@ const SearchProvision = ({ handleClose, isGettingAllprovisions }) => {
           fontWeight: "bold",
         }}
       >
-        {isGettingAllprovisions === "pending" ? <Loader1 color="success" /> : "Find Out"}
+        {isGettingAllDonations === "pending" ? <Loader1 color="success" /> : "Find Out"}
       </CustomButton>
     </form>
   );
 };
 import PropTypes from "prop-types";
+//import { resetValues } from "features/donations/donationSlice";
+import { useDonationInputs } from "hooks/ServicesDetails";
 
-ProvisionSearchModal.propTypes = {
-  isGettingAllprovisions: PropTypes.string.isRequired,
+DonationSearchModal.propTypes = {
+  isGettingAllDonations: PropTypes.string.isRequired,
 };
 
-SearchProvision.propTypes = {
+SearchDonation.propTypes = {
   handleClose: PropTypes.func.isRequired,
-  isGettingAllprovisions: PropTypes.string.isRequired,
+  isGettingAllDonations: PropTypes.string.isRequired,
 };

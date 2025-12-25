@@ -297,7 +297,7 @@ export const useBlacklistUser = () => {
       return data;
     },
     onSuccess: ({ msg }) => {
-      queryClient.invalidateQueries({ queryKey: ["allusers", "singleuser"] });
+      queryClient.invalidateQueries({ queryKey: ["allusers"] });
       toast.success(msg);
     },
     onError: (error) => {

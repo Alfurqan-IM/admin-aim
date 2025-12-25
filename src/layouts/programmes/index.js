@@ -37,6 +37,8 @@ import { InputFileUpload } from "components copy";
 import { useGetSinglProgramme } from "features/programmes/programmeThunk";
 import { useUploadProgrammeImages } from "features/programmes/programmeThunk";
 import { convertToDateOnly } from "utils";
+import PaginationControlled from "components copy/Pagination";
+import ConfirmDialog from "components copy/ConfirmDialog";
 // import productsTableData from "./data/programmesTableData";
 // import { changePage } from "features/products/productsSlice";
 // import { resetValues } from "features/products/productsSlice";
@@ -61,6 +63,9 @@ function Programmes() {
     currentCount,
     totalProgrammes,
     isGettingAllProgrammes,
+    openConfirm,
+    closeConfirm,
+    handleConfirmDelete,
   } = programmesTableData();
   const { pages } = useSelector((store) => store.programmes);
   const handleChange = (event, value) => {
@@ -82,8 +87,8 @@ function Programmes() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -114,9 +119,16 @@ function Programmes() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirm}
+                  onConfirm={handleConfirmDelete}
+                  title="Confirm Deletion"
+                  message="You are about to delete this programme permanently. This action cannot be undone."
+                />
               </MDBox>
             </Card>
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>
@@ -322,7 +334,7 @@ export function SingleProgramme() {
   const { image0, image1, image2 } = programmesimages?.[0] || {};
   const { outcome1, outcome2, outcome3 } = programmeoutcomes?.[0] || {};
   const imageArray = [image0, image1, image2];
-  
+
   React.useEffect(() => {
     refetch();
   }, [id]);

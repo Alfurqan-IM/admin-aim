@@ -8,36 +8,12 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 // Data
-// import employeesTableData from "layouts/tables/data/employeesTableData";
-//import projectsTableData from "layouts/tables/data/projectsTableData";
-// import { useSingleEmployee } from "features/employees/employeesThunk";
 import { useParams } from "react-router-dom";
-//import Divider from "@mui/material/Divider";
-// @mui icons
-// import FacebookIcon from "@mui/icons-material/Facebook";
-// import TwitterIcon from "@mui/icons-material/Twitter";
-// import { Email } from "@mui/icons-material";
-// import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
-// import ProfilesList from "examples/Lists/ProfilesList";
-// import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
-// import Header from "./profile/components/Header";
-// import PlatformSettings from "./profile/components/PlatformSettings";
 import { useDispatch, useSelector } from "react-redux";
-// import { useUploadEmployeeImages } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-// import PaginationControlled from "components copy/component's_Tables/Pagination";
-//import stationTableData from "./data/campaignTableData";
-//import { changePage } from "features/stations/stationSlice";
-//import { resetValues } from "features/stations/stationSlice";
-//import StationSearchModal from "components copy/searchModals/StationSearchModal";
-// import { useSingleStation } from "features/stations/stationsThunk";
-// import LogoAsana from "assets/images/small-logos/logo-asana.svg";
-// import moment from "moment";
 import { useDashDetails_1 } from "hooks/DashDetails";
-// import { useCreateStation } from "features/stations/stationsThunk";
-// import { useUpdateStation } from "features/stations/stationsThunk";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
@@ -48,9 +24,22 @@ import { useCreateCampaign } from "features/campaigns/campaignThunk";
 import { useUpdateCampaign } from "features/campaigns/campaignThunk";
 import { InputFileUpload } from "components copy";
 import { useUploadCampaignImages } from "features/campaigns/campaignThunk";
+import PaginationControlled from "components copy/Pagination";
+import { changePage } from "features/campaigns/campaignSlice";
+import ConfirmDialog from "components copy/ConfirmDialog";
 //import { Icon } from "@mui/material";
 function Campaigns() {
-  const { columns, rows, numOfPages, currentCount, totalCampaign, refetch } = campaignTableData();
+  const {
+    columns,
+    rows,
+    numOfPages,
+    currentCount,
+    totalCampaign,
+    refetch,
+    openConfirm,
+    closeConfirm,
+    handleConfirmDelete,
+  } = campaignTableData();
   const {
     columns: dColumns,
     rows: dRows,
@@ -62,11 +51,11 @@ function Campaigns() {
     event.preventDefault();
     dispatch(changePage(value));
   };
-  const { pages, sort, status, title, description, donation_url, start_date, end_date } =
-    useSelector((store) => store.campaigns);
+  const { pages } = useSelector((store) => store.campaigns);
   React.useEffect(() => {
     refetch();
-  }, [pages, sort]);
+    donorRefetch();
+  }, [pages]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -79,8 +68,8 @@ function Campaigns() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -107,10 +96,17 @@ function Campaigns() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirm}
+                  onConfirm={handleConfirmDelete}
+                  title="Confirm Deletion"
+                  message="You are about to delete this campaign permanently. This action cannot be undone."
+                />
               </MDBox>
             </Card>
 
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
 
           <Grid item xs={12}>
@@ -120,8 +116,8 @@ function Campaigns() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -150,8 +146,7 @@ function Campaigns() {
                 />
               </MDBox>
             </Card>
-
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>

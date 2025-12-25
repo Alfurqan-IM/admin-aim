@@ -13,8 +13,21 @@ import { useGetAllProgrammes } from "features/programmes/programmeThunk";
 import { setUpdateProgramme } from "features/programmes/programmeSlice";
 // import { setUpdateProduct } from "features/products/productsSlice";
 // import { useDeleteProduct } from "features/products/productthunk";
-
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+} from "@mui/material";
 export default function programmesTableData() {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedProgrammeId, setSelectedProgrammeId] = useState(null);
   const dispatch = useDispatch();
   const { deleteProgramme } = useDeleteProgramme();
   const {
@@ -55,6 +68,18 @@ export default function programmesTableData() {
   //   title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   //   description: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   // };
+
+  const handleDelete = (programmeId) => {
+    setSelectedProgrammeId(programmeId);
+    setOpenConfirm(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!selectedProgrammeId) return;
+    deleteProgramme(selectedProgrammeId);
+    setOpenConfirm(false);
+    setSelectedProgrammeId(null);
+  };
   const rows = PROG.map((item, i) => {
     const {
       programme_id,
@@ -88,13 +113,14 @@ export default function programmesTableData() {
     const handleEdit = () => {
       dispatch(setUpdateProgramme(payload));
     };
-    const handleDelete = () => {
-      const confirmation = window.confirm(
-        "You are about to Delete a programme records permanently, ARE YOU SURE?"
-      );
-      if (!confirmation) return;
-      deleteProgramme(programme_id);
-    };
+    // const handleDelete = () => {
+    //   const confirmation = window.confirm(
+    //     "You are about to Delete a programme records permanently, ARE YOU SURE?"
+    //   );
+    //   if (!confirmation) return;
+    //   deleteProgramme(programme_id);
+    // };
+
     const MAX_LENGTH = 40;
     const formatDescription = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
@@ -125,13 +151,24 @@ export default function programmesTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleEdit();
             }}
             to={`/createupdateprogramme/${programme_id}`}
           >
             Edit
+          </Link> */}
+          <Link to={`/createupdateprogramme/${programme_id}`}>
+            <IconButton
+              color="warning"
+              size="small"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Link>
         </MDTypography>
       ),
@@ -141,11 +178,20 @@ export default function programmesTableData() {
           variant="caption"
           color="text"
           fontWeight="medium"
-          onClick={() => {
-            handleDelete();
-          }}
+          // onClick={() => {
+          //   handleDelete();
+          // }}
         >
-          <Link>remove</Link>
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(programme_id);
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </MDTypography>
       ),
     };
@@ -165,5 +211,8 @@ export default function programmesTableData() {
     currentCount,
     totalProgrammes,
     isGettingAllProgrammes,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
   };
 }

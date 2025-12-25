@@ -11,7 +11,7 @@ export const useGetAllFeedbacks = () => {
   //   numOfTimesRendered !== undefined ? `numOfTimesRendered<=${numOfTimesRendered}` : "",
   // ];
   // const numberFilterString = numberFilterParams.filter(Boolean).join(" ");
-  const url = `feedbacks/?sort=${sort}&pages=${pages}`;
+  const url = `feedbacks/?pages=${pages}`;
   // console.log(url);
   const {
     status: isGettingAllFeedbacks,

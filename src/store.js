@@ -6,14 +6,14 @@ import equipmentReducer from "./features/equuipments/equipmentSlice";
 import suppliesReducer from "./features/supplies/suppliesSlice";
 import eventReducer from "./features/events/eventSlice";
 import EnquiryReducer from "./features/enquiries/enquirySlice";
-import HunterReducer from "./features/hunters/huntersSlice";
+import QuranReducer from "./features/quran/quranSlice";
 import RegisterationReducer from "./features/registerations/registerationSlice";
-import ReportReducer from "./features/catch_reports/reportSlice";
+import ReportReducer from "./features/donors/donorSlice";
 import feedbackReducer from "./features/feedbacks/feedbackSlice";
 import SetupReducer from "./features/apiarySetup/setupCompSlice";
 import ConsultationReducer from "./features/consultation/consultationSlice";
 import PolServReducer from "./features/pollination/polservicesSlice";
-import ProvisionReducer from "./features/supplyProvision/supplyProvSlice";
+import DonationReducer from "./features/donations/donationSlice";
 import ProgrammeReducer from "./features/programmes/programmeSlice";
 import OrderReducer from "./features/orders/ordersSlice";
 import ReviewReducer from "./features/reviews/reviewSlice";
@@ -26,14 +26,14 @@ const store = configureStore({
     supplies: suppliesReducer,
     events: eventReducer,
     enquiries: EnquiryReducer,
-    hunters: HunterReducer,
+    quran: QuranReducer,
     registerations: RegisterationReducer,
     reports: ReportReducer,
     feedbacks: feedbackReducer,
     setups: SetupReducer,
     consultations: ConsultationReducer,
     polservices: PolServReducer,
-    provisions: ProvisionReducer,
+    donations: DonationReducer,
     programmes: ProgrammeReducer,
     orders: OrderReducer,
     reviews: ReviewReducer,

@@ -30,12 +30,24 @@ import feedbacksTableData from "./data/feedbacksTableData";
 import { useDispatch } from "react-redux";
 import { changePage } from "features/feedbacks/feedbackSlice";
 import { useSelector } from "react-redux";
+import PaginationControlled from "components copy/Pagination";
+import ConfirmDialog from "components copy/ConfirmDialog";
 function Feedbacks() {
-  const { columns, rows, numOfPages, refetch, count, isGettingAllFeedbacks, totalFeedback } =
-    feedbacksTableData();
+  const {
+    columns,
+    rows,
+    numOfPages,
+    refetch,
+    count,
+    isGettingAllFeedbacks,
+    totalFeedback,
+    openConfirm,
+    closeConfirm,
+    handleConfirmDelete,
+  } = feedbacksTableData();
   const dispatch = useDispatch();
 
-  const { sort, pages } = useSelector((store) => store.feedbacks);
+  const { pages } = useSelector((store) => store.feedbacks);
 
   const handleChange = (event, value) => {
     event.preventDefault();
@@ -43,7 +55,7 @@ function Feedbacks() {
   };
   React.useEffect(() => {
     refetch();
-  }, [sort, pages]);
+  }, [pages]);
 
   return (
     <DashboardLayout>
@@ -57,8 +69,8 @@ function Feedbacks() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -89,9 +101,16 @@ function Feedbacks() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirm}
+                  onConfirm={handleConfirmDelete}
+                  title="Confirm Deletion"
+                  message="You are about to delete this feedback permanently. This action cannot be undone."
+                />
               </MDBox>
             </Card>
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>

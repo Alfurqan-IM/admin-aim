@@ -5,7 +5,7 @@ import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
+import React, { useState } from "react";
 import logoInvesion from "assets/images/small-logos/logo-invision.svg";
 import { useDeleteEnq } from "features/enquiries/enquiryThunk";
 import { useGetAllEnquiries } from "features/enquiries/enquiryThunk";
@@ -13,8 +13,12 @@ import { setUpdateEnq } from "features/enquiries/enquirySlice";
 // import { useHoneyHarvest } from "features/harvest/honey_harvestThunk";
 // import { useDeleteHarvest } from "features/harvest/honey_harvestThunk";
 // import { setUpdateHarvest } from "features/harvest/honey_harvestSlice";
-
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 export default function enquiryTableData() {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedEnquiryId, setSelectedEnquiryId] = useState(null);
   const dispatch = useDispatch();
   const { deleteEnq } = useDeleteEnq();
   const {
@@ -33,7 +37,17 @@ export default function enquiryTableData() {
       </MDBox>
     </MDBox>
   );
+const handleDelete = (enquiryId) => {
+  setSelectedEnquiryId(enquiryId);
+  setOpenConfirm(true);
+};
 
+const handleConfirmDelete = () => {
+  if (!selectedEnquiryId) return;
+  deleteEnq(selectedEnquiryId);
+  setOpenConfirm(false);
+  setSelectedEnquiryId(null);
+};
   const rows = ENQ.map((enq, i) => {
     const { name, email, message, status, enq_id } = enq;
     const payload = {
@@ -42,13 +56,13 @@ export default function enquiryTableData() {
     const handleEdit = () => {
       dispatch(setUpdateEnq(payload));
     };
-    const handleDelete = () => {
-      const confirmation = window.confirm(
-        "You are about to Delete an enquiry record permanently, ARE YOU SURE?"
-      );
-      if (!confirmation) return;
-      deleteEnq(enq_id);
-    };
+    // const handleDelete = () => {
+    //   const confirmation = window.confirm(
+    //     "You are about to Delete an enquiry record permanently, ARE YOU SURE?"
+    //   );
+    //   if (!confirmation) return;
+    //   deleteEnq(enq_id);
+    // };
     return {
       enq: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
@@ -65,7 +79,7 @@ export default function enquiryTableData() {
         <MDBox ml={-1}>
           <MDBadge
             badgeContent={status}
-            color={status === "resolved" ? "success"  : "warning"}
+            color={status === "resolved" ? "success" : "warning"}
             variant="gradient"
             size="sm"
           />
@@ -73,25 +87,46 @@ export default function enquiryTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleEdit();
             }}
             to={`/createupdateenquiry/${enq_id}`}
           >
             Edit
+          </Link> */}
+          <Link to={`/createupdateenquiry/${enq_id}`}>
+            <IconButton
+              color="warning"
+              size="small"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Link>
         </MDTypography>
       ),
       remove: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleDelete();
             }}
           >
             remove
-          </Link>
+          </Link> */}
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(enq_id);
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </MDTypography>
       ),
     };
@@ -110,6 +145,9 @@ export default function enquiryTableData() {
     currentCount,
     refetch,
     totalEnq,
-    isGettingAllEnq
+    isGettingAllEnq,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
   };
 }

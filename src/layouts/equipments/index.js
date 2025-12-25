@@ -89,8 +89,8 @@ function Equipments() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >

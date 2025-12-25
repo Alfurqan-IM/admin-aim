@@ -4,8 +4,11 @@ import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
+import React, { useState } from "react";
 import { usegetAllUser } from "features/users/userThunk";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { IconButton, Tooltip } from "@mui/material";
 
 const Author = ({ image, name, email, user_id }) => (
   <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -34,7 +37,9 @@ const Job = ({ title, description, add }) => (
   </MDBox>
 );
 export default function usersTableData() {
-  // const { isGettingSingleUser, singleuser, refetch: refetchSingleUser } = useSingleUser();
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const { blacklistUser, blacklisting } = useBlacklistUser();
   const { users, refetch, isGettingAllUser } = usegetAllUser();
   const {
@@ -45,7 +50,28 @@ export default function usersTableData() {
     genderCount = [],
     verificationCount = [],
   } = users || {};
+  const openConfirmDialog = (user) => {
+    setSelectedUser(user);
+    setOpenConfirm(true);
+  };
 
+  const closeConfirmDialog = () => {
+    setOpenConfirm(false);
+    setSelectedUser(null);
+  };
+  const handleConfirmAction = () => {
+    if (!selectedUser) return;
+
+    const { user_id, blacklisted } = selectedUser;
+
+    blacklistUser({
+      user_id,
+      blacklist: !blacklisted,
+      isValid: blacklisted, // activate if blacklisted
+    });
+
+    closeConfirmDialog();
+  };
   const rows = Users.map((user, i) => {
     const {
       user_id,
@@ -70,23 +96,24 @@ export default function usersTableData() {
     const formatAddress = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
 
-    const handleActivation = () => {
-      const confirmation = window.confirm(
-        `You are about to ${blacklisted ? "activate" : "blacklist"} a user, ARE YOU SURE?`
-      );
+    // const handleActivation = () => {
+    //   const confirmation = window.confirm(
+    //     `You are about to ${blacklisted ? "activate" : "blacklist"} a user, ARE YOU SURE?`
+    //   );
 
-      if (!confirmation) return;
+    //   if (!confirmation) return;
 
-      if (blacklisted) {
-        // If the user is blacklisted, activate them
-        blacklistUser({ user_id, blacklist: false, isValid: true });
-        console.log("User activated");
-      } else {
-        // If the user is not blacklisted, deactivate them
-        blacklistUser({ user_id, blacklist: true, isValid: false });
-        console.log("User deactivated");
-      }
-    };
+    //   if (blacklisted) {
+    //     // If the user is blacklisted, activate them
+    //     blacklistUser({ user_id, blacklist: false, isValid: true });
+    //     console.log("User activated");
+    //   } else {
+    //     // If the user is not blacklisted, deactivate them
+    //     blacklistUser({ user_id, blacklist: true, isValid: false });
+    //     console.log("User deactivated");
+    //   }
+    // };
+
     return {
       users: (
         <Author
@@ -148,16 +175,17 @@ export default function usersTableData() {
         </MDBox>
       ),
       action: (
-        <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
-            onClick={() => {
-              handleActivation();
-            }}
+        <Tooltip title={blacklisted ? "Activate user" : "Blacklist user"}>
+          <IconButton
+            size="small"
+            color={blacklisted ? "success" : "error"}
+            onClick={() => openConfirmDialog(user)}
           >
-            {blacklisted ? "Activate user" : "Blacklist user"}
-          </Link>
-        </MDTypography>
+            {blacklisted ? <CheckCircleIcon fontSize="small" /> : <BlockIcon fontSize="small" />}
+          </IconButton>
+        </Tooltip>
       ),
+
       // stats: (
       //   <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
       //     <Link to={`/users/${user_id}`}>check</Link>
@@ -187,6 +215,10 @@ export default function usersTableData() {
     refetch,
     isGettingAllUser,
     blacklisting,
+    openConfirm,
+    closeConfirmDialog,
+    selectedUser,
+    handleConfirmAction,
   };
 }
 

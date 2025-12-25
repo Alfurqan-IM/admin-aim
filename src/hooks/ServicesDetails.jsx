@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
 //import { handleChangeService } from "../features/feedbacks/serviceSlice";
 import { useDispatch } from "react-redux";
-import { GenderInput, MultiLineInput, RangeSlider, UserInput } from "../components copy";
+import { DateRegister, GenderInput, MultiLineInput, RangeSlider, UserInput } from "../components copy";
 // import { GenderInput, MultiLineInput, RangeSlider, UserInput } from "../components copy";
 import { handleChangeSetup } from "../features/apiarySetup/setupCompSlice";
 import { handleChangeConsultation } from "../features/consultation/consultationSlice";
 import { handleChangePolServ } from "../features/pollination/polservicesSlice";
-import { handleChangeProvision } from "../features/supplyProvision/supplyProvSlice";
+//import { handleChangeProvision } from "../features/donations/supplyProvSlice";
 import { handleChangeOrder } from "features/orders/ordersSlice";
 import { handleChangeReviews } from "features/reviews/reviewSlice";
+import { handleChangeDonation } from "features/donations/donationSlice";
+import { handleDateDonation } from "features/donations/donationSlice";
 
 // export const useServiceInputs = () => {
 //   const dispatch = useDispatch();
@@ -309,82 +311,131 @@ export const usePolServiceInputs = () => {
   ];
   return { polServiceInputs };
 };
-export const useProvisionInputs = () => {
+export const useDonationInputs = () => {
   const dispatch = useDispatch();
-  const { service_id, priceRangeSP, price_NGN, sort, item_name, description, quantity } =
-    useSelector((store) => store.provisions);
+  const {
+    page,
+    limit,
+    per_page,
+    date_from,
+    date_to,
+    email,
+    campaign_name,
+    donor_id,
+    id,
+    first_name,
+    last_name,
+    campaign_id,
+    amount_min,
+    amount_max,
+  } = useSelector((store) => store.donations);
   const getInput = (e) => {
     const { name, value } = e.target;
-    const numericFields = ["quantity", "price_NGN", "service_id"];
+    const numericFields = ["campaign_id", "donor_id"];
 
     let processedValue = numericFields.includes(name) ? Number(value) : value;
     if (numericFields.includes(name) && processedValue < 0) {
       processedValue = 0;
     }
-    dispatch(handleChangeProvision({ name, value: processedValue }));
+    dispatch(handleChangeDonation({ name, value: processedValue }));
   };
-  const provisionInputs = [
+  const getDate = (e) => {
+    const { name, value } = e.target;
+    const dateOnly = new Date(value).toISOString().split("T")[0];
+     //const isoDate = new Date(value).toISOString();
+    dispatch(handleDateDonation({ name, date: dateOnly}));
+  };
+  const donationInputs = [
     {
-      name: "service_id",
+      name: "campaign_id",
       TextField: (
-        <UserInput name={"service_id"} value={service_id} type={"number"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "item_name",
-      TextField: (
-        <UserInput name={"item_name"} value={item_name} type={"name"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "description",
-      TextField: (
-        <MultiLineInput
-          name={"description"}
-          value={description}
-          type={"text"}
+        <UserInput
+          name={"campaign_id"}
+          value={campaign_id}
+          type={"number"}
           handleChange={getInput}
         />
       ),
     },
     {
-      name: "quantity",
+      name: "donor_id",
       TextField: (
-        <UserInput name={"quantity"} value={quantity} type={"number"} handleChange={getInput} />
+        <UserInput name={"donor_id"} value={donor_id} type={"number"} handleChange={getInput} />
       ),
     },
     {
-      name: "price_NGN",
+      name: "campaign_name",
       TextField: (
-        <UserInput name={"price_NGN"} value={price_NGN} type={"number"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "priceRangeSP",
-      TextField: (
-        <RangeSlider
-          name={"priceRangeSP"}
-          value={priceRangeSP}
-          min={1000}
-          max={100000}
-          step={1000}
-        />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "high-low", "low-high", "high-quantity", "low-quantity"]}
+        <UserInput
+          name={"campaign_name"}
+          value={campaign_name}
+          type={"name"}
           handleChange={getInput}
         />
       ),
     },
+    {
+      name: "first_name",
+      TextField: (
+        <UserInput name={"first_name"} value={first_name} type={"text"} handleChange={getInput} />
+      ),
+    },
+    {
+      name: "last_name",
+      TextField: (
+        <UserInput name={"last_name"} value={last_name} type={"text"} handleChange={getInput} />
+      ),
+    },
+    {
+      name: "email",
+      TextField: <UserInput name={"email"} value={email} type={"text"} handleChange={getInput} />,
+    },
+    {
+      name: "date_from",
+      TextField: <DateRegister name={"date_from"} value={date_from} onChange={getDate} />,
+    },
+    {
+      name: "date_to",
+      TextField: <DateRegister name={"date_to"} value={date_to} onChange={getDate} />,
+    },
+    {
+      name: "amount_min",
+      TextField: (
+        <UserInput name={"amount_min"} value={amount_min} type={"number"} handleChange={getInput} />
+      ),
+    },
+    {
+      name: "amount_max",
+      TextField: (
+        <UserInput name={"amount_max"} value={amount_max} type={"number"} handleChange={getInput} />
+      ),
+    },
+    // {
+    //   name: "priceRangeSP",
+    //   TextField: (
+    //     <RangeSlider
+    //       name={"priceRangeSP"}
+    //       value={priceRangeSP}
+    //       min={1000}
+    //       max={100000}
+    //       step={1000}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "sort",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"sort"}
+    //       value={sort}
+    //       type={"text"}
+    //       gender={["---", "high-low", "low-high", "high-quantity", "low-quantity"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
   ];
-  return { provisionInputs };
+  return { donationInputs };
 };
 export const useOrderInputs = () => {
   const dispatch = useDispatch();

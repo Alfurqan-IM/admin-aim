@@ -8,7 +8,7 @@ import { CustomButton } from "../Button";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
 import { useCatchReports } from "../../hooks/DashDetails_2";
-import { resetValues } from "../../features/catch_reports/reportSlice";
+import { resetValues } from "../../features/donors/donorSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../layouts/styles/modal.module.scss";
 const style = {
@@ -102,11 +102,7 @@ const SearchReport = ({ handleClose, isGettingAllReports }) => {
           fontWeight: "bold",
         }}
       >
-        {isGettingAllReports === "pending" ? (
-          <Loader1 color="success" />
-        ) : (
-          "Find Out"
-        )}
+        {isGettingAllReports === "pending" ? <Loader1 color="success" /> : "Find Out"}
       </CustomButton>
     </form>
   );

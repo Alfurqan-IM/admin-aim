@@ -246,15 +246,15 @@ export const useBanner = () => {
     const { name } = e.target;
     let value;
     value = e.target.value;
-    if (name === "email") {
-      const isValidEmail = validateEmail(value);
-      setValidationError(!isValidEmail);
-      // if (!isValidEmail) return;
-    }
-    if (name === "salary") {
-      value = Number(e.target.value);
-      return dispatch(handelChangeBan({ name, value }));
-    }
+    // if (name === "email") {
+    //   const isValidEmail = validateEmail(value);
+    //   setValidationError(!isValidEmail);
+    //   // if (!isValidEmail) return;
+    // }
+    // if (name === "salary") {
+    //   value = Number(e.target.value);
+    //   return dispatch(handelChangeBan({ name, value }));
+    // }
     dispatch(handelChangeBan({ name, value }));
   };
   // const getPhoneNumber = (phone) => {

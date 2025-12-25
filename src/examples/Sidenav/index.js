@@ -45,7 +45,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   let textColor = "white";
 
   if (transparentSidenav || (whiteSidenav && !darkMode)) {
-    textColor = "dark";
+    textColor = "forest";
   } else if (whiteSidenav && darkMode) {
     textColor = "inherit";
   }
@@ -84,12 +84,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           target="_blank"
           rel="noreferrer"
           sx={{ textDecoration: "none" }}
+         
         >
           <SidenavCollapse
             name={name}
             icon={icon}
             active={key === collapseName}
             noCollapse={noCollapse}
+            
           />
         </Link>
       ) : (

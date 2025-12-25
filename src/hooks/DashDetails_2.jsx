@@ -11,14 +11,15 @@ import {
 import { useSelector } from "react-redux";
 import { handleChangeEnq } from "../features/enquiries/enquirySlice";
 import { convertToDateOnly } from "../utils";
-import {
-  handleChangeHunter,
-  handleDateHunter,
-  handleEmerInput,
-  handlePhoneInput,
-} from "../features/hunters/huntersSlice";
+// import {
+//   handleChangeHunter,
+//   handleDateHunter,
+//   handleEmerInput,
+//   handlePhoneInput,
+// } from "../features/quran/huntersSlice";
 import { handleChangeReg } from "../features/registerations/registerationSlice";
-import { handleChangeReport, handleDateReport } from "../features/catch_reports/reportSlice";
+import { handleChangeReport, handleDateReport } from "../features/donors/donorSlice";
+import { handleChangeQuran } from "features/quran/quranSlice";
 export const useEventInputs = () => {
   const { title, status, event_url, description } = useSelector((store) => store.events);
   const dispatch = useDispatch();
@@ -277,151 +278,146 @@ export const useEnqInp = () => {
   return { enqInput };
 };
 
-export const useHunters = () => {
-  const {
-    assigned_supervisor,
-    fullname,
-    phone,
-    email,
-    joining_date,
-    tip,
-    employment_status,
-    emergency_contact_name,
-    emergency_contact,
-    notes,
-    sort,
-  } = useSelector((store) => store.hunters);
+export const useSurahInp = () => {
+  const { verse, surah, text, translation, transliteration } = useSelector((store) => store.quran);
   const dispatch = useDispatch();
-  const [validationError, setValidationError] = React.useState(false);
-  const validateEmail = (email) => {
-    // Regular expression for validating an email address
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // const [validationError, setValidationError] = React.useState(false);
+  // const validateEmail = (email) => {
+  //   // Regular expression for validating an email address
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
   const getInput = (e) => {
-    const { name, value } = e.target;
-    const numericFields = ["assigned_supervisor", "tip"];
-    if (name === "email") {
-      const isValidEmail = validateEmail(value);
-      setValidationError(!isValidEmail);
+    const { name } = e.target;
+    let value;
+    value = e.target.value;
+    //const numericFields = ["assigned_supervisor", "tip"];
+    // if (name === "email") {
+    //   const isValidEmail = validateEmail(value);
+    //   setValidationError(!isValidEmail);
+    // }
+    // let processedValue = numericFields.includes(name) ? Number(value) : value;
+    // /
+    //  dispatch(
+    //    handleChangeQuran({
+    //      name,
+    //      value: value === "" ? "" : Number(value),
+    //    })
+    //  );
+    if (name === "verse") {
+      value = Number(e.target.value);
+      //return dispatch(handleChangeQuran({ name, value }));
     }
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (numericFields.includes(name) && processedValue < 0) {
-      processedValue = 0;
-    }
-    dispatch(handleChangeHunter({ name, value: processedValue }));
+    dispatch(handleChangeQuran({ name, value }));
   };
 
-  const getDob = (e) => {
-    const { name, value } = e.target;
-    const formattedDate = convertToDateOnly(value.toISOString());
-    dispatch(handleDateHunter({ name, date: formattedDate }));
-  };
-  const getPhoneNumber = (phone) => {
-    dispatch(handlePhoneInput(phone));
-  };
-  const getEmergencyContact = (emer) => {
-    dispatch(handleEmerInput(emer));
-  };
-  const hunterInputs = [
+  // const getDob = (e) => {
+  //   const { name, value } = e.target;
+  //   const formattedDate = convertToDateOnly(value.toISOString());
+  //   dispatch(handleDateHunter({ name, date: formattedDate }));
+  // };
+  // const getPhoneNumber = (phone) => {
+  //   dispatch(handlePhoneInput(phone));
+  // };
+  // const getEmergencyContact = (emer) => {
+  //   dispatch(handleEmerInput(emer));
+  // };
+  const surahInputs = [
     {
-      name: "fullname",
-      TextField: (
-        <UserInput name={"fullname"} value={fullname} type={"name"} handleChange={getInput} />
-      ),
+      name: "surah",
+      TextField: <UserInput name={"surah"} value={surah} type={"name"} handleChange={getInput} />,
     },
     {
-      name: "assigned_supervisor",
-      TextField: (
-        <UserInput
-          name={"assigned_supervisor"}
-          value={assigned_supervisor}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
+      name: "verse",
+      TextField: <UserInput name={"verse"} value={verse} type={"number"} handleChange={getInput} />,
     },
+    // {
+    //   name: "phone",
+    //   TextField: (
+    //     <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
+    //   ),
+    // },
     {
-      name: "phone",
-      TextField: (
-        <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
-      ),
-    },
-    {
-      name: "email",
+      name: "text",
       TextField: (
         <UserInput
-          name={"email"}
-          value={email}
-          type={"email"}
-          handleChange={getInput}
-          validationError={validationError}
-          message={"Please provide a valid email address"}
-        />
-      ),
-    },
-    {
-      name: "joining_date",
-      TextField: <DateRegister name={"joining_date"} value={joining_date} onChange={getDob} />,
-    },
-    {
-      name: "tip",
-      TextField: <UserInput name={"tip"} value={tip} type={"number"} handleChange={getInput} />,
-    },
-    {
-      name: "employment_status",
-      TextField: (
-        <GenderInput
-          name={"employment_status"}
-          value={employment_status}
+          name={"text"}
+          value={text}
           type={"text"}
-          gender={["---", "active", "inactive", "terminated"]}
           handleChange={getInput}
+          placeholder="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+          //validationError={validationError}
+          //message={"Please provide a valid email address"}
         />
       ),
     },
+    // {
+    //   name: "joining_date",
+    //   TextField: <DateRegister name={"joining_date"} value={joining_date} onChange={getDob} />,
+    // },
+    // {
+    //   name: "tip",
+    //   TextField: <UserInput name={"tip"} value={tip} type={"number"} handleChange={getInput} />,
+    // },
+    // {
+    //   name: "employment_status",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"employment_status"}
+    //       value={employment_status}
+    //       type={"text"}
+    //       gender={["---", "active", "inactive", "terminated"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "sort",
+    //   TextField: (
+    //     <GenderInput
+    //       name={"sort"}
+    //       value={sort}
+    //       type={"text"}
+    //       gender={["---", "A-Z", "Z-A", "high-low", "low-high", "newest", "oldest"]}
+    //       handleChange={getInput}
+    //     />
+    //   ),
+    // },
     {
-      name: "sort",
+      name: "translation",
       TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
+        <MultiLineInput
+          name={"translation"}
+          value={translation}
           type={"text"}
-          gender={["---", "A-Z", "Z-A", "high-low", "low-high", "newest", "oldest"]}
           handleChange={getInput}
         />
       ),
     },
+    // {
+    //   name: "emergency_contact",
+    //   TextField: (
+    //     <PhoneInputs
+    //       name={"emergency_contact"}
+    //       value={emergency_contact}
+    //       type={"tel"}
+    //       handleChange={getEmergencyContact}
+    //     />
+    //   ),
+    // },
     {
-      name: "emergency_contact_name",
+      name: "transliteration",
       TextField: (
-        <UserInput
-          name={"emergency_contact_name"}
-          value={emergency_contact_name}
-          type={"emergency_contact_name"}
+        <MultiLineInput
+          name={"transliteration"}
+          value={transliteration}
+          type={"text"}
           handleChange={getInput}
         />
-      ),
-    },
-    {
-      name: "emergency_contact",
-      TextField: (
-        <PhoneInputs
-          name={"emergency_contact"}
-          value={emergency_contact}
-          type={"tel"}
-          handleChange={getEmergencyContact}
-        />
-      ),
-    },
-    {
-      name: "notes",
-      TextField: (
-        <MultiLineInput name={"notes"} value={notes} type={"text"} handleChange={getInput} />
       ),
     },
   ];
-  return { hunterInputs };
+  return { surahInputs };
 };
 
 export const useRegInp = () => {
@@ -506,7 +502,7 @@ export const useRegInp = () => {
             "Email_Campaign",
             "Referral",
             "Website",
-            "Event/Workshop",
+            "Event_Workshop",
             "Advertisement",
             "Friends",
             "Other",

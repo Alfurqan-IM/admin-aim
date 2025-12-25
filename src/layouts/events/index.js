@@ -33,12 +33,25 @@ import { useEventInputs } from "hooks/DashDetails_2";
 import { resetValues } from "features/events/eventSlice";
 import { useUploadEventImages } from "features/events/eventThunk";
 import { InputFileUpload } from "components copy";
+import PaginationControlled from "components copy/Pagination";
+import { changePage } from "features/events/eventSlice";
+import ConfirmDialog from "components copy/ConfirmDialog";
 //import { Icon } from "@mui/material";
 
 function Events() {
-  const { isGettingAllEvents, numOfPages, totalEvent, currentCount, refetch, rows, columns } =
-    eventsTableData();
-  const { title, status, event_url, pages, isEdit } = useSelector((store) => store.events) || {};
+  const {
+    isGettingAllEvents,
+    numOfPages,
+    totalEvent,
+    currentCount,
+    refetch,
+    rows,
+    columns,
+    openConfirm,
+    closeConfirm,
+    handleConfirmDelete,
+  } = eventsTableData();
+  const { pages } = useSelector((store) => store.events) || {};
 
   const dispatch = useDispatch();
 
@@ -66,8 +79,8 @@ function Events() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -98,9 +111,16 @@ function Events() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirm}
+                  onConfirm={handleConfirmDelete}
+                  title="Confirm Deletion"
+                  message="You are about to delete this event permanently. This action cannot be undone."
+                />
               </MDBox>
             </Card>
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>

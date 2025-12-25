@@ -299,7 +299,7 @@ export function DateRegister({ name, value, onChange }) {
       <DatePicker
         selected={selectedDate}
         onChange={handleDateChange}
-       // showIcon
+        // showIcon
         toggleCalendarOnIconClick
         isClearable={false}
         placeholderText={moment(new Date()).format("YYYY-MM-DD")}
@@ -325,7 +325,7 @@ import { useDispatch } from "react-redux";
 import { updatePriceRange } from "../features/apiarySetup/setupCompSlice";
 import { updatePriceRangeConsultation } from "../features/consultation/consultationSlice";
 import { updatePriceRangePolServ } from "../features/pollination/polservicesSlice";
-import { updatePriceRangeProvision } from "../features/supplyProvision/supplyProvSlice";
+//import { updatePriceRangeProvision } from "../features/donations/supplyProvSlice";
 import moment from "moment";
 import { CustomButton } from "./Button";
 import { useLocation } from "react-router-dom";

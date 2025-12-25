@@ -96,6 +96,19 @@ const collapseIcon = ({ palette: { white, gradients } }, { active }) => ({
   color: active ? white.main : gradients.dark.state,
 });
 
+// const collapseIcon = (theme, { active }) => {
+//   const { palette, transitions } = theme;
+
+//   return {
+//     color: active ? palette.white.main : palette.forest?.main || palette.text.main,
+//     transition: transitions.create("color", {
+//       duration: transitions.duration.shorter,
+//     }),
+//   };
+// };
+
+
+
 function collapseText(theme, ownerState) {
   const { typography, transitions, breakpoints, functions } = theme;
   const { miniSidenav, transparentSidenav, active } = ownerState;

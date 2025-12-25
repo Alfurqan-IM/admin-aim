@@ -7,15 +7,19 @@ import MDBadge from "components/MDBadge";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logoSlack from "assets/images/small-logos/logo-slack.svg";
-import React from "react";
+import React, { useState } from "react";
 import { useGetAllFeedbacks } from "features/feedbacks/feedbackThunk";
 import { useDeleteFeedback } from "features/feedbacks/feedbackThunk";
 // import { useServices } from "features/services/servicesThunk";
 // import { useDeleteService } from "features/services/servicesThunk";
 // import { setUpdateService } from "features/services/serviceSlice";
-
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 export default function feedbacksTableData() {
-  const dispatch = useDispatch();
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedFeedbackId, setSelectedFeedbackId] = useState(null);
+//  const dispatch = useDispatch();
   const {
     isGettingAllFeedbacks,
     feedbacks: { feedback: FDBCK = [], totalFeedback = 0, count = 0, numOfPages = 0 } = {},
@@ -34,6 +38,17 @@ export default function feedbacksTableData() {
       </MDBox>
     </MDBox>
   );
+   const handleDelete = (feedbackId) => {
+     setSelectedFeedbackId(feedbackId);
+     setOpenConfirm(true);
+   };
+
+   const handleConfirmDelete = () => {
+     if (!selectedFeedbackId) return;
+     deleteFeedback(selectedFeedbackId);
+     setOpenConfirm(false);
+     setSelectedFeedbackId(null);
+   };
   const rows = FDBCK.map((feedback, i) => {
     const {
       feedback_id,
@@ -53,13 +68,15 @@ export default function feedbacksTableData() {
     // const handleEdit = () => {
     //   dispatch(setUpdateService(payload));
     // };
-    const handleDelete = () => {
-      const confirmation = window.confirm(
-        "You are about to Delete a feedback record permanently, ARE YOU SURE?"
-      );
-      if (!confirmation) return;
-      deleteFeedback(feedback_id);
-    };
+    // const handleDelete = () => {
+    //   const confirmation = window.confirm(
+    //     "You are about to Delete a feedback record permanently, ARE YOU SURE?"
+    //   );
+    //   if (!confirmation) return;
+    //   deleteFeedback(feedback_id);
+    // };
+   
+
     return {
       users: (
         <Author
@@ -105,11 +122,20 @@ export default function feedbacksTableData() {
           variant="caption"
           color="text"
           fontWeight="medium"
-          onClick={() => {
-            handleDelete();
-          }}
+          // onClick={() => {
+          //   handleDelete();
+          // }}
         >
-          <Link>remove</Link>
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(feedback_id);
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </MDTypography>
       ),
     };
@@ -127,5 +153,9 @@ export default function feedbacksTableData() {
     count,
     isGettingAllFeedbacks,
     totalFeedback,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
+   
   };
 }

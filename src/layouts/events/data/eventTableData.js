@@ -6,11 +6,16 @@ import MDBadge from "components/MDBadge";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
+import React, { useState } from "react";
 import { useDeleteEvent } from "features/events/eventThunk";
 import { useAllEvent } from "features/events/eventThunk";
 import { setUpdateEvent } from "features/events/eventSlice";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 export default function eventsTableData() {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState(null);
   const { deleteEvent } = useDeleteEvent();
   const dispatch = useDispatch();
   const {
@@ -29,7 +34,17 @@ export default function eventsTableData() {
       </MDBox>
     </MDBox>
   );
+  const handleDelete = (eventId) => {
+    setSelectedEventId(eventId);
+    setOpenConfirm(true);
+  };
 
+  const handleConfirmDelete = () => {
+    if (!selectedEventId) return;
+    deleteEvent(selectedEventId);
+    setOpenConfirm(false);
+    setSelectedEventId(null);
+  };
   const rows = Events.map((event, i) => {
     const { event_id, image_url, title, status, event_url, description } = event;
     const payload = {
@@ -43,13 +58,13 @@ export default function eventsTableData() {
     const handleEdit = () => {
       dispatch(setUpdateEvent(payload));
     };
-    const handleDelete = () => {
-      const confirmation = window.confirm(
-        "You are about to Delete an next of kin records permanently, ARE YOU SURE?"
-      );
-      if (!confirmation) return;
-      deleteEvent(event_id);
-    };
+    // const handleDelete = () => {
+    //   const confirmation = window.confirm(
+    //     "You are about to Delete an next of kin records permanently, ARE YOU SURE?"
+    //   );
+    //   if (!confirmation) return;
+    //   deleteEvent(event_id);
+    // };
     const MAX_LENGTH = 40;
     const formatDescription = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
@@ -81,25 +96,46 @@ export default function eventsTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleEdit();
             }}
             to={`/createupdateevent/${event_id}`}
           >
             Edit
+          </Link> */}
+          <Link to={`/createupdateevent/${event_id}`}>
+            <IconButton
+              color="warning"
+              size="small"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Link>
         </MDTypography>
       ),
       remove: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleDelete();
             }}
           >
             remove
-          </Link>
+          </Link> */}
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(event_id);
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </MDTypography>
       ),
     };
@@ -118,5 +154,8 @@ export default function eventsTableData() {
     totalEvent,
     currentCount,
     refetch,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
   };
 }

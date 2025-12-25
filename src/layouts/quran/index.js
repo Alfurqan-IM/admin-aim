@@ -9,61 +9,47 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 // Data
 import { useParams } from "react-router-dom";
-//import Divider from "@mui/material/Divider";
+import Divider from "@mui/material/Divider";
 // @mui icons
-// import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
-// import ProfilesList from "examples/Lists/ProfilesList";
-// import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
-// import Header from "./profile/components/Header";
-// import PlatformSettings from "./profile/components/PlatformSettings";
+import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
+import Header from "./profile/components/Header";
+//import PlatformSettings from "./profile/components/PlatformSettings";
 import { useDispatch, useSelector } from "react-redux";
 // import { useUploadEmployeeImages } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
 // import PaginationControlled from "components copy/component's_Tables/Pagination";
-// import LogoAsana from "assets/images/small-logos/logo-asana.svg";
-// import moment from "moment";
-// import hivesTableData from "./data/regTableData";
-// import { changePage } from "features/hives/hiveSlice";
-// import { resetValues } from "features/hives/hiveSlice";
-// import HiveSearchModal from "components copy/searchModals/HiveSearchModal";
-// import { useSingleHive } from "features/hives/hivesThunk";
-// import { useUpdateHive } from "features/hives/hivesThunk";
-// import { useCreateHive } from "features/hives/hivesThunk";
-// import { useHives } from "hooks/DashDetails_2";
+import LogoAsana from "assets/images/small-logos/logo-asana.svg";
+import moment from "moment";
+// import huntersTableData from "./data/surahTableData";
+// import { resetValues } from "features/hunters/huntersSlice";
+// import HunterSearchModal from "components copy/searchModals/HunterSearchModal";
+// import { changePage } from "features/hunters/huntersSlice";
+// import { useSingleHunter } from "features/hunters/huntersThunk";
+// impSurahuseSurahInp } from "hooks/DashDetails_2";
+// import { useUpdateHunter } from "features/hunters/huntersThunk";
+// import { useCreateHunter } from "features/hunters/huntersThunk";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import regTableData from "./data/regTableData";
-import { changePage } from "features/registerations/registerationSlice";
-import { resetValues } from "features/registerations/registerationSlice";
-import { useRegInp } from "hooks/DashDetails_2";
-import { useUpdateReg } from "features/registerations/registerationThunk";
-import PaginationControlled from "components copy/Pagination";
-import ConfirmDialog from "components copy/ConfirmDialog";
-//import { Icon } from "@mui/material";
-
-function Registerations() {
-  const {
-    columns,
-    rows,
-    numOfPages,
-    currentCount,
-    refetch,
-    isGettingAllReg,
-    total,
-    openConfirm,
-    closeConfirm,
-    handleConfirmDelete,
-  } = regTableData();
+import surahTableData from "./data/surahTableData";
+import { useSurahInp } from "hooks/DashDetails_2";
+import { useUpdateSurah } from "features/quran/quranThunk";
+import { useCreateSurah } from "features/quran/quranThunk";
+import { resetValues } from "features/quran/quranSlice";
+//import PaginationControlled from "components copy/Pagination";
+//import { changePage } from "features/quran/quranSlice";
+function Quran() {
+  const { columns, rows, isGettingAllQuran, refetch } = surahTableData();
   const dispatch = useDispatch();
-  const { pages } = useSelector((store) => store.registerations);
-  const handleChange = (event, value) => {
-    event.preventDefault();
-    dispatch(changePage(value));
-  };
+  const { pages } = useSelector((store) => store.quran);
+
+  // const handleChange = (event, value) => {
+  //   event.preventDefault();
+  //   dispatch(changePage(value));
+  // };
   React.useEffect(() => {
     refetch();
   }, [pages]);
@@ -86,21 +72,17 @@ function Registerations() {
               >
                 <MDTypography className={styles.wrapper} variant="h6" color="white">
                   <MDBox className={styles.inner}>
-                    <MDTypography color="white">Registerations</MDTypography>
-                    <MDTypography color="white">
-                      {currentCount}/{total}
-                    </MDTypography>
+                    <MDTypography color="white">Surahs</MDTypography>
+                    {/* <MDTypography color="white">
+                      {count}/{totalHunters}
+                    </MDTypography> */}
                   </MDBox>
-                  {/* <MDBox className={styles.inner}>
-                    <Link onClick={() => dispatch(resetValues())} to="/createupdatehive/add">
-                      <AddIcon
-                        sx={{ fill: "white" }}
-                        fontSize="medium"
-                        titleAccess="add a new hive"
-                      />
+                  <MDBox className={styles.inner}>
+                    <Link onClick={() => dispatch(resetValues())} to="/createupdatequran/add">
+                      <AddIcon sx={{ fill: "white" }} fontSize="medium" titleAccess="add surah" />
                     </Link>
-                    <HiveSearchModal isGettingAllHives={isGettingAllHives} />
-                  </MDBox> */}
+                    {/* <HunterSearchModal isGettingAllHunters={isGettingAllHunters} /> */}
+                  </MDBox>
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -111,16 +93,9 @@ function Registerations() {
                   showTotalEntries={false}
                   noEndBorder
                 />
-                <ConfirmDialog
-                  open={openConfirm}
-                  onClose={closeConfirm}
-                  onConfirm={handleConfirmDelete}
-                  title="Confirm Deletion"
-                  message="You are about to delete this registeration permanently. This action cannot be undone."
-                />
               </MDBox>
             </Card>
-            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
+            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
           </Grid>
         </Grid>
       </MDBox>
@@ -128,29 +103,32 @@ function Registerations() {
     </DashboardLayout>
   );
 }
-export default Registerations;
+export default Quran;
 
-// export function SingleHive() {
+// export function SingleHunter() {
 //   const { id } = useParams();
 //   const {
-//     isGettingSingleHive,
-//     singleHive: {
-//       hive: {
-//         hive_id,
-//         assigned_hunter,
-//         hive_type,
-//         num_of_frames,
-//         colonized,
-//         status,
-//         use_condition,
-//         first_installation,
-//         current_location,
-//         last_inspection_date,
-//         note,
+//     isGettingSingleHunter,
+//     singleHunter: {
+//       hunter: {
+//         hunter_id,
+//         assigned_supervisor,
+//         fullname,
+//         phone,
+//         email,
+//         joining_date,
+//         tip,
+//         employment_status,
+//         emergency_contact_name,
+//         emergency_contact,
+//         notes,
+//         hives = [],
+//         catch_reports = [],
 //       } = {},
 //     } = {},
 //     refetch,
-//   } = useSingleHive(id);
+//   } = useSingleHunter(id);
+
 //   React.useEffect(() => {
 //     refetch();
 //   }, [id]);
@@ -159,9 +137,9 @@ export default Registerations;
 //     <DashboardLayout>
 //       <DashboardNavbar />
 //       <MDBox mb={2} />
-//       <Header info={{ image: LogoAsana, hive_type, status }}>
+//       <Header info={{ image: LogoAsana, fullname, phone }}>
 //         <MDBox mt={5} mb={3}>
-//           <Link to="/hives">
+//           <Link to="/hunters">
 //             <ArrowBackIcon />
 //           </Link>
 //           <Grid container spacing={1}>
@@ -171,10 +149,10 @@ export default Registerations;
 //                 title=""
 //                 description=""
 //                 info={{
-//                   hive_id,
-//                   hunter: <Link to={`/hunters/${assigned_hunter}`}>{assigned_hunter}</Link>,
-//                   hive_type,
-//                   frames: num_of_frames,
+//                   hunter_id,
+//                   fullname,
+//                   phone,
+//                   email,
 //                 }}
 //                 shadow={false}
 //               />
@@ -187,10 +165,12 @@ export default Registerations;
 //                 title=""
 //                 description=""
 //                 info={{
-//                   colonized,
-//                   status,
-//                   use_condition,
-//                   first_installation,
+//                   contracted_on: joining_date ? moment(joining_date).format("YYYY-MM-DD") : "N/A",
+//                   supervisor: (
+//                     <Link to={`/employees/${assigned_supervisor}`}>{assigned_supervisor}</Link>
+//                   ),
+//                   tip,
+//                   employment_status,
 //                 }}
 //                 shadow={false}
 //               />
@@ -203,11 +183,9 @@ export default Registerations;
 //                 title=""
 //                 description=""
 //                 info={{
-//                   current_location,
-//                   inspected_on: last_inspection_date
-//                     ? moment(last_inspection_date).format("YYYY-MM-DD")
-//                     : "N/A",
-//                   note,
+//                   e_contact_name: emergency_contact_name,
+//                   e_contact: emergency_contact,
+//                   notes,
 //                 }}
 //                 shadow={false}
 //               />
@@ -221,28 +199,39 @@ export default Registerations;
 //   );
 // }
 
-export const CreateUpdateRegisteration = () => {
+export const CreateUpdateQuran = () => {
   const { id } = useParams();
-  const { regInputs } = useRegInp();
-  const { updateReg, isUpdatingReg } = useUpdateReg();
-  const { reg_id, programme, category, discovery_method, isEdit } = useSelector(
-    (store) => store.registerations
-  );
-  const regDetails = {
-    programme,
-    category,
-    discovery_method,
+  const { surahInputs } = useSurahInp();
+  const { updateSurah, isUpdatingSurah } = useUpdateSurah();
+  const { createSurah, isCreatingSurah } = useCreateSurah();
+  const {
+    verse,
+    surah,
+    text,
+    translation,
+    transliteration,
+    pages,
+    isEdit
+  } = useSelector((store) => store.quran);
+  const surahDetails = {
+    verse,
+    surah,
+    text,
+    translation,
+    transliteration,
   };
+  //   console.log(surahDetails);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = Object.values(regDetails).every(
+    const isValid = Object.values(surahDetails).every(
       (value) => value !== undefined && value !== null && value !== ""
     );
     if (!isValid) {
       alert("Please fill out all required fields.");
       return;
     }
-    if (isEdit) return updateReg({ regDetails, id });
+    if (isEdit) return updateSurah({ surahDetails, id });
+    createSurah(surahDetails);
   };
   return (
     <DashboardLayout>
@@ -251,14 +240,14 @@ export const CreateUpdateRegisteration = () => {
         <Grid className={styling.wrapper} container spacing={1}>
           <div>
             <div>
-              <Link to="/registerations">
+              <Link to="/quran">
                 <ArrowBackIcon />
               </Link>
-              <h6>{isEdit && `Update Registeration details`}</h6>
+              <h6>{isEdit ? `Update Surah details` : "Create Surah"} </h6>
               <div></div>
             </div>
             <form className={styling.form} onSubmit={handleSubmit}>
-              {regInputs
+              {surahInputs
                 //.filter((detail) => detail.name !== "sort")
                 .map((detail) => {
                   const { name, TextField } = detail;
@@ -270,9 +259,14 @@ export const CreateUpdateRegisteration = () => {
                 size={"100%"}
                 height={"3vh"}
                 type="submit"
-                // disabled={!isValid}
               >
-                {isUpdatingReg === "pending" ? <Loader1 /> : isEdit ? "Update" : "Update"}
+                {isCreatingSurah === "pending" || isUpdatingSurah === "pending" ? (
+                  <Loader1 />
+                ) : isEdit ? (
+                  "Update"
+                ) : (
+                  "Submit"
+                )}
               </CustomButton>
             </form>
           </div>

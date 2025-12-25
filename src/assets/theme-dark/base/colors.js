@@ -86,6 +86,11 @@ const colors = {
     focus: "#2c3c58",
   },
 
+  forest: {
+    main: "#085A36",
+    focus: "#064A2C",
+  },
+
   grey: {
     100: "#f8f9fa",
     200: "#f0f2f5",
@@ -137,6 +142,11 @@ const colors = {
     dark: {
       main: "#323a54",
       state: "#1a2035",
+    },
+
+    forest: {
+      main: "#085A36",
+      state: "#0A7042",
     },
   },
 
@@ -242,6 +252,11 @@ const colors = {
       background: "#8097bf",
       text: "#1e2e4a",
     },
+
+    forest: {
+      background: "#1f3d30", // darker green for dark mode
+      text: "#9fe3c0",
+    },
   },
 
   coloredShadows: {
@@ -253,6 +268,7 @@ const colors = {
     error: "#f44336",
     light: "#adb5bd",
     dark: "#404040",
+    forest: "0 4px 20px 0 rgba(8, 90, 54, 0.5)",
   },
 
   inputBorderColor: "#d2d6da",

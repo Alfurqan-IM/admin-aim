@@ -96,7 +96,7 @@ function DefaultNavbar({ transparent, light, action }) {
           lineHeight={1}
           pl={{ xs: 0, lg: 1 }}
         >
-          <MDTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
+          <MDTypography variant="button" fontWeight="bold" color={'forest'}>
           AlFurqan International
           </MDTypography>
         </MDBox>

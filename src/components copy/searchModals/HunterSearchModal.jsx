@@ -10,8 +10,8 @@ import { CustomButton } from "../Button";
 // import { useEmployee } from "../../hooks/register";
 import { Loader1 } from "../Loader";
 import { useDispatch } from "react-redux";
-import { useHunters } from "../../hooks/DashDetails_2";
-import { resetValues } from "../../features/hunters/huntersSlice";
+// import { useHunters } from "../../hooks/DashDetails_2";
+// import { resetValues } from "../../features/quran/huntersSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from "../../layouts/styles/modal.module.scss";
 const style = {

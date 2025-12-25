@@ -3,9 +3,7 @@ import Button from "@mui/material/Button";
 import { purple } from "@mui/material/colors";
 const isDarkMode = localStorage.getItem("theme") === "dark-theme";
 const CustomButton = styled(Button)((prop) => ({
-  // type: prop.type || submit,
-  // color: `${isDarkMode && currentPathname !== "/register" && "#38bdf2"}`,
-
+ // color: `forest`,
   color: `${isDarkMode ? "#38bdf2" : prop.background || "#0063cc"}`,
   width: prop.size || "10vw",
   height: prop.height || "10vh",
@@ -34,6 +32,7 @@ const CustomButton = styled(Button)((prop) => ({
     '"Segoe UI Symbol"',
   ].join(","),
   "&:hover": {
+   // backgroundColor: 'forest',
     backgroundColor: prop.backgroundhover || "#0069d9",
     borderColor: prop.backgroundhover || "#0062cc",
     boxShadow: "none",

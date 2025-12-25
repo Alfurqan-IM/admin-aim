@@ -45,8 +45,8 @@ const Equipments = lazy(() =>
     default: module.default,
   }))
 );
-const Reports = lazy(() =>
-  import("./layouts/reports").then((module) => ({
+const Donors = lazy(() =>
+  import("./layouts/donors").then((module) => ({
     default: module.default,
   }))
 );
@@ -71,13 +71,13 @@ const Enquiries = lazy(() =>
     default: module.default,
   }))
 );
-const Provisions = lazy(() =>
-  import("./layouts/provisions").then((module) => ({
+const Donations = lazy(() =>
+  import("./layouts/donations").then((module) => ({
     default: module.default,
   }))
 );
-const Hunters = lazy(() =>
-  import("./layouts/hunters").then((module) => ({
+const Quran = lazy(() =>
+  import("./layouts/quran").then((module) => ({
     default: module.default,
   }))
 );
@@ -122,21 +122,21 @@ const Reviews = lazy(() =>
   }))
 );
 //single pages........................
-// const SingleEmployee = lazy(() =>
-//   import("./layouts/banners").then((module) => ({
-//     default: module.SingleEmployee,
-//   }))
-// );
+const SingleDonor = lazy(() =>
+  import("./layouts/donations").then((module) => ({
+    default: module.SingleDonor,
+  }))
+);
 // const SingleStation = lazy(() =>
 //   import("./layouts/campaigns").then((module) => ({
 //     default: module.SingleStation,
 //   }))
 // );
-const SingleHunter = lazy(() =>
-  import("./layouts/hunters").then((module) => ({
-    default: module.SingleHunter,
-  }))
-);
+// const SingleHunter = lazy(() =>
+//   import("./layouts/hunters").then((module) => ({
+//     default: module.SingleHunter,
+//   }))
+// );
 // const SingleHive = lazy(() =>
 //   import("./layouts/hives").then((module) => ({
 //     default: module.SingleHive,
@@ -179,9 +179,9 @@ const CreateUpdateEnquiry = lazy(() =>
     default: module.CreateUpdateEnquiry,
   }))
 );
-const CreateUpdateHunter = lazy(() =>
-  import("./layouts/hunters").then((module) => ({
-    default: module.CreateUpdateHunter,
+const CreateUpdateQuran = lazy(() =>
+  import("./layouts/quran").then((module) => ({
+    default: module.CreateUpdateQuran,
   }))
 );
 const CreateUpdateRegisteration = lazy(() =>
@@ -189,11 +189,11 @@ const CreateUpdateRegisteration = lazy(() =>
     default: module.CreateUpdateRegisteration,
   }))
 );
-const CreateUpdateReport = lazy(() =>
-  import("./layouts/reports").then((module) => ({
-    default: module.CreateUpdateReport,
-  }))
-);
+// const CreateUpdateReport = lazy(() =>
+//   import("./layouts/reports").then((module) => ({
+//     default: module.CreateUpdateReport,
+//   }))
+// );
 // const CreateUpdateService = lazy(() =>
 //   import("./layouts/services").then((module) => ({
 //     default: module.CreateUpdateService,
@@ -214,11 +214,11 @@ const CreateUpdatePollination = lazy(() =>
     default: module.CreateUpdatePollination,
   }))
 );
-const CreateUpdateProvision = lazy(() =>
-  import("./layouts/provisions").then((module) => ({
-    default: module.CreateUpdateProvision,
-  }))
-);
+// const CreateUpdateProvision = lazy(() =>
+//   import("./layouts/provisions").then((module) => ({
+//     default: module.CreateUpdateProvision,
+//   }))
+// );
 const CreateUpdateEquipment = lazy(() =>
   import("./layouts/equipments").then((module) => ({
     default: module.CreateUpdateEquipment,
@@ -252,7 +252,7 @@ const routes = [
     type: "collapse",
     name: "Users",
     key: "users",
-    icon: <Icon fontSize="small">people</Icon>, 
+    icon: <Icon fontSize="small">people</Icon>,
     route: "/users",
     component: <Users />,
   },
@@ -272,30 +272,30 @@ const routes = [
     route: "/campaigns",
     component: <Campaigns />,
   },
-  {
-    type: "collapse",
-    name: "Orders",
-    key: "orders",
-    icon: <Icon fontSize="small">shopping_cart</Icon>, // Shopping cart icon for orders
-    route: "/orders",
-    component: <Orders />,
-  },
-  {
-    type: "collapse",
-    name: "Reviews",
-    key: "reviews",
-    icon: <Icon fontSize="small">rate_review</Icon>,
-    route: "/reviews",
-    component: <Reviews />,
-  },
-  {
-    type: "collapse",
-    name: "Consultations",
-    key: "consultations",
-    icon: <Icon fontSize="small">forum</Icon>, // Forum icon for consultations
-    route: "/consultations",
-    component: <Consultation />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Orders",
+  //   key: "orders",
+  //   icon: <Icon fontSize="small">shopping_cart</Icon>, // Shopping cart icon for orders
+  //   route: "/orders",
+  //   component: <Orders />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Reviews",
+  //   key: "reviews",
+  //   icon: <Icon fontSize="small">rate_review</Icon>,
+  //   route: "/reviews",
+  //   component: <Reviews />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Consultations",
+  //   key: "consultations",
+  //   icon: <Icon fontSize="small">forum</Icon>, // Forum icon for consultations
+  //   route: "/consultations",
+  //   component: <Consultation />,
+  // },
   {
     type: "collapse",
     name: "Events",
@@ -314,25 +314,33 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Hunters",
-    key: "hunters",
-    icon: <Icon fontSize="small">hiking</Icon>, // Hiking icon for hunters
-    route: "/hunters",
-    component: <Hunters />,
+    name: "Quran",
+    key: "quran",
+    icon: <Icon fontSize="small">auto_stories</Icon>,
+    route: "/quran",
+    component: <Quran />,
   },
   {
     type: "collapse",
-    name: "Provisions",
-    key: "provisions",
-    icon: <Icon fontSize="small">inventory</Icon>,
-    route: "/provisions",
-    component: <Provisions />,
+    name: "Donations",
+    key: "donations",
+    icon: <Icon fontSize="small">volunteer_activism</Icon>,
+    route: "/donations",
+    component: <Donations />,
   },
+  // {
+  //   type: "collapse",
+  //   name: "Donors",
+  //   key: "donors",
+  //   icon: <Icon fontSize="small">volunteer_activism</Icon>,
+  //   route: "/donors",
+  //   component: <Donors />,
+  // },
   {
     type: "collapse",
     name: "Programmes",
     key: "programmes",
-    icon: <Icon fontSize="small">storefront</Icon>,
+    icon: <Icon fontSize="small">event_note</Icon>,
     route: "/programmes",
     component: <Programmes />,
   },
@@ -348,50 +356,43 @@ const routes = [
     type: "collapse",
     name: "Feedbacks",
     key: "feedbacks",
-    icon: <Icon fontSize="small">feedback</Icon>, 
+    icon: <Icon fontSize="small">comment</Icon>,
     route: "/feedbacks",
     component: <Feedbacks />,
   },
-  {
-    type: "collapse",
-    name: "Reports",
-    key: "reports",
-    icon: <Icon fontSize="small">assessment</Icon>, // Assessment icon for reports
-    route: "/reports",
-    component: <Reports />,
-  },
-  {
-    type: "collapse",
-    name: "Setups",
-    key: "setup",
-    icon: <Icon fontSize="small">settings</Icon>, // Settings icon for setups
-    route: "/setups",
-    component: <Setup />,
-  },
-  {
-    type: "collapse",
-    name: "Pollinations",
-    key: "pollination",
-    icon: <Icon fontSize="small">nature</Icon>, // Nature icon for pollinations
-    route: "/pollinations",
-    component: <Pollination />,
-  },
-  {
-    type: "collapse",
-    name: "Equipments",
-    key: "equipments",
-    icon: <Icon fontSize="small">construction</Icon>,
-    route: "/equipments",
-    component: <Equipments />,
-  },
-  {
-    type: "collapse",
-    name: "Supplies",
-    key: "supplies",
-    icon: <Icon fontSize="small">local_shipping</Icon>, // Local shipping icon for Supplies
-    route: "/supplies",
-    component: <Supplies />,
-  },
+
+  // {
+  //   type: "collapse",
+  //   name: "Setups",
+  //   key: "setup",
+  //   icon: <Icon fontSize="small">settings</Icon>, // Settings icon for setups
+  //   route: "/setups",
+  //   component: <Setup />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Pollinations",
+  //   key: "pollination",
+  //   icon: <Icon fontSize="small">nature</Icon>, // Nature icon for pollinations
+  //   route: "/pollinations",
+  //   component: <Pollination />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Equipments",
+  //   key: "equipments",
+  //   icon: <Icon fontSize="small">construction</Icon>,
+  //   route: "/equipments",
+  //   component: <Equipments />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Supplies",
+  //   key: "supplies",
+  //   icon: <Icon fontSize="small">local_shipping</Icon>, // Local shipping icon for Supplies
+  //   route: "/supplies",
+  //   component: <Supplies />,
+  // },
 ];
 export const authRoutes = [
   // {
@@ -437,13 +438,13 @@ export const authRoutes = [
 ];
 export const singleroutes = [
   //pages
-  // {
-  //   type: "collapse",
-  //   name: "single employee",
-  //   key: "single_employee",
-  //   route: "/employees/:id",
-  //   component: <SingleEmployee />,
-  // },
+  {
+    type: "collapse",
+    name: "sigleDonor",
+    key: "singleDonor",
+    route: "/donations/:id",
+    component: <SingleDonor />,
+  },
   {
     type: "collapse",
     name: "single programme",
@@ -458,13 +459,13 @@ export const singleroutes = [
   //   route: "/stations/:id",
   //   component: <SingleStation />,
   // },
-  {
-    type: "collapse",
-    name: "single hunter",
-    key: "single_hunter",
-    route: "/hunters/:id",
-    component: <SingleHunter />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "single hunter",
+  //   key: "single_hunter",
+  //   route: "/hunters/:id",
+  //   component: <SingleHunter />,
+  // },
   // {
   //   type: "collapse",
   //   name: "single hive",
@@ -523,10 +524,10 @@ export const singleroutes = [
   },
   {
     type: "collapse",
-    name: "updatecreatehunter",
-    key: "updatecreatehunter",
-    route: "/createupdatehunter/:id",
-    component: <CreateUpdateHunter />,
+    name: "updatecreatequran",
+    key: "updatecreatequran",
+    route: "/createupdatequran/:id",
+    component: <CreateUpdateQuran />,
   },
   {
     type: "collapse",
@@ -535,13 +536,13 @@ export const singleroutes = [
     route: "/createupdateregisteration/:id",
     component: <CreateUpdateRegisteration />,
   },
-  {
-    type: "collapse",
-    name: "updatecreatereport",
-    key: "updatecreatereport",
-    route: "/createupdatereport/:id",
-    component: <CreateUpdateReport />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "updatecreatereport",
+  //   key: "updatecreatereport",
+  //   route: "/createupdatereport/:id",
+  //   component: <CreateUpdateReport />,
+  // },
   {
     type: "collapse",
     name: "updatecreatepollination",
@@ -570,13 +571,13 @@ export const singleroutes = [
     route: "/createupdateconsultation/:id",
     component: <CreateUpdateConsultation />,
   },
-  {
-    type: "collapse",
-    name: "updatecreateprovision",
-    key: "updatecreateprovision",
-    route: "/createupdateprovision/:id",
-    component: <CreateUpdateProvision />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "updatecreateprovision",
+  //   key: "updatecreateprovision",
+  //   route: "/createupdateprovision/:id",
+  //   component: <CreateUpdateProvision />,
+  // },
   {
     type: "collapse",
     name: "updatecreateequipment",

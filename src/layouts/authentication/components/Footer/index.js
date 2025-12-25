@@ -46,7 +46,7 @@ function Footer({ light }) {
             by
             <Link to="#">
               <MDTypography variant="button" fontWeight="medium" color={light ? "white" : "dark"}>
-                &nbsp;AlFurqan International&nbsp;
+                &nbsp;Ibrahim Muhammed&nbsp;
               </MDTypography>
             </Link>
           </MDBox>

@@ -46,14 +46,32 @@ import { useCreatebanner } from "features/banners/bannerThunk";
 import { useUpdatebanner } from "features/banners/bannerThunk";
 import { useUploadbannerImages } from "features/banners/bannerThunk";
 import { handleReset } from "features/banners/bannerSlice";
+import PaginationControlled from "components copy/Pagination";
+import { changePage } from "features/banners/bannerSlice";
+import ConfirmDialog from "components copy/ConfirmDialog";
+//import ConfirmDialog from "components/ConfirmDialog";
 function Banners() {
-  const { columns, rows, numOfPages, totalBanners, currentCount, isGettingAllbanners, pages } =
-    bannersTableData();
+  const {
+    columns,
+    rows,
+    numOfPages,
+    totalBanners,
+    currentCount,
+    isGettingAllbanners,
+    refetch,
+    openConfirm,
+    closeConfirm,
+    handleConfirmDelete,
+  } = bannersTableData();
   const dispatch = useDispatch();
   const handleChange = (event, value) => {
     event.preventDefault();
     dispatch(changePage(value));
   };
+  const { pages } = useSelector((store) => store.banners);
+  React.useEffect(() => {
+    refetch();
+  }, [pages]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -66,11 +84,13 @@ function Banners() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
+                {/* "transparent", "white", "black", "primary", "secondary", "info", "success",
+                "forest", "warning", "error", "light", "dark", */}
                 <MDTypography className={styles.wrapper} variant="h6" color="white">
                   <MDBox className={styles.inner}>
                     <MDTypography color="white">Banners</MDTypography>
@@ -83,11 +103,7 @@ function Banners() {
                       onClick={() => dispatch(handleReset())}
                       to="/admin/createupdatebanner/add"
                     >
-                      <AddIcon
-                        sx={{ fill: "white" }}
-                        fontSize="medium"
-                        titleAccess="add banner"
-                      />
+                      <AddIcon sx={{ fill: "white" }} fontSize="medium" titleAccess="add banner" />
                     </Link>
                     {/* <EmployeeSearchModal isGettingAllEmployees={isGettingAllEmployees} /> */}
                   </MDBox>
@@ -101,12 +117,20 @@ function Banners() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirm}
+                  onConfirm={handleConfirmDelete}
+                  title="Confirm Deletion"
+                  message="You are about to delete this banner permanently. This action cannot be undone."
+                />
               </MDBox>
             </Card>
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>
+
       <Footer />
     </DashboardLayout>
   );

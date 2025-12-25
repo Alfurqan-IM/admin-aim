@@ -6,13 +6,14 @@ import PropTypes from "prop-types";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
-
+import logoSlack from "assets/images/small-logos/logo-slack.svg";
 // Material Dashboard 2 React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
 import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
+import { Card, Grid } from "@mui/material";
 
 function Header({ info, children }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
@@ -39,8 +40,8 @@ function Header({ info, children }) {
   }, [tabsOrientation]);
 
   const handleSetTabValue = (event, newValue) => setTabValue(newValue);
-  const { image = "", hive_type, status } = info;
-
+  const { donor } = info;
+console.log(donor)
   return (
     <MDBox position="relative" mb={5}>
       <MDBox
@@ -71,15 +72,15 @@ function Header({ info, children }) {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <MDAvatar src={image} alt="profile-image" size="xl" shadow="sm" />
+            <MDAvatar src={logoSlack} alt="profile-image" size="xl" shadow="sm" />
           </Grid>
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                {hive_type}
+                {donor.id}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                {status}
+                {donor.name}
               </MDTypography>
             </MDBox>
           </Grid>

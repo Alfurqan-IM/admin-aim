@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import customFetch from "../../utils";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { handleReset } from "./reportSlice";
+import { handleReset } from "./donorSlice";
 import { useSelector } from "react-redux";
 
 export const useReports = () => {

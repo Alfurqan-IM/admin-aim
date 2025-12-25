@@ -24,10 +24,13 @@ const style = {
   p: 4,
 };
 
-export default function UserSearchModal({ isGettingAllUser }) {
+export default function UserSearchModal({ isGettingAllUser, refetch }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    refetch();
+    setOpen(false);
+  };
   //   const { theme } = useThemeContext();
   //   const isDarkMode = theme === "dark-theme";
   return (

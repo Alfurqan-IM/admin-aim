@@ -25,16 +25,16 @@ import moment from "moment";
 import reportTableData from "./data/reportTableData";
 import { ReportSearchModal } from "components copy";
 import { useCatchReports } from "hooks/DashDetails_2";
-import { useUpdateReport } from "features/catch_reports/reportsThunk";
-import { useCreateReport } from "features/catch_reports/reportsThunk";
-import { resetValues } from "features/catch_reports/reportSlice";
-import { changePage } from "features/catch_reports/reportSlice";
+//import { useUpdateReport } from "features/catch_reports/reportsThunk";
+//im//port { useCreateReport } from "features/catch_reports/reportsThunk";
+//import { resetValues } from "features/catch_reports/reportSlice";
+i//mport { changePage } from "features/catch_reports/reportSlice";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Icon } from "@mui/material";
-function Reports() {
+function Donors() {
   const {
     columns,
     rows,
@@ -128,104 +128,104 @@ function Reports() {
     </DashboardLayout>
   );
 }
-export default Reports;
+export default Donors;
 
-export const CreateUpdateReport = () => {
-  const { id } = useParams();
-  const { reportInputs } = useCatchReports();
-  const { isUpdatingReport, updateReport } = useUpdateReport();
-  const { createReport, isCreatingReport } = useCreateReport();
-  const {
-    hunter_id,
-    assigned_supervisor,
-    total_boxes_assigned,
-    colonized_boxes,
-    uncolonized_boxes,
-    delivered_to_apiary,
-    date_assigned,
-    catch_date,
-    catch_location,
-    catch_status,
-    season,
-    notes,
-    isEdit,
-  } = useSelector((store) => store.reports);
-  const reportDetails = {
-    hunter_id,
-    assigned_supervisor,
-    total_boxes_assigned,
-    colonized_boxes,
-    uncolonized_boxes,
-    delivered_to_apiary,
-    date_assigned,
-    catch_date,
-    catch_location,
-    catch_status,
-    season,
-    notes,
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const isValid = Object.values(reportDetails).every(
-      (value) => value !== undefined && value !== null && value !== ""
-    );
-    if (!isValid) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-    if (isEdit) return updateReport({ reportDetails, id });
-    createReport(reportDetails);
-  };
-  return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <MDBox mt={5} mb={3}>
-        {isEdit ? (
-          <Link to="/stations">
-            <Icon title="back to stations" fontSize="large">
-              business
-            </Icon>
-          </Link>
-        ) : (
-          ""
-        )}
-        <Grid className={styling.wrapper} container spacing={1}>
-          <div>
-            <div>
-              <Link to={`/reports`}>
-                <ArrowBackIcon />
-              </Link>
-              <h6>{isEdit ? `Update report details` : "Create a new Report"} </h6>
-              <div></div>
-            </div>
-            <form className={styling.form} onSubmit={handleSubmit}>
-              {reportInputs
-                .filter((detail) => detail.name !== "sort")
-                .map((detail) => {
-                  const { name, TextField } = detail;
-                  return <div key={name}>{TextField}</div>;
-                })}
-              <CustomButton
-                background={"inherit"}
-                backgroundhover={"grey"}
-                size={"100%"}
-                height={"3vh"}
-                type="submit"
-                // disabled={!isValid}
-              >
-                {isCreatingReport === "pending" || isUpdatingReport === "pending" ? (
-                  <Loader1 />
-                ) : isEdit ? (
-                  "Update"
-                ) : (
-                  "Submit"
-                )}
-              </CustomButton>
-            </form>
-          </div>
-        </Grid>
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
-  );
-};
+// export const CreateUpdateReport = () => {
+//   const { id } = useParams();
+//   const { reportInputs } = useCatchReports();
+//   const { isUpdatingReport, updateReport } = useUpdateReport();
+//   const { createReport, isCreatingReport } = useCreateReport();
+//   const {
+//     hunter_id,
+//     assigned_supervisor,
+//     total_boxes_assigned,
+//     colonized_boxes,
+//     uncolonized_boxes,
+//     delivered_to_apiary,
+//     date_assigned,
+//     catch_date,
+//     catch_location,
+//     catch_status,
+//     season,
+//     notes,
+//     isEdit,
+//   } = useSelector((store) => store.reports);
+//   const reportDetails = {
+//     hunter_id,
+//     assigned_supervisor,
+//     total_boxes_assigned,
+//     colonized_boxes,
+//     uncolonized_boxes,
+//     delivered_to_apiary,
+//     date_assigned,
+//     catch_date,
+//     catch_location,
+//     catch_status,
+//     season,
+//     notes,
+//   };
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     const isValid = Object.values(reportDetails).every(
+//       (value) => value !== undefined && value !== null && value !== ""
+//     );
+//     if (!isValid) {
+//       alert("Please fill out all required fields.");
+//       return;
+//     }
+//     if (isEdit) return updateReport({ reportDetails, id });
+//     createReport(reportDetails);
+//   };
+//   return (
+//     <DashboardLayout>
+//       <DashboardNavbar />
+//       <MDBox mt={5} mb={3}>
+//         {isEdit ? (
+//           <Link to="/stations">
+//             <Icon title="back to stations" fontSize="large">
+//               business
+//             </Icon>
+//           </Link>
+//         ) : (
+//           ""
+//         )}
+//         <Grid className={styling.wrapper} container spacing={1}>
+//           <div>
+//             <div>
+//               <Link to={`/reports`}>
+//                 <ArrowBackIcon />
+//               </Link>
+//               <h6>{isEdit ? `Update report details` : "Create a new Report"} </h6>
+//               <div></div>
+//             </div>
+//             <form className={styling.form} onSubmit={handleSubmit}>
+//               {reportInputs
+//                 .filter((detail) => detail.name !== "sort")
+//                 .map((detail) => {
+//                   const { name, TextField } = detail;
+//                   return <div key={name}>{TextField}</div>;
+//                 })}
+//               <CustomButton
+//                 background={"inherit"}
+//                 backgroundhover={"grey"}
+//                 size={"100%"}
+//                 height={"3vh"}
+//                 type="submit"
+//                 // disabled={!isValid}
+//               >
+//                 {isCreatingReport === "pending" || isUpdatingReport === "pending" ? (
+//                   <Loader1 />
+//                 ) : isEdit ? (
+//                   "Update"
+//                 ) : (
+//                   "Submit"
+//                 )}
+//               </CustomButton>
+//             </form>
+//           </div>
+//         </Grid>
+//       </MDBox>
+//       <Footer />
+//     </DashboardLayout>
+//   );
+// };

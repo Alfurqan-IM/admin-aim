@@ -59,9 +59,9 @@ function reducer(state, action) {
 function MaterialUIControllerProvider({ children }) {
   const initialState = {
     miniSidenav: false,
-    transparentSidenav: false,
+    transparentSidenav: true,
     whiteSidenav: false,
-    sidenavColor: "info",
+    sidenavColor: "forest",
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,

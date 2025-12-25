@@ -7,13 +7,17 @@ import MDBadge from "components/MDBadge";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import React from "react";
+import React, { useState } from "react";
 import LogoAsana from "assets/images/small-logos/logo-asana.svg";
 import { useDeleteReg } from "features/registerations/registerationThunk";
 import { useGetAllReg } from "features/registerations/registerationThunk";
 import { setUpdateReg } from "features/registerations/registerationSlice";
-
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 export default function regTableData() {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedRegId, setSelectedRegId] = useState(null);
   const dispatch = useDispatch();
   const { deleteReg } = useDeleteReg();
   const {
@@ -52,6 +56,17 @@ export default function regTableData() {
   //     <MDTypography variant="caption">{description}</MDTypography>
   //   </MDBox>
   // );
+   const handleDelete = (regId) => {
+     setSelectedRegId(regId);
+     setOpenConfirm(true);
+   };
+
+   const handleConfirmDelete = () => {
+     if (!selectedRegId) return;
+     deleteReg(selectedRegId);
+     setOpenConfirm(false);
+     setSelectedRegId(null);
+   };
   const rows = REG.map((reg, i) => {
     const {
       reg_id,
@@ -71,13 +86,13 @@ export default function regTableData() {
     const handleEdit = () => {
       dispatch(setUpdateReg(payload));
     };
-    const handleDelete = () => {
-      const confirmation = window.confirm(
-        "You are about to Delete a registeration record permanently, ARE YOU SURE?"
-      );
-      if (!confirmation) return;
-      deleteReg(reg_id);
-    };
+    // const handleDelete = () => {
+    //   const confirmation = window.confirm(
+    //     "You are about to Delete a registeration record permanently, ARE YOU SURE?"
+    //   );
+    //   if (!confirmation) return;
+    //   deleteReg(reg_id);
+    // };
     return {
       users: (
         <Author
@@ -120,13 +135,24 @@ export default function regTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          <Link
+          {/* <Link
             onClick={() => {
               handleEdit();
             }}
             to={`/createupdateregisteration/${reg_id}`}
           >
             Edit
+          </Link> */}
+          <Link to={`/createupdateregisteration/${reg_id}`}>
+            <IconButton
+              color="warning"
+              size="small"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Link>
         </MDTypography>
       ),
@@ -136,11 +162,20 @@ export default function regTableData() {
           variant="caption"
           color="text"
           fontWeight="medium"
-          onClick={() => {
-            handleDelete();
-          }}
+          // onClick={() => {
+          //   handleDelete();
+          // }}
         >
-          <Link>remove</Link>
+          <IconButton
+            color="error"
+            size="small"
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(reg_id);
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </MDTypography>
       ),
     };
@@ -160,5 +195,8 @@ export default function regTableData() {
     refetch,
     isGettingAllReg,
     total,
+    openConfirm,
+    closeConfirm: () => setOpenConfirm(false),
+    handleConfirmDelete,
   };
 }

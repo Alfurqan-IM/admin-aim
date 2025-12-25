@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { resetValues } from "./campaignSlice";
 
 export const useGetAllCampaigns = () => {
-  const { pages, sort } = useSelector((store) => store.campaigns);
+  const { pages } = useSelector((store) => store.campaigns);
   const url = `campaigns/?pages=${pages}`;
   // console.log(url);
   const {
@@ -31,9 +31,8 @@ export const useGetAllCampaigns = () => {
   return { isGettingCampaigns, campaigns, refetch };
 };
 export const useGetAllDonorCampaigns = () => {
-  //const { pages } = useSelector((store) => store.campaigns);
-  const url = `campaigns/donorCampaigns`;
-  //?pages=${pages}
+  const { pages } = useSelector((store) => store.campaigns);
+  const url = `campaigns/donorCampaigns/?pages=${pages}`
   // console.log(url);
   const {
     status: isGettingDonorCampaigns,

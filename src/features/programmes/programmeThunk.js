@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export const useGetAllProgrammes = () => {
   const { pages } = useSelector((store) => store.programmes);
   const url = `programmes/?pages=${pages}`;
-  // console.log(url);
+  //console.log(url);
   const {
     status: isGettingAllProgrammes,
     data: programmes,

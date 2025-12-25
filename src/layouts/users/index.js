@@ -22,6 +22,8 @@ import { changePage } from "features/users/userSlice";
 import { UserSearchModal } from "components copy";
 import { useSingleUser } from "features/users/userThunk";
 import styles from "../styles/thead.module.scss";
+import PaginationControlled from "components copy/Pagination";
+import ConfirmDialog from "components copy/ConfirmDialog";
 function Users() {
   const {
     columns,
@@ -32,20 +34,13 @@ function Users() {
     refetch,
     isGettingAllUser,
     blacklisting,
+    openConfirm,
+    closeConfirmDialog,
+    selectedUser,
+    handleConfirmAction,
   } = usersTableData();
   const dispatch = useDispatch();
-  const {
-    gendersearch,
-    isVerified,
-    blacklisted,
-    subscribed,
-    sort,
-    pages,
-    email,
-    last_name,
-    phone,
-    gender,
-  } = useSelector((store) => store.users);
+  const { pages } = useSelector((store) => store.users);
 
   const handleChange = (event, value) => {
     event.preventDefault();
@@ -54,19 +49,7 @@ function Users() {
 
   React.useEffect(() => {
     refetch();
-  }, [
-    gendersearch,
-    isVerified,
-    blacklisted,
-    subscribed,
-    sort,
-    pages,
-    email,
-    last_name,
-    phone,
-    gender,
-    blacklisting,
-  ]);
+  }, [pages]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -79,8 +62,8 @@ function Users() {
                 mt={-3}
                 py={3}
                 px={2}
-                variant="gradient"
-                bgColor="info"
+                variant="contained"
+                bgColor="forest"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -92,7 +75,7 @@ function Users() {
                     </MDTypography>
                   </MDBox>
                   <MDBox className={styles.inner}>
-                    <UserSearchModal isGettingAllUser={isGettingAllUser} />
+                    <UserSearchModal refetch={refetch} isGettingAllUser={isGettingAllUser} />
                   </MDBox>
                 </MDTypography>
               </MDBox>
@@ -104,9 +87,23 @@ function Users() {
                   showTotalEntries={false}
                   noEndBorder
                 />
+                <ConfirmDialog
+                  open={openConfirm}
+                  onClose={closeConfirmDialog}
+                  onConfirm={handleConfirmAction}
+                  title={selectedUser?.blacklisted ? "Activate User" : "Blacklist User"}
+                  message={
+                    selectedUser?.blacklisted
+                      ? "You are about to activate this user. They will regain full access."
+                      : "You are about to blacklist this user. This will restrict their access."
+                  }
+                  confirmText={selectedUser?.blacklisted ? "Activate" : "Blacklist"}
+                  confirmColor={selectedUser?.blacklisted ? "success" : "error"}
+                  loading={false}
+                />
               </MDBox>
             </Card>
-            {/* <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} /> */}
+            <PaginationControlled pageDetails={{ handleChange, numOfPages, pages }} />
           </Grid>
         </Grid>
       </MDBox>

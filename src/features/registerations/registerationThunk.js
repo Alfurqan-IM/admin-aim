@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import customFetch from "../../utils";
-import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { handleReset } from "./registerationSlice";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+//import { toast } from "react-toastify/dist";
 
 export const useGetAllReg = () => {
   const { pages } = useSelector((store) => store.registerations);
@@ -95,11 +96,12 @@ export const useUpdateReg = () => {
       });
       return data;
     },
-    onSuccess: ({ msg }) => {
-      // console.log(msg);
+    onSuccess: (msg) => {
+      console.log(msg);
       queryClient.invalidateQueries({ queryKey: ["allregisterations"] });
       dispatch(handleReset());
-      toast.success(`Registeration for user ${msg.user_id} successfully updated`);
+      //toast.success(`Registeration for user ${msg.user_id} successfully updated`);
+      toast.error(`successfully updated`);
     },
     onError: (error) => {
       console.log(error);

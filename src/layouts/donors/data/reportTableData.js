@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
 import LogoAsana from "assets/images/small-logos/logo-asana.svg";
-import { useReports } from "features/catch_reports/reportsThunk";
-import { useDeleteReport } from "features/catch_reports/reportsThunk";
-import { setUpdateReport } from "features/catch_reports/reportSlice";
+//import { useReports } from "features/catch_reports/reportsThunk";
+//import { useDeleteReport } from "features/catch_reports/reportsThunk";
+//import { setUpdateReport } from "features/catch_reports/reportSlice";
 export default function reportTableData() {
   const dispatch = useDispatch();
-  const { deleteReport } = useDeleteReport();
+ // const { deleteReport } = useDeleteReport();
   const {
     isGettingAllReports,
     catch_reports: {
@@ -98,7 +98,7 @@ export default function reportTableData() {
     };
 
     const handleEdit = () => {
-      dispatch(setUpdateReport(payload));
+     // dispatch(setUpdateReport(payload));
     };
     const handleDelete = () => {
       const confirmation = window.confirm(

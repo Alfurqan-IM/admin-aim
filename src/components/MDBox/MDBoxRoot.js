@@ -37,6 +37,9 @@ export default styled(Box)(({ theme, ownerState }) => {
     "grey-800": grey[800],
     "grey-900": grey[900],
   };
+  const customColors = {
+    forest: "#085A36",
+  };
 
   const validGradients = [
     "primary",
@@ -47,6 +50,7 @@ export default styled(Box)(({ theme, ownerState }) => {
     "error",
     "dark",
     "light",
+    // "forest"
   ];
 
   const validColors = [
@@ -57,6 +61,7 @@ export default styled(Box)(({ theme, ownerState }) => {
     "secondary",
     "info",
     "success",
+    "forest",
     "warning",
     "error",
     "light",
@@ -84,7 +89,7 @@ export default styled(Box)(({ theme, ownerState }) => {
       ? linearGradient(gradients[bgColor].main, gradients[bgColor].state)
       : white.main;
   } else if (validColors.find((el) => el === bgColor)) {
-    backgroundValue = palette[bgColor] ? palette[bgColor].main : greyColors[bgColor];
+    backgroundValue = palette[bgColor]?.main || customColors[bgColor] || greyColors[bgColor];
   } else {
     backgroundValue = bgColor;
   }
@@ -93,8 +98,9 @@ export default styled(Box)(({ theme, ownerState }) => {
   let colorValue = color;
 
   if (validColors.find((el) => el === color)) {
-    colorValue = palette[color] ? palette[color].main : greyColors[color];
+    colorValue = palette[color]?.main || customColors[color] || greyColors[color];
   }
+
 
   // borderRadius value
   let borderRadiusValue = borderRadius;
