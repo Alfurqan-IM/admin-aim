@@ -54,30 +54,6 @@ export const useGetAllDonorCampaigns = () => {
   });
   return { isGettingDonorCampaigns, donorcampaigns, donorRefetch };
 };
-// export const useSingleStation = (id) => {
-//   // const { pages } = useSelector((store) => store.campaigns);
-//   const url = `apiarycampaigns/${id}`;
-//   // console.log(url);
-//   const {
-//     status: isGettingSingleStation,
-//     data: singleStation,
-//     refetch,
-//   } = useQuery({
-//     queryKey: ["singlestation"],
-//     queryFn: async () => {
-//       const { data } = await customFetch.get(url);
-//       return data;
-//     },
-//     onSuccess: ({ data }) => {
-//       console.log("Query succeeded!", data);
-//     },
-//     onError: (err) => {
-//       toast.error(err.response.data.msg);
-//       console.log(err);
-//     },
-//   });
-//   return { isGettingSingleStation, singleStation, refetch };
-// };
 
 export const useCreateCampaign = () => {
   const dispatch = useDispatch();

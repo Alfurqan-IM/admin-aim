@@ -30,61 +30,6 @@ export const useGetAllReg = () => {
   });
   return { isGettingAllReg, data, refetch };
 };
-
-// export const useSingleHive = (id) => {
-//   // const { pages } = useSelector((store) => store.stations);
-//   const url = `hives/${id}`;
-//   // console.log(url);
-//   const {
-//     status: isGettingSingleHive,
-//     data: singleHive,
-//     refetch,
-//   } = useQuery({
-//     queryKey: ["singlehive"],
-//     queryFn: async () => {
-//       const { data } = await customFetch.get(url);
-//       return data;
-//     },
-//     onSuccess: ({ data }) => {
-//       console.log("Query succeeded!", data);
-//     },
-//     onError: (err) => {
-//       toast.error(err.response.data.msg);
-//       console.log(err);
-//     },
-//   });
-//   return { isGettingSingleHive, singleHive, refetch };
-// };
-// export const useCreateHive = () => {
-//   const dispatch = useDispatch();
-//   const queryClient = useQueryClient();
-//   const { mutate: createHive, status: isCreatingHive } = useMutation({
-//     mutationFn: async (hiveDetails) => {
-//       // console.log(nokDetails, "here");
-//       const { data } = await customFetch.post("hives", {
-//         ...hiveDetails,
-//       });
-//       return data;
-//     },
-//     onSuccess: ({ msg }) => {
-//       // console.log(msg);
-//       queryClient.invalidateQueries({ queryKey: ["allhives"] });
-//       dispatch(handleReset());
-//       toast.success(msg);
-//     },
-//     onError: (error) => {
-//       const Msg = error.response?.data?.msg;
-//       if (Msg.includes("Data truncated for column ")) {
-//         toast.error("you have not select one or more fields !!!!");
-//       } else if (Msg.includes("Cannot add or update a child row: a foreign key constraint fails")) {
-//         toast.error("The assigned_hunter does not exist !!!!");
-//       } else {
-//         toast.error(error.response?.data?.msg || "An error occurred.");
-//       }
-//     },
-//   });
-//   return { createHive, isCreatingHive };
-// };
 export const useUpdateReg = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();

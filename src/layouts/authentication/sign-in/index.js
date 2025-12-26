@@ -10,12 +10,7 @@ import MDButton from "components/MDButton";
 import { Loader1 } from "components copy/Loader";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/eidbackground.jpg";
-import { Link } from "react-router-dom";
-import GoogleIcon from "@mui/icons-material/Google";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
@@ -49,7 +44,6 @@ function Basic() {
     if (isCheckingCurrentUser === "success") navigate("/dashboard");
   }, [isLoginIn, isCheckingCurrentUser, navigate]);
 
-  // console.log(isLoginIn, currentUser);
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -64,12 +58,6 @@ function Basic() {
           mb={1}
           textAlign="center"
         >
-          {/* <MDTypography variant="h6" fontWeight="medium" color="white" mt={1}>
-            Glad to see you back again !!
-          </MDTypography>
-          <MDTypography variant="h6" fontWeight="small" color="white" mt={1}>
-            Enter your password to retrieve your info...
-          </MDTypography> */}
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
@@ -77,43 +65,6 @@ function Basic() {
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form" onSubmit={handleSubmit}>
-            {/* <MDBox mt={0} mb={0} textAlign="start">
-              <MDTypography fontFamily="inherit" fontWeight="bold" variant="button" color="text">
-                Not your Email?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/check"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  go back
-                </MDTypography>
-              </MDTypography>
-              <MDTypography variant="h6" fontWeight="bold" color="info" mt={1}>
-                {!email ? (
-                  <Skeleton
-                    variant="rectangular"
-                    width={"fit-content"}
-                    height={"fit-content"}
-                    sx={{
-                      borderRadius: "5px",
-                      background: "none",
-                      fontSize: "small",
-                      color: "red",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Your email is missing, you have to go back!!!
-                  </Skeleton>
-                ) : (
-                  <MDTypography variant="span" fontWeight="bold" color="info" mt={1}>
-                    {email}
-                  </MDTypography>
-                )}
-              </MDTypography>
-            </MDBox> */}
             <MDBox mb={2}>{TextField}</MDBox>
             <MDBox mb={2}>{userDetails[1].TextField}</MDBox>
             <MDBox mt={4} mb={1}>
@@ -127,21 +78,6 @@ function Basic() {
                 {isLoginIn === "pending" ? <Loader1 /> : "Sign in"}
               </MDButton>
             </MDBox>
-            {/* <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Forgot password?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/forget-password"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  reset it
-                </MDTypography>
-              </MDTypography>
-            </MDBox> */}
           </MDBox>
         </MDBox>
       </Card>

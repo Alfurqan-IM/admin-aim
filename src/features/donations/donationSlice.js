@@ -44,12 +44,6 @@ const donationSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
-    // updatePriceRangeProvision: (state, { payload }) => {
-    //   return {
-    //     ...state,
-    //     priceRangeSP: payload,
-    //   };
-    // },
   },
 });
 
@@ -60,6 +54,5 @@ export const {
   setUpdateDonation,
   resetValues,
   changePage,
-  //updatePriceRangeProvision,
 } = donationSlice.actions;
 export default donationSlice.reducer;

@@ -8,20 +8,16 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 // Data
-// import { useSingleEmployee } from "features/employees/employeesThunk";
 import { useParams } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 // @mui icons
 
 import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 import Header from "./profile/components/Header";
-//import PlatformSettings from "./profile/components/PlatformSettings";
 import { useDispatch, useSelector } from "react-redux";
-// import { useUploadEmployeeImages } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
@@ -39,19 +35,6 @@ import { useUploadProgrammeImages } from "features/programmes/programmeThunk";
 import { convertToDateOnly } from "utils";
 import PaginationControlled from "components copy/Pagination";
 import ConfirmDialog from "components copy/ConfirmDialog";
-// import productsTableData from "./data/programmesTableData";
-// import { changePage } from "features/products/productsSlice";
-// import { resetValues } from "features/products/productsSlice";
-// import { useProductsInputs } from "hooks/DashDetails";
-// import ProductSearchModal from "components copy/searchModals/ProductSearchModal";
-// import { useUpdateProduct } from "features/products/productthunk";
-// import { useCreateProduct } from "features/products/productthunk";
-// import { useSinglProduct } from "features/products/productthunk";
-// import { useUploadProductImages } from "features/products/productthunk";
-// import { InputFileUpload } from "components copy";
-// import { ColorPicker } from "components copy/TextField";
-// import { updateProductColors } from "features/products/productthunk";
-// import programmeSlice from "features/programmes/programmeSlice";
 function Programmes() {
   const dispatch = useDispatch();
   const {
@@ -107,7 +90,6 @@ function Programmes() {
                         titleAccess="add a new programme"
                       />
                     </Link>
-                    {/* <ProductSearchModal isGettingAllProducts={isGettingAllProducts} /> */}
                   </MDBox>
                 </MDTypography>
               </MDBox>
@@ -201,20 +183,6 @@ export const CreateUpdateProgramme = () => {
       return updateProgrammeOutcome({ outcomedetails, id });
     }
   };
-  // const uploadProgrammeImages = (e) => {
-  //   const files = e.target.files;
-  //   const formData = new FormData();
-  //   if (files.length > 0) {
-  //     // Loop through each file and append it to the FormData object
-  //     for (let i = 0; i < files.length; i++) {
-  //       formData.append(`image${i}`, files[i]); // "images" can be any key name you prefer
-  //     }
-  //     // Call the function to upload the images
-  //     uploadProgrammeImgs(formData);
-  //   } else {
-  //     alert("Please select at least one file to upload.");
-  //   }
-  // };
   const uploadProgrammeImages = (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -316,8 +284,6 @@ export const CreateUpdateProgramme = () => {
 export function SingleProgramme() {
   const { id } = useParams();
   const { isGettingSingleProgramme, singleprogramme, refetch } = useGetSinglProgramme(id);
-  // const { uploadProductImgs, isUploadingProductImages } = useUploadProductImages(id);
-  // const { isUpdatingColor } = updateProductColors(id);
   const {
     programme_id,
     title,
@@ -356,12 +322,6 @@ export function SingleProgramme() {
             <Link to="/programmes">
               <ArrowBackIcon />
             </Link>
-            {/* <ColorPicker color_id={id} />
-            <InputFileUpload
-              name={"product images"}
-              handleChange={uploadProductImages}
-              uploading={isUploadingProductImages}
-            /> */}
           </div>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>

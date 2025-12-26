@@ -141,15 +141,6 @@ export default function campaignTableData() {
       ),
       remove: (
         <>
-          {/* <Link
-            onClick={() => {
-              deleteCampaign(campaign_id);
-            }}
-            to={`#`}
-          >
-            remove
-          </Link> */}
-
           <IconButton
             color="error"
             size="small"

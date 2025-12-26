@@ -1,17 +1,7 @@
 import axios from "axios";
-// const customFetch = axios.create({
-//     // baseURL: "/api/v1/",
-//   baseURL: "http://localhost:3001/api/v2/",
-//   withCredentials: true,
-// });
-
 export function convertToDateOnly(dateString) {
   return dateString.split("T")[0];
 }
-//export default customFetch;
-
-//import axios from "axios";
-//import { refreshToken } from "./refreshToken";
 export const refreshToken = () =>
   axios.post("http://localhost:3001/api/v2/authentication/refresh", {}, { withCredentials: true });
 const customFetch = axios.create({

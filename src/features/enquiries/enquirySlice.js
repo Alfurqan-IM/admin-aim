@@ -22,11 +22,6 @@ const enquirySlice = createSlice({
     changePage: (state, { payload }) => {
       state.pages = payload;
     },
-    // handleDateHarv: (state, { payload }) => {
-    //   const { name, date } = payload;
-    //   state[name] = date;
-    //   //   console.log({ purchase_date: state.purchase_date });
-    // },
     setUpdateEnq: (state, { payload }) => {
       return { ...state, ...payload, isEdit: true };
     },

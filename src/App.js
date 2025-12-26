@@ -221,7 +221,6 @@ export default function App() {
             {getRoutes(singleroutes)}
             <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
           </Routes>
-
           <ToastContainer
             position="top-right"
             autoClose={1000}

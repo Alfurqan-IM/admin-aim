@@ -95,25 +95,6 @@ export default function usersTableData() {
     const MAX_LENGTH = 40;
     const formatAddress = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
-
-    // const handleActivation = () => {
-    //   const confirmation = window.confirm(
-    //     `You are about to ${blacklisted ? "activate" : "blacklist"} a user, ARE YOU SURE?`
-    //   );
-
-    //   if (!confirmation) return;
-
-    //   if (blacklisted) {
-    //     // If the user is blacklisted, activate them
-    //     blacklistUser({ user_id, blacklist: false, isValid: true });
-    //     console.log("User activated");
-    //   } else {
-    //     // If the user is not blacklisted, deactivate them
-    //     blacklistUser({ user_id, blacklist: true, isValid: false });
-    //     console.log("User deactivated");
-    //   }
-    // };
-
     return {
       users: (
         <Author
@@ -185,12 +166,6 @@ export default function usersTableData() {
           </IconButton>
         </Tooltip>
       ),
-
-      // stats: (
-      //   <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-      //     <Link to={`/users/${user_id}`}>check</Link>
-      //   </MDTypography>
-      // ),
     };
   });
   return {
@@ -204,7 +179,6 @@ export default function usersTableData() {
       { Header: "verified", accessor: "verified", align: "center" },
       { Header: "blacklisted", accessor: "blacklisted", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
-      // { Header: "stats", accessor: "stats", align: "center" },
     ],
     rows: rows,
     numOfPages,
@@ -263,4 +237,4 @@ usersTableData.propTypes = {
   isGettingAllUser: PropTypes.bool.isRequired,
 };
 
-// export default usersTableData;
+

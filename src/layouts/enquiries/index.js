@@ -78,16 +78,6 @@ function Enquiries() {
                       {currentCount}/{totalEnq}
                     </MDTypography>
                   </MDBox>
-                  {/* <MDBox className={styles.inner}>
-                    <Link onClick={() => dispatch(resetValues())} to="/createupdateenquiry/add">
-                      <AddIcon
-                        sx={{ fill: "white" }}
-                        fontSize="medium"
-                        titleAccess="add a new enquiry details"
-                      />
-                    </Link>
-                    <HarvestSearchModal isGettingAllHarvest={isGettingAllHarvest} />
-                  </MDBox> */}
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -128,15 +118,7 @@ export const CreateUpdateEnquiry = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const isValid = Object.values(harvestDetails).every(
-    //   (value) => value !== undefined && value !== null && value !== ""
-    // );
-    // if (!isValid) {
-    //   alert("Please fill out all required fields.");
-    //   return;
-    // }
     if (isEdit) return updateEnq({ status, id });
-    //createHarvest(harvestDetails);
   };
   return (
     <DashboardLayout>
@@ -144,7 +126,6 @@ export const CreateUpdateEnquiry = () => {
       <MDBox mt={5} mb={3}>
         <Grid className={styling.wrapper} container spacing={1}>
           <div>
-            {/* <Link to={`/harvests`}>Go back</Link> */}
             <div>
               <Link to="/enquiries">
                 <ArrowBackIcon />

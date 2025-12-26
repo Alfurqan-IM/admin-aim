@@ -10,9 +10,6 @@ import logoInvesion from "assets/images/small-logos/logo-invision.svg";
 import { useDeleteEnq } from "features/enquiries/enquiryThunk";
 import { useGetAllEnquiries } from "features/enquiries/enquiryThunk";
 import { setUpdateEnq } from "features/enquiries/enquirySlice";
-// import { useHoneyHarvest } from "features/harvest/honey_harvestThunk";
-// import { useDeleteHarvest } from "features/harvest/honey_harvestThunk";
-// import { setUpdateHarvest } from "features/harvest/honey_harvestSlice";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -56,13 +53,6 @@ const handleConfirmDelete = () => {
     const handleEdit = () => {
       dispatch(setUpdateEnq(payload));
     };
-    // const handleDelete = () => {
-    //   const confirmation = window.confirm(
-    //     "You are about to Delete an enquiry record permanently, ARE YOU SURE?"
-    //   );
-    //   if (!confirmation) return;
-    //   deleteEnq(enq_id);
-    // };
     return {
       enq: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
@@ -87,14 +77,6 @@ const handleConfirmDelete = () => {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          {/* <Link
-            onClick={() => {
-              handleEdit();
-            }}
-            to={`/createupdateenquiry/${enq_id}`}
-          >
-            Edit
-          </Link> */}
           <Link to={`/createupdateenquiry/${enq_id}`}>
             <IconButton
               color="warning"
@@ -110,13 +92,6 @@ const handleConfirmDelete = () => {
       ),
       remove: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          {/* <Link
-            onClick={() => {
-              handleDelete();
-            }}
-          >
-            remove
-          </Link> */}
           <IconButton
             color="error"
             size="small"

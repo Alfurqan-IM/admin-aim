@@ -18,13 +18,7 @@ const bannerSlice = createSlice({
       const { name, value } = payload;
       state[name] = value;
     },
-    // handlePhoneInputEmp: (state, { payload }) => {
-    //   return {
-    //     ...state,
-    //     phone: payload,
-    //   };
-    // },
-
+    
     handleDate: (state, { payload }) => {
       const { name, date } = payload;
       console.log({ name, date });
@@ -36,12 +30,6 @@ const bannerSlice = createSlice({
     setUpdateBanner: (state, { payload }) => {
       return { ...state, ...payload, isEdit: true };
     },
-    // updateSalaryRange: (state, { payload }) => {
-    //   return {
-    //     ...state,
-    //     salaryRange: payload,
-    //   };
-    // },
     resetValues: (state) => {
       return {
         ...initialState,
@@ -55,11 +43,9 @@ const bannerSlice = createSlice({
 
 export const {
   handelChangeBan,
-  //handlePhoneInputEmp,
   handleDate,
   handleReset,
   setUpdateBanner,
- // updateSalaryRange,
   resetValues,
   changePage,
 } = bannerSlice.actions;

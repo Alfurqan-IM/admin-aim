@@ -2,7 +2,6 @@ import React from "react";
 import {
   DateRegister,
   GenderInput,
-  // InputFileUpload,
   MultiLineInput,
   PasswordInput,
   PhoneInputs,
@@ -13,17 +12,9 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { handelChange, handlePhoneInput } from "../features/users/userSlice";
-// import {
-//   handelChangeEmp,
-//   handleDob,
-//   handlePhoneInputEmp,
-// } from "../features/banners/employeesSlice";
-import { convertToDateOnly } from "../utils";
+//import { convertToDateOnly } from "../utils";
 import { handelChangeBan } from "features/banners/bannerSlice";
 import { handleDate } from "features/banners/bannerSlice";
-// import { useUploadEmployeeImages } from "../features/employees/employeesThunk";
-// import RangeSlider from "../components/TextField";
-// import { InputFileUpload } from "../components/TextField";
 
 const useRegister = () => {
   const {

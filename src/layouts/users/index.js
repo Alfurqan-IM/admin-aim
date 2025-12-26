@@ -16,7 +16,6 @@ import Header from "./profile/components/Header";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import PaginationControlled from "components copy/component's_Tables/Pagination";
 import usersTableData from "./data/usersTableData";
 import { changePage } from "features/users/userSlice";
 import { UserSearchModal } from "components copy";
@@ -183,22 +182,6 @@ export function SingleUser() {
                 description=""
                 info={{
                   Verified: isVerified ? "YES" : "No",
-                  // ...(paymentStatusCount.length > 0 && {
-                  //   paymentStatusCount: paymentStatusCount
-                  //     .map(
-                  //       ({ paymentStatus, count }, index) =>
-                  //         `Order ${index + 1}: Status: ${paymentStatus}, Number: ${count}`
-                  //     )
-                  //     .join(" | "), // Join them as a single string with a separator like " | " or "\n"
-                  // }),
-                  // ...(deliveryStatusCount.length > 0 && {
-                  //   deliveryStatusCount: deliveryStatusCount
-                  //     .map(
-                  //       ({ deliveryStatus, count }, index) =>
-                  //         `delivery ${index + 1}: Status: ${deliveryStatus}, Number: ${count}`
-                  //     )
-                  //     .join(" | "), // Join them as a single string with a separator like " | " or "\n"
-                  // }),
                 }}
                 shadow={false}
               />

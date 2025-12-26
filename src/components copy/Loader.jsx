@@ -1,6 +1,5 @@
 import React from "react";
 import { LineWave } from "react-loader-spinner";
-import { Oval } from "react-loader-spinner";
 import { ThreeDots } from "react-loader-spinner";
 import { TailSpin } from "react-loader-spinner";
 

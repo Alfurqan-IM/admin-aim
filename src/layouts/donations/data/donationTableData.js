@@ -3,16 +3,12 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDBadge from "components/MDBadge";
-
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import React from "react";
 import { useGetAllDonations } from "features/donations/donationThunk";
 import { convertToDateOnly } from "utils";
-// import { useSupplyProvision } from "features/supplyProvision/supplyprovThunk";
-// import { useDeleteProvision } from "features/supplyProvision/supplyprovThunk";
-// import { setUpdateProvision } from "features/supplyProvision/supplyProvSlice";
 
 export default function donationTableData() {
   const dispatch = useDispatch();
@@ -108,24 +104,6 @@ export default function donationTableData() {
       country,
       comment,
     } = item;
-    // const payload = {
-    //   service_id,
-    //   item_name,
-    //   description,
-    //   quantity,
-    //   price_NGN,
-    // };
-
-    // const handleEdit = () => {
-    //   dispatch(setUpdateProvision(payload));
-    // };
-    // const handleDelete = () => {
-    //   const confirmation = window.confirm(
-    //     "You are about to Delete a provision records permanently, ARE YOU SURE?"
-    //   );
-    //   if (!confirmation) return;
-    //   deleteProvision(item_id);
-    // };
     return {
       campaign: (
         <Author image={logoSlack} campaign_name={campaign.name} campaign_id={campaign.id} />

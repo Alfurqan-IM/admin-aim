@@ -389,36 +389,6 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="flag"
-                title="Event Status"
-                count={eventStats.upcomingByStatus}
-                percentage={{
-                  color: "forest",
-                  amount: "Upcoming",
-                  label: `${eventStats.otherStatus} Other`,
-                }}
-              />
-            </MDBox>
-          </Grid> */}
-
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="warning"
-                title="Missing Dates"
-                count={eventStats.noDate}
-                percentage={{
-                  color: eventStats.noDate > 0 ? "warning" : "forest",
-                  amount: "Needs Review",
-                  label: "Events without date",
-                }}
-              />
-            </MDBox>
-          </Grid> */}
           {/* programmes */}
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
@@ -462,23 +432,6 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          {/* <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="warning"
-                title="Special Cases"
-                count={programmeStats.singleDay}
-                percentage={{
-                  color:
-                    programmeStats.missingDates > 0 || programmeStats.singleDay > 0
-                      ? "warning"
-                      : "forest",
-                  amount: `${programmeStats.singleDay} Single-day`,
-                  label: `${programmeStats.missingDates} Missing dates`,
-                }}
-              />
-            </MDBox>
-          </Grid> */}
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard

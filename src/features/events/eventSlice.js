@@ -16,13 +16,7 @@ const eventSlice = createSlice({
       const { name, value } = payload;
       state[name] = value;
     },
-    // handlePhoneInputNok: (state, { payload }) => {
-    //   return {
-    //     ...state,
-    //     phone: payload,
-    //   };
-    // },
-
+    
     handleDateEvent: (state, { payload }) => {
       const { name, date } = payload;
       console.log({ name, date });
@@ -48,7 +42,6 @@ const eventSlice = createSlice({
 
 export const {
   handelChangeEvent,
-  //handlePhoneInputNok,
   handleDateEvent,
   handleReset,
   setUpdateEvent,

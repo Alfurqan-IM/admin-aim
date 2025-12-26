@@ -49,26 +49,6 @@ const programmeSlice = createSlice({
     changePage: (state, { payload }) => {
       state.pages = payload;
     },
-    // updatePriceRangeProduct: (state, { payload }) => {
-    //   return {
-    //     ...state,
-    //     priceRangePP: payload,
-    //   };
-    // },
-    // setColorsArray: (state, { payload }) => {
-    //   return {
-    //     ...state,
-    //     colors: [...state.colors, payload],
-    //   };
-    // },
-    // removeColor: (state, { payload }) => {
-    //   const updatedColorArray = [...state.colors];
-    //   updatedColorArray.splice(payload, 1);
-    //   return {
-    //     ...state,
-    //     colors: updatedColorArray,
-    //   };
-    // },
   },
 });
 export const {

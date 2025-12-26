@@ -129,10 +129,6 @@ function Campaigns() {
                     </MDTypography>
                   </MDBox>
                   <MDBox className={styles.inner}>
-                    {/* <Link onClick={() => dispatch(resetValues())} to="/createupdatecampaign/add">
-                      <AddIcon sx={{ fill: "white" }} fontSize="medium" titleAccess="add station" />
-                    </Link> */}
-                    {/* <StationSearchModal isGettingStations={isGettingStations} /> */}
                   </MDBox>
                 </MDTypography>
               </MDBox>
@@ -156,131 +152,6 @@ function Campaigns() {
 }
 export default Campaigns;
 
-// export function SingleStation() {
-//   const { id } = useParams();
-//   const {
-//     isGettingSingleStation,
-//     singleStation: {
-//       station: {
-//         honey_harvests = [],
-//         last_inspection_date,
-//         latitude,
-//         location,
-//         longitude,
-//         next_inspection_date,
-//         notes,
-//         number_of_hive_boxes,
-//         station_id,
-//         station_maintainace_history,
-//         station_name,
-//         station_size,
-//         status,
-//         supervisor_ext,
-//         supervisor_int,
-//       } = {},
-//     } = {},
-//     refetch,
-//   } = useSingleStation(id);
-//   React.useEffect(() => {
-//     refetch();
-//   }, [id]);
-//   return (
-//     <DashboardLayout>
-//       <DashboardNavbar />
-//       <MDBox mb={2} />
-//       <Header info={{ image: LogoAsana, station_name, location }}>
-//         <MDBox mt={5} mb={3}>
-//           <Link to="/stations">
-//             {" "}
-//             <Icon title="back to stations" fontSize="large">
-//               business
-//             </Icon>
-//           </Link>
-//           <Link to="/harvests">
-//             <Icon title="back to harvests" fontSize="large">
-//               emoji_nature
-//             </Icon>
-//           </Link>
-//           <Grid className={styling.wrapper} container spacing={1}>
-//             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-//               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-//               <ProfileInfoCard
-//                 title=""
-//                 description=""
-//                 info={{
-//                   station_id,
-//                   station_Name: station_name,
-//                   location,
-//                   station_size,
-//                   status,
-//                   hive_boxes: number_of_hive_boxes,
-//                 }}
-//                 shadow={false}
-//               />
-//               <Divider orientation="vertical" sx={{ mx: 0 }} />
-//             </Grid>
-
-//             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-//               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-//               <ProfileInfoCard
-//                 title=""
-//                 description=""
-//                 info={{
-//                   longitude: Number(longitude)?.toFixed(2) || "N/A",
-//                   latitude: Number(latitude)?.toFixed(2) || "N/A",
-
-//                   internal_supervisor: (
-//                     <Link to={`/employees/${supervisor_int}`}>{supervisor_int}</Link>
-//                   ),
-//                   external_supervisor: (
-//                     <Link to={`/employees/${supervisor_ext}`}>{supervisor_ext}</Link>
-//                   ),
-//                   last_inspection: last_inspection_date
-//                     ? moment(last_inspection_date).format("YYYY-MM-DD")
-//                     : "N/A",
-//                   next_inspection: next_inspection_date
-//                     ? moment(next_inspection_date).format("YYYY-MM-DD")
-//                     : "N/A",
-//                 }}
-//                 shadow={false}
-//               />
-//               <Divider orientation="vertical" sx={{ mx: 0 }} />
-//             </Grid>
-
-//             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-//               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-//               <ProfileInfoCard
-//                 title=""
-//                 description=""
-//                 info={{
-//                   maintaince: station_maintainace_history,
-//                   notes,
-//                   ...(honey_harvests.length > 0 && {
-//                     honey_harvests: honey_harvests
-//                       .map(
-//                         (
-//                           { harvest_year, harvest_date, quantity_collected, unit, quality_rating },
-//                           index
-//                         ) =>
-//                           `Harvest ${
-//                             index + 1
-//                           }: Year: ${harvest_year}, Date: ${harvest_date}, Quantity: ${quantity_collected} ${unit}, Rating: ${quality_rating}/5`
-//                       )
-//                       .join(" | "), // Join them as a single string with a separator like " | " or "\n"
-//                   }),
-//                 }}
-//                 shadow={false}
-//               />
-//               <Divider orientation="vertical" sx={{ mx: 0 }} />
-//             </Grid>
-//           </Grid>
-//         </MDBox>
-//       </Header>
-//       <Footer />
-//     </DashboardLayout>
-//   );
-// }
-
 export const CreateUpdateCampaign = () => {
   const { id } = useParams();
   const { campaign_details } = useDashDetails_1();
@@ -298,36 +169,8 @@ export const CreateUpdateCampaign = () => {
     end_date,
   };
 
-  // const stationdetailsOnEdit = {
-  //   station_name,
-  //   supervisor_int,
-  //   supervisor_ext,
-  //   location,
-  //   longitude,
-  //   latitude,
-  //   station_size,
-  //   number_of_hive_boxes,
-  //   status,
-  //   station_maintainace_history,
-  //   last_inspection_date,
-  //   next_inspection_date,
-  //   notes,
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Conditionally include inspection dates in the validation check if isEdit is true
-    // const detailsToValidate = isEdit ? stationdetailsOnEdit : stationDetails;
-
-    // const isValid = Object.values(detailsToValidate).every(
-    //   (value) => value !== undefined && value !== null && value !== ""
-    // );
-
-    // if (!isValid) {
-    //   alert("Please fill out all required fields,especially the dates field if available.");
-    //   return;
-    // }
-
     if (isEdit) {
       return updateCampaign({ campaignDetails, id });
     }
@@ -372,17 +215,6 @@ export const CreateUpdateCampaign = () => {
             </div>
             <form className={styling.form} onSubmit={handleSubmit}>
               {campaign_details
-                // .filter((detail) => {
-                //   if (
-                //     detail.name === "sort" ||
-                //     (!isEdit &&
-                //       (detail.name === "next_inspection_date" ||
-                //         detail.name === "last_inspection_date"))
-                //   ) {
-                //     return false; // Exclude these fields in edit mode
-                //   }
-                //   return true; // Include all other fields
-                // })
                 .map((detail) => {
                   const { name, TextField } = detail;
                   return <div key={name}>{TextField}</div>;

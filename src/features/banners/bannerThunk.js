@@ -30,29 +30,6 @@ export const useAllBanners = () => {
   });
   return { isGettingAllbanners, banners, refetch };
 };
-// export const useSinglebanner = (id) => {
-//   // console.log(id);
-//   const {
-//     status: isGettingSingleEmployee,
-//     data: singleemployee,
-//     refetch,
-//   } = useQuery({
-//     queryKey: ["singleemployee"],
-//     queryFn: async () => {
-//       const { data } = await customFetch.get(`employees/${id}`);
-//       return data;
-//     },
-//     enabled: false,
-//     onSuccess: (data) => {
-//       console.log("Query succeeded!", data);
-//     },
-//     onError: (err) => {
-//       toast.error(err.response.data.msg);
-//       console.log(err);
-//     },
-//   });
-//   return { isGettingSingleEmployee, singleemployee, refetch };
-// };
 
 export const useCreatebanner = () => {
   const dispatch = useDispatch();

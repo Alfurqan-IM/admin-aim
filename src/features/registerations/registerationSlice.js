@@ -15,12 +15,6 @@ const registerationSlice = createSlice({
       const { name, value } = payload;
       state[name] = value;
     },
-
-    // handleDateHive: (state, { payload }) => {
-    //   const { name, date } = payload;
-    //   console.log({ name, date });
-    //   state[name] = date;
-    // },
     handleReset: (state) => {
       return { ...initialState };
     },

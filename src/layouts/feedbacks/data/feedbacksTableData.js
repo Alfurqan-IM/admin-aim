@@ -2,24 +2,16 @@
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
-import MDBadge from "components/MDBadge";
-
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import React, { useState } from "react";
 import { useGetAllFeedbacks } from "features/feedbacks/feedbackThunk";
 import { useDeleteFeedback } from "features/feedbacks/feedbackThunk";
-// import { useServices } from "features/services/servicesThunk";
-// import { useDeleteService } from "features/services/servicesThunk";
-// import { setUpdateService } from "features/services/serviceSlice";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 export default function feedbacksTableData() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [selectedFeedbackId, setSelectedFeedbackId] = useState(null);
-//  const dispatch = useDispatch();
   const {
     isGettingAllFeedbacks,
     feedbacks: { feedback: FDBCK = [], totalFeedback = 0, count = 0, numOfPages = 0 } = {},
@@ -57,26 +49,6 @@ export default function feedbacksTableData() {
       notes,
       users: { first_name, last_name, email },
     } = feedback;
-    // const payload = {
-    //   feedback_id,
-    //   email,
-    //   description,
-    //   numOfTimesRendered,
-    //   category,
-    // };
-
-    // const handleEdit = () => {
-    //   dispatch(setUpdateService(payload));
-    // };
-    // const handleDelete = () => {
-    //   const confirmation = window.confirm(
-    //     "You are about to Delete a feedback record permanently, ARE YOU SURE?"
-    //   );
-    //   if (!confirmation) return;
-    //   deleteFeedback(feedback_id);
-    // };
-   
-
     return {
       users: (
         <Author
@@ -104,27 +76,12 @@ export default function feedbacksTableData() {
           {notes.length > 20 ? `${notes.slice(0, 20)}...` : notes}
         </MDTypography>
       ),
-      // update: (
-      //   <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-      //     <Link
-      //       onClick={() => {
-      //         handleEdit();
-      //       }}
-      //       to={`/createupdateservice/${service_id}`}
-      //     >
-      //       Edit
-      //     </Link>
-      //   </MDTypography>
-      // ),
       remove: (
         <MDTypography
           component="a"
           variant="caption"
           color="text"
           fontWeight="medium"
-          // onClick={() => {
-          //   handleDelete();
-          // }}
         >
           <IconButton
             color="error"

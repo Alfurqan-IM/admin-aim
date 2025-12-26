@@ -2,19 +2,14 @@
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
-//import MDBadge from "components/MDBadge";
-//import { useAllEmployess } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-//import { setUpdateEmployee } from "features/employees/employeesSlice";
 import React, { useState } from "react";
 import { useAllBanners } from "features/banners/bannerThunk";
 import { setUpdateBanner } from "features/banners/bannerSlice";
 import { useDeletebanner } from "features/banners/bannerThunk";
 import { convertToDateOnly } from "utils";
-//import ConfirmDialog from "components/ConfirmDialog";
 import { IconButton } from "@mui/material";
-//import ConfirmDialog from "components copy/ConfirmDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 export default function bannersTableData() {
@@ -88,13 +83,7 @@ export default function bannersTableData() {
     const MAX_LENGTH = 40;
     const formatDescription = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
-    // //delete
-    // const handleDelete = () => setOpenConfirm(true);
-
-    // const handleConfirmDelete = () => {
-    //   deletebanner(banner_id);
-    //   setOpenConfirm(false);
-    // };
+    //delete
     return {
       title: <Author image={image} time={time} year={year} banner_id={banner_id} />,
       details: (

@@ -6,25 +6,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import React from "react";
-//import { useProducts } from "features/products/productthunk";
 import PropTypes from "prop-types";
 import { useDeleteProgramme } from "features/programmes/programmeThunk";
 import { useGetAllProgrammes } from "features/programmes/programmeThunk";
 import { setUpdateProgramme } from "features/programmes/programmeSlice";
-// import { setUpdateProduct } from "features/products/productsSlice";
-// import { useDeleteProduct } from "features/products/productthunk";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-} from "@mui/material";
 export default function programmesTableData() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [selectedProgrammeId, setSelectedProgrammeId] = useState(null);
@@ -51,11 +40,6 @@ export default function programmesTableData() {
       </MDBox>
     </MDBox>
   );
-  // Author.propTypes = {
-  //   image: PropTypes.string.isRequired,
-  //   product_name: PropTypes.string.isRequired,
-  //   product_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  // };
   const Job = ({ time, description, index }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
@@ -64,11 +48,6 @@ export default function programmesTableData() {
       <MDTypography title={index} variant="caption">{description}</MDTypography>
     </MDBox>
   );
-  // Job.propTypes = {
-  //   title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  //   description: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  // };
-
   const handleDelete = (programmeId) => {
     setSelectedProgrammeId(programmeId);
     setOpenConfirm(true);
@@ -113,14 +92,6 @@ export default function programmesTableData() {
     const handleEdit = () => {
       dispatch(setUpdateProgramme(payload));
     };
-    // const handleDelete = () => {
-    //   const confirmation = window.confirm(
-    //     "You are about to Delete a programme records permanently, ARE YOU SURE?"
-    //   );
-    //   if (!confirmation) return;
-    //   deleteProgramme(programme_id);
-    // };
-
     const MAX_LENGTH = 40;
     const formatDescription = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
@@ -151,14 +122,6 @@ export default function programmesTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          {/* <Link
-            onClick={() => {
-              handleEdit();
-            }}
-            to={`/createupdateprogramme/${programme_id}`}
-          >
-            Edit
-          </Link> */}
           <Link to={`/createupdateprogramme/${programme_id}`}>
             <IconButton
               color="warning"

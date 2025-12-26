@@ -2,50 +2,21 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { handelChangeEvent } from "../features/events/eventSlice";
 import {
-  DateRegister,
   GenderInput,
   MultiLineInput,
-  PhoneInputs,
   UserInput,
 } from "../components copy";
 import { useSelector } from "react-redux";
 import { handleChangeEnq } from "../features/enquiries/enquirySlice";
-import { convertToDateOnly } from "../utils";
-// import {
-//   handleChangeHunter,
-//   handleDateHunter,
-//   handleEmerInput,
-//   handlePhoneInput,
-// } from "../features/quran/huntersSlice";
 import { handleChangeReg } from "../features/registerations/registerationSlice";
-import { handleChangeReport, handleDateReport } from "../features/donors/donorSlice";
 import { handleChangeQuran } from "features/quran/quranSlice";
 export const useEventInputs = () => {
   const { title, status, event_url, description } = useSelector((store) => store.events);
   const dispatch = useDispatch();
-  // const [validationError, setValidationError] = React.useState(false);
-  // const validateEmail = (email) => {
-  //   // Regular expression for validating an email address
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return emailRegex.test(email);
-  // };
   const getInput = (e) => {
     const { name, value } = e.target;
-    // const numericFields = ["emp_id"];
-    // let processedValue = numericFields.includes(name) ? Number(value) : value;
-    // if (numericFields.includes(name) && processedValue < 1) {
-    //   processedValue = 1;
-    // }
-    // if (name === "email") {
-    //   const isValidEmail = validateEmail(value);
-    //   setValidationError(!isValidEmail);
-    // }
     dispatch(handelChangeEvent({ name, value }));
   };
-
-  // const getPhoneNumber = (phone) => {
-  //   dispatch(handlePhoneInputNok(phone));
-  // };
   const eventInputDetails = [
     {
       name: "title",
@@ -62,31 +33,6 @@ export const useEventInputs = () => {
         />
       ),
     },
-    // {
-    //   name: "fullname",
-    //   TextField: (
-    //     <UserInput name={"fullname"} value={fullname} type={"name"} handleChange={getInput} />
-    //   ),
-    // },
-    // {
-    //   name: "email",
-    //   TextField: (
-    //     <UserInput
-    //       name={"email"}
-    //       value={email}
-    //       type={"email"}
-    //       handleChange={getInput}
-    //       validationError={validationError}
-    //       message={"Please provide a valid email address"}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "address",
-    //   TextField: (
-    //     <MultiLineInput name={"address"} value={address} type={"text"} handleChange={getInput} />
-    //   ),
-    // },
     {
       name: "status",
       TextField: (
@@ -111,36 +57,7 @@ export const useEventInputs = () => {
         />
       ),
     },
-    // {
-    //   name: "relationship",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"relationship"}
-    //       value={relationship}
-    //       type={"text"}
-    //       gender={["---", "spouse", "parent", "guardian", "sibling"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "phone",
-    //   TextField: (
-    //     <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
-    //   ),
-    // },
-    // {
-    //   name: "sort",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"sort"}
-    //       value={sort}
-    //       type={"text"}
-    //       gender={["---", "A-Z", "Z-A", "male", "female"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
+    
   ];
   return { eventInputDetails };
 };
@@ -150,81 +67,9 @@ export const useEnqInp = () => {
   const dispatch = useDispatch();
   const getInput = (e) => {
     const { name, value } = e.target;
-    // const numericFields = ["station_id", "quantity_collected", "quality_rating", "harvest_year"];
-    // let processedValue = numericFields.includes(name) ? Number(value) : value;
-    // if (numericFields.includes(name) && processedValue < 1) {
-    //   processedValue = 1;
-    // }
-    // if (name === "quality_rating") {
-    //   if (processedValue < 1) {
-    //     processedValue = 1;
-    //   } else if (processedValue > 5) {
-    //     processedValue = 5;
-    //   }
-    // }
     dispatch(handleChangeEnq({ name, value }));
   };
-
-  // const getDob = (e) => {
-  //   const { name, value } = e.target;
-  //   const formattedDate = convertToDateOnly(value.toISOString());
-  //   dispatch(handleDateHarv({ name, date: formattedDate }));
-  // };
   const enqInput = [
-    // {
-    //   name: "harvest_year",
-    //   TextField: (
-    //     <UserInput
-    //       name={"harvest_year"}
-    //       value={harvest_year}
-    //       type={"number"}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "station_id",
-    //   TextField: (
-    //     <UserInput name={"station_id"} value={station_id} type={"number"} handleChange={getInput} />
-    //   ),
-    // },
-    // {
-    //   name: "station_name",
-    //   TextField: (
-    //     <UserInput
-    //       name={"station_name"}
-    //       value={station_name}
-    //       type={"name"}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "harvest_date",
-    //   TextField: <DateRegister name={"harvest_date"} value={harvest_date} onChange={getDob} />,
-    // },
-    // {
-    //   name: "quantity_collected",
-    //   TextField: (
-    //     <UserInput
-    //       name={"quantity_collected"}
-    //       value={quantity_collected}
-    //       type={"number"}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "colouration",
-    //   TextField: (
-    //     <UserInput
-    //       name={"colouration"}
-    //       value={colouration}
-    //       type={"colouration"}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
     {
       name: "status",
       TextField: (
@@ -237,43 +82,6 @@ export const useEnqInp = () => {
         />
       ),
     },
-    // {
-    //   name: "quality_rating",
-    //   TextField: (
-    //     <UserInput
-    //       name={"quality_rating"}
-    //       value={quality_rating}
-    //       type={"number"}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "sort",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"sort"}
-    //       value={sort}
-    //       type={"text"}
-    //       gender={[
-    //         "---",
-    //         "high_volume",
-    //         "low_volume",
-    //         "high-rating",
-    //         "low-rating",
-    //         "latest-harvest",
-    //         "oldest-harvest",
-    //       ]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "note",
-    //   TextField: (
-    //     <MultiLineInput name={"note"} value={note} type={"text"} handleChange={getInput} />
-    //   ),
-    // },
   ];
   return { enqInput };
 };
@@ -281,47 +89,15 @@ export const useEnqInp = () => {
 export const useSurahInp = () => {
   const { verse, surah, text, translation, transliteration } = useSelector((store) => store.quran);
   const dispatch = useDispatch();
-  // const [validationError, setValidationError] = React.useState(false);
-  // const validateEmail = (email) => {
-  //   // Regular expression for validating an email address
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return emailRegex.test(email);
-  // };
   const getInput = (e) => {
     const { name } = e.target;
     let value;
     value = e.target.value;
-    //const numericFields = ["assigned_supervisor", "tip"];
-    // if (name === "email") {
-    //   const isValidEmail = validateEmail(value);
-    //   setValidationError(!isValidEmail);
-    // }
-    // let processedValue = numericFields.includes(name) ? Number(value) : value;
-    // /
-    //  dispatch(
-    //    handleChangeQuran({
-    //      name,
-    //      value: value === "" ? "" : Number(value),
-    //    })
-    //  );
     if (name === "verse") {
       value = Number(e.target.value);
-      //return dispatch(handleChangeQuran({ name, value }));
     }
     dispatch(handleChangeQuran({ name, value }));
   };
-
-  // const getDob = (e) => {
-  //   const { name, value } = e.target;
-  //   const formattedDate = convertToDateOnly(value.toISOString());
-  //   dispatch(handleDateHunter({ name, date: formattedDate }));
-  // };
-  // const getPhoneNumber = (phone) => {
-  //   dispatch(handlePhoneInput(phone));
-  // };
-  // const getEmergencyContact = (emer) => {
-  //   dispatch(handleEmerInput(emer));
-  // };
   const surahInputs = [
     {
       name: "surah",
@@ -331,12 +107,6 @@ export const useSurahInp = () => {
       name: "verse",
       TextField: <UserInput name={"verse"} value={verse} type={"number"} handleChange={getInput} />,
     },
-    // {
-    //   name: "phone",
-    //   TextField: (
-    //     <PhoneInputs name={"phone"} value={phone} type={"tel"} handleChange={getPhoneNumber} />
-    //   ),
-    // },
     {
       name: "text",
       TextField: (
@@ -351,38 +121,6 @@ export const useSurahInp = () => {
         />
       ),
     },
-    // {
-    //   name: "joining_date",
-    //   TextField: <DateRegister name={"joining_date"} value={joining_date} onChange={getDob} />,
-    // },
-    // {
-    //   name: "tip",
-    //   TextField: <UserInput name={"tip"} value={tip} type={"number"} handleChange={getInput} />,
-    // },
-    // {
-    //   name: "employment_status",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"employment_status"}
-    //       value={employment_status}
-    //       type={"text"}
-    //       gender={["---", "active", "inactive", "terminated"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "sort",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"sort"}
-    //       value={sort}
-    //       type={"text"}
-    //       gender={["---", "A-Z", "Z-A", "high-low", "low-high", "newest", "oldest"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
     {
       name: "translation",
       TextField: (
@@ -394,17 +132,6 @@ export const useSurahInp = () => {
         />
       ),
     },
-    // {
-    //   name: "emergency_contact",
-    //   TextField: (
-    //     <PhoneInputs
-    //       name={"emergency_contact"}
-    //       value={emergency_contact}
-    //       type={"tel"}
-    //       handleChange={getEmergencyContact}
-    //     />
-    //   ),
-    // },
     {
       name: "transliteration",
       TextField: (
@@ -426,21 +153,8 @@ export const useRegInp = () => {
 
   const getInput = (e) => {
     const { name, value } = e.target;
-    // const numericFields = ["assigned_hunter", "num_of_frames"];
-
-    // let processedValue = numericFields.includes(name) ? Number(value) : value;
-    // if (numericFields.includes(name) && processedValue < 0) {
-    //   processedValue = 0;
-    // }
     dispatch(handleChangeReg({ name, value }));
   };
-
-  // const getDob = (e) => {
-  //   const { name, value } = e.target;
-  //   const formattedDate = convertToDateOnly(value.toISOString());
-  //   dispatch(handleDateHive({ name, date: formattedDate }));
-  // };
-
   const regInputs = [
     {
       name: "programme",
@@ -448,34 +162,6 @@ export const useRegInp = () => {
         <UserInput name={"programme"} value={programme} type={"text"} handleChange={getInput} />
       ),
     },
-    // {
-    //   name: "num_of_frames",
-    //   TextField: (
-    //     <UserInput
-    //       name={"num_of_frames"}
-    //       value={num_of_frames}
-    //       type={"number"}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-
-    // {
-    //   name: "first_installation",
-    //   TextField: (
-    //     <DateRegister name={"first_installation"} value={first_installation} onChange={getDob} />
-    //   ),
-    // },
-    // {
-    //   name: "last_inspection_date",
-    //   TextField: (
-    //     <DateRegister
-    //       name={"last_inspection_date"}
-    //       value={last_inspection_date}
-    //       onChange={getDob}
-    //     />
-    //   ),
-    // },
     {
       name: "category",
       TextField: (
@@ -511,230 +197,7 @@ export const useRegInp = () => {
         />
       ),
     },
-    // {
-    //   name: "status",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"status"}
-    //       value={status}
-    //       type={"text"}
-    //       gender={["---", "unuse", "inuse", "empty"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "use_condition",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"use_condition"}
-    //       value={use_condition}
-    //       type={"text"}
-    //       gender={["---", "need repair", "used", "new"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "current_location",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"current_location"}
-    //       value={current_location}
-    //       type={"text"}
-    //       gender={["---", "swarm field", "station", "warehouse"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "sort",
-    //   TextField: (
-    //     <GenderInput
-    //       name={"sort"}
-    //       value={sort}
-    //       type={"text"}
-    //       gender={["---", "high-low", "low-high", "recent", "old"]}
-    //       handleChange={getInput}
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "note",
-    //   TextField: (
-    //     <MultiLineInput name={"note"} value={note} type={"text"} handleChange={getInput} />
-    //   ),
-    // },
   ];
   return { regInputs };
 };
 
-export const useCatchReports = () => {
-  const {
-    hunter_id,
-    assigned_supervisor,
-    total_boxes_assigned,
-    colonized_boxes,
-    uncolonized_boxes,
-    delivered_to_apiary,
-    date_assigned,
-    catch_date,
-    catch_location,
-    catch_status,
-    season,
-    sort,
-    notes,
-  } = useSelector((store) => store.reports);
-  const dispatch = useDispatch();
-
-  const getInput = (e) => {
-    const { name, value } = e.target;
-    const numericFields = [
-      "assigned_hunter",
-      "assigned_supervisor",
-      "total_boxes_assigned",
-      "colonized_boxes",
-      "uncolonized_boxes",
-    ];
-
-    let processedValue = numericFields.includes(name) ? Number(value) : value;
-    if (numericFields.includes(name) && processedValue < 0) {
-      processedValue = 0;
-    }
-    dispatch(handleChangeReport({ name, value: processedValue }));
-  };
-
-  const getDob = (e) => {
-    const { name, value } = e.target;
-    const formattedDate = convertToDateOnly(value.toISOString());
-    dispatch(handleDateReport({ name, date: formattedDate }));
-  };
-
-  const reportInputs = [
-    {
-      name: "hunter_id",
-      TextField: (
-        <UserInput name={"hunter_id"} value={hunter_id} type={"number"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "assigned_supervisor",
-      TextField: (
-        <UserInput
-          name={"assigned_supervisor"}
-          value={assigned_supervisor}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "total_boxes_assigned",
-      TextField: (
-        <UserInput
-          name={"total_boxes_assigned"}
-          value={total_boxes_assigned}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "colonized_boxes",
-      TextField: (
-        <UserInput
-          name={"colonized_boxes"}
-          value={colonized_boxes}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "uncolonized_boxes",
-      TextField: (
-        <UserInput
-          name={"uncolonized_boxes"}
-          value={uncolonized_boxes}
-          type={"number"}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "date_assigned",
-      TextField: <DateRegister name={"date_assigned"} value={date_assigned} onChange={getDob} />,
-    },
-    {
-      name: "catch_date",
-      TextField: <DateRegister name={"catch_date"} value={catch_date} onChange={getDob} />,
-    },
-    {
-      name: "catch_location",
-      TextField: (
-        <UserInput
-          name={"catch_location"}
-          value={catch_location}
-          handleChange={getInput}
-          type={"name"}
-        />
-      ),
-    },
-    {
-      name: "catch_status",
-      TextField: (
-        <GenderInput
-          name={"catch_status"}
-          value={catch_status}
-          type={"text"}
-          gender={["---", "all pending", "all successfull", "some pending"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "season",
-      TextField: (
-        <GenderInput
-          name={"season"}
-          value={season}
-          type={"text"}
-          gender={["---", "dry", "rain"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-    {
-      name: "delivered_to_apiary",
-      TextField: (
-        <GenderInput
-          name={"delivered_to_apiary"}
-          value={delivered_to_apiary}
-          type={"text"}
-          gender={["---", "all", "some", "none"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-
-    {
-      name: "notes",
-      TextField: (
-        <MultiLineInput name={"notes"} value={notes} type={"text"} handleChange={getInput} />
-      ),
-    },
-    {
-      name: "sort",
-      TextField: (
-        <GenderInput
-          name={"sort"}
-          value={sort}
-          type={"text"}
-          gender={["---", "new", "old"]}
-          handleChange={getInput}
-        />
-      ),
-    },
-  ];
-  return { reportInputs };
-};

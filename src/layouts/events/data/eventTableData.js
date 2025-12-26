@@ -58,13 +58,6 @@ export default function eventsTableData() {
     const handleEdit = () => {
       dispatch(setUpdateEvent(payload));
     };
-    // const handleDelete = () => {
-    //   const confirmation = window.confirm(
-    //     "You are about to Delete an next of kin records permanently, ARE YOU SURE?"
-    //   );
-    //   if (!confirmation) return;
-    //   deleteEvent(event_id);
-    // };
     const MAX_LENGTH = 40;
     const formatDescription = (text) =>
       text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}…` : text;
@@ -96,14 +89,6 @@ export default function eventsTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          {/* <Link
-            onClick={() => {
-              handleEdit();
-            }}
-            to={`/createupdateevent/${event_id}`}
-          >
-            Edit
-          </Link> */}
           <Link to={`/createupdateevent/${event_id}`}>
             <IconButton
               color="warning"
@@ -119,13 +104,6 @@ export default function eventsTableData() {
       ),
       remove: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          {/* <Link
-            onClick={() => {
-              handleDelete();
-            }}
-          >
-            remove
-          </Link> */}
           <IconButton
             color="error"
             size="small"

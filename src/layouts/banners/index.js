@@ -7,34 +7,12 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-// Data
-//import employeesTableData from "layouts/tables/data/employeesTableData";
-//import projectsTableData from "layouts/tables/data/projectsTableData";
-//import { useSingleEmployee } from "features/employees/employeesThunk";
 import { useParams } from "react-router-dom";
-//import Divider from "@mui/material/Divider";
-// @mui icons
-// import FacebookIcon from "@mui/icons-material/Facebook";
-// import TwitterIcon from "@mui/icons-material/Twitter";
-// import { Email } from "@mui/icons-material";
-// import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
-// import ProfilesList from "examples/Lists/ProfilesList";
-// import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
-// import Header from "./profile/components/Header";
-// import PlatformSettings from "./profile/components/PlatformSettings";
-// import { useEmployee } from "hooks/Register";
-// import { useCreateEmployee } from "features/employees/employeesThunk";
-// import { useUpdateEmployee } from "features/employees/employeesThunk";
 import { useDispatch, useSelector } from "react-redux";
-//import { useUploadEmployeeImages } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { InputFileUpload } from "components copy";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-//import { handleReset } from "features/employees/employeesSlice";
-//import EmployeeSearchModal from "components copy/searchModals/EmployeeSearchModal";
-// import PaginationControlled from "components copy/component's_Tables/Pagination";
-//import { changePage } from "features/employees/employeesSlice";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 //style
@@ -89,8 +67,6 @@ function Banners() {
                 borderRadius="lg"
                 coloredShadow="info"
               >
-                {/* "transparent", "white", "black", "primary", "secondary", "info", "success",
-                "forest", "warning", "error", "light", "dark", */}
                 <MDTypography className={styles.wrapper} variant="h6" color="white">
                   <MDBox className={styles.inner}>
                     <MDTypography color="white">Banners</MDTypography>
@@ -105,7 +81,6 @@ function Banners() {
                     >
                       <AddIcon sx={{ fill: "white" }} fontSize="medium" titleAccess="add banner" />
                     </Link>
-                    {/* <EmployeeSearchModal isGettingAllEmployees={isGettingAllEmployees} /> */}
                   </MDBox>
                 </MDTypography>
               </MDBox>
@@ -137,112 +112,6 @@ function Banners() {
 }
 export default Banners;
 
-// export function SingleEmployee() {
-//   const { id } = useParams();
-//   const { isGettingSingleEmployee, singleemployee, refetch } = useSingleEmployee(id);
-//   const { employee } = singleemployee || {};
-//   const {
-//     catch_reports = [],
-//     employee_nok = {},
-//     externallySupervising = [],
-//     internallySupervising = [],
-//     swarm_hunters = [],
-//     emp_id,
-//     first_name,
-//     last_name,
-//     gender,
-//     email,
-//     dob,
-//     phone,
-//     image,
-//     role,
-//     address,
-//     department,
-//     employment_type,
-//     employment_status,
-//     salary,
-//     joining_date,
-//     skill,
-//     notes,
-//   } = employee ?? {};
-//   React.useEffect(() => {
-//     refetch();
-//   }, [id]);
-//   return (
-//     <DashboardLayout>
-//       <DashboardNavbar />
-//       <MDBox mb={2} />
-//       <Header info={{ image, first_name, last_name, role }}>
-//         <MDBox mt={5} mb={3}>
-//           <Link to="/employees">
-//             {" "}
-//             <ArrowBackIcon />
-//           </Link>
-//           <Grid container spacing={1}>
-//             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-//               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-//               <ProfileInfoCard
-//                 title=""
-//                 description=""
-//                 info={{
-//                   emp_id,
-//                   fullName: `${first_name} ${last_name}`,
-//                   mobile: `${phone}`,
-//                   address,
-//                   employment_type,
-//                   gender,
-//                   department,
-//                   employment_status,
-//                 }}
-//                 shadow={false}
-//               />
-//               <Divider orientation="vertical" sx={{ mx: 0 }} />
-//             </Grid>
-
-//             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-//               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-//               <ProfileInfoCard
-//                 title=""
-//                 description=""
-//                 info={{
-//                   salary,
-//                   joining_date,
-//                   dob,
-//                   email,
-//                   skill,
-//                   notes,
-//                 }}
-//                 shadow={false}
-//               />
-//               <Divider orientation="vertical" sx={{ mx: 0 }} />
-//             </Grid>
-
-//             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-//               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-//               <ProfileInfoCard
-//                 title=""
-//                 description=""
-//                 info={{
-//                   ...(Object.keys(employee_nok).length > 0 && {
-//                     nok: employee_nok.fullname,
-//                     nok_id: employee_nok.nok_id,
-//                   }),
-//                   ...(externallySupervising.length > 0 && {
-//                     [`supervised_station${externallySupervising.length > 0 ? "s" : ""}`]:
-//                       externallySupervising.map((station) => station.station_id).join(", "),
-//                   }),
-//                 }}
-//                 shadow={false}
-//               />
-//               <Divider orientation="vertical" sx={{ mx: 0 }} />
-//             </Grid>
-//           </Grid>
-//         </MDBox>
-//       </Header>
-//       <Footer />
-//     </DashboardLayout>
-//   );
-// }
 export function CreateUpdateBanner() {
   const { id } = useParams();
   const { bannerDetails } = useBanner();
@@ -292,7 +161,6 @@ export function CreateUpdateBanner() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      {/* <Header info={{ image, first_name, last_name, role }}> */}
       <MDBox mt={5} mb={3}>
         <Grid className={styling.wrapper} container spacing={1}>
           <div>

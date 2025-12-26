@@ -38,24 +38,6 @@ export default function regTableData() {
       </MDBox>
     </MDBox>
   );
-  // const Job = ({ title, description }) => (
-  //   <MDBox lineHeight={1} textAlign="left">
-  //     <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-  //       <Link to={`#`}>{`${title}`}</Link>
-  //     </MDTypography>
-  //     <MDTypography variant="caption">
-  //       <Link to={`#`}>{`${description}`}</Link>
-  //     </MDTypography>
-  //   </MDBox>
-  // );
-  // const Coord = ({ title, description }) => (
-  //   <MDBox lineHeight={1} textAlign="left">
-  //     <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-  //       {title}
-  //     </MDTypography>
-  //     <MDTypography variant="caption">{description}</MDTypography>
-  //   </MDBox>
-  // );
    const handleDelete = (regId) => {
      setSelectedRegId(regId);
      setOpenConfirm(true);
@@ -86,13 +68,6 @@ export default function regTableData() {
     const handleEdit = () => {
       dispatch(setUpdateReg(payload));
     };
-    // const handleDelete = () => {
-    //   const confirmation = window.confirm(
-    //     "You are about to Delete a registeration record permanently, ARE YOU SURE?"
-    //   );
-    //   if (!confirmation) return;
-    //   deleteReg(reg_id);
-    // };
     return {
       users: (
         <Author
@@ -135,14 +110,6 @@ export default function regTableData() {
       ),
       update: (
         <MDTypography component="a" variant="caption" color="text" fontWeight="medium">
-          {/* <Link
-            onClick={() => {
-              handleEdit();
-            }}
-            to={`/createupdateregisteration/${reg_id}`}
-          >
-            Edit
-          </Link> */}
           <Link to={`/createupdateregisteration/${reg_id}`}>
             <IconButton
               color="warning"
@@ -162,9 +129,6 @@ export default function regTableData() {
           variant="caption"
           color="text"
           fontWeight="medium"
-          // onClick={() => {
-          //   handleDelete();
-          // }}
         >
           <IconButton
             color="error"

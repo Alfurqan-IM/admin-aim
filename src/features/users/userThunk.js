@@ -3,7 +3,6 @@ import customFetch from "../../utils";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 // user authentication
 export const useCheckUserOndB = (email) => {
   const {

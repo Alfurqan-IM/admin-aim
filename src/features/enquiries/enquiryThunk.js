@@ -4,21 +4,11 @@ import { useDispatch } from "react-redux";
 import { resetValues } from "./enquirySlice";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-// import { Pages } from "@mui/icons-material";
+
 
 export const useGetAllEnquiries = () => {
   const { pages } = useSelector((store) => store.enquiries);
-  // const numberFilterParams = [
-  //   quality_rating !== undefined ? `quality_rating<=${quality_rating}` : "",
-  //   quantity_collected !== undefined ? `quantity_collected<=${quantity_collected}` : "",
-  //   harvest_date !== undefined ? `harvest_date=${harvest_date}` : "",
-  // ];
-  // const numberFilterString = numberFilterParams
-  //   .filter(Boolean) // This will remove any empty values
-  //   .join(" "); // Join the selected params with space for a clean format
-
   const url = `enquiries/?pages=${pages}`;
-  // console.log(url);
   const {
     status: isGettingAllEnq,
     data: enquiries,
@@ -40,34 +30,6 @@ export const useGetAllEnquiries = () => {
   return { isGettingAllEnq, enquiries, refetch };
 };
 
-// export const useCreateHarvest = () => {
-//   const dispatch = useDispatch();
-//   const queryClient = useQueryClient();
-//   const { mutate: createHarvest, status: isCreatingHarvest } = useMutation({
-//     mutationFn: async (harvestDetails) => {
-//       // console.log(harvestDetails, "here");
-//       const { data } = await customFetch.post("/honeyharvest", {
-//         ...harvestDetails,
-//       });
-//       return data;
-//     },
-//     onSuccess: ({ msg }) => {
-//       // console.log(msg);
-//       queryClient.invalidateQueries({ queryKey: ["allhoneyharvest"] });
-//       dispatch(resetValues());
-//       toast.success(msg);
-//     },
-//     onError: (error) => {
-//       const Msg = error.response?.data?.msg;
-//       if (Msg.includes("Cannot add or update a child row: a foreign key constraint fails")) {
-//         toast.error("The chosen station_id does not exist !!!!");
-//       } else {
-//         toast.error(error.response?.data?.msg || "An error occurred.");
-//       }
-//     },
-//   });
-//   return { createHarvest, isCreatingHarvest };
-// };
 export const useUpdateEnq = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();

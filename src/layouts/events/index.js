@@ -10,18 +10,9 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { useUploadEmployeeImages } from "features/employees/employeesThunk";
 import { Link } from "react-router-dom";
 import { CustomButton } from "components copy";
 import { Loader1 } from "components copy/Loader";
-// import PaginationControlled from "components copy/component's_Tables/Pagination";
-// import nokTableData from "./data/eventTableData";
-// import { changePage } from "features/nok/nokSlice";
-// import NokSearchModal from "components copy/searchModals/NokSearchModal";
-// import { useCreateNok } from "features/nok/nokThunk";
-// import { useUpdateNok } from "features/nok/nokThunk";
-// import { useNok } from "hooks/DashDetails_2";
-// import { resetValues } from "features/nok/nokSlice";
 import styles from "../styles/thead.module.scss";
 import styling from "../styles/createupdate.module.scss";
 import AddIcon from "@mui/icons-material/Add";
@@ -36,8 +27,6 @@ import { InputFileUpload } from "components copy";
 import PaginationControlled from "components copy/Pagination";
 import { changePage } from "features/events/eventSlice";
 import ConfirmDialog from "components copy/ConfirmDialog";
-//import { Icon } from "@mui/material";
-
 function Events() {
   const {
     isGettingAllEvents,
@@ -99,7 +88,6 @@ function Events() {
                         titleAccess="add new Event"
                       />
                     </Link>
-                    {/* <NokSearchModal isGettingAllNok={isGettingAllNok} /> */}
                   </MDBox>
                 </MDTypography>
               </MDBox>

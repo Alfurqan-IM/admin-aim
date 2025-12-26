@@ -317,21 +317,12 @@ export function DateRegister({ name, value, onChange }) {
 
 // import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import { Loader1 } from "./Loader";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useDispatch } from "react-redux";
-//import { updateSalaryRange } from "../features/banners/employeesSlice";
-import { updatePriceRange } from "../features/apiarySetup/setupCompSlice";
-import { updatePriceRangeConsultation } from "../features/consultation/consultationSlice";
-import { updatePriceRangePolServ } from "../features/pollination/polservicesSlice";
-//import { updatePriceRangeProvision } from "../features/donations/supplyProvSlice";
 import moment from "moment";
 import { CustomButton } from "./Button";
 import { useLocation } from "react-router-dom";
-//import { updatePriceRangeProduct } from "features/products/productsSlice";
-import { MdColorLens } from "react-icons/md";
-// import LoadingButton from "@mui/lab/LoadingButton";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -421,108 +412,7 @@ export default function RangeSlider({ name, value, min, max, step }) {
     </Box>
   );
 }
-import AddIcon from "@mui/icons-material/Add";
-import { ChromePicker } from "react-color";
-import { useSelector } from "react-redux";
-//import { setColorsArray } from "features/products/productsSlice";
-//import { removeColor } from "features/products/productsSlice";
-//import { updateProductColors } from "features/products/productthunk";
-// export const ColorPicker = ({ color_id }) => {
-//   const dispatch = useDispatch();
-//   const [anchorEl, setAnchorEl] = useState(null);
-//   const [color, setColor] = useState("#FFFFFF");
-//   const { colors } = useSelector((store) => store.products);
-//   const { updateColor, isUpdatingColor } = updateProductColors(color_id);
-//   const handleColorChange = (newColor) => {
-//     // setColor(newColor.name);
-//     setColor(newColor.hex);
-//   };
 
-//   const handleButtonClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-//   const handleAddColor = () => {
-//     dispatch(setColorsArray(color));
-//   };
-//   const handleRemoveColor = (c) => {
-//     dispatch(removeColor(c));
-//   };
-//   const open = Boolean(anchorEl);
-//   const id = open ? "color-popover" : undefined;
-
-//   return (
-//     <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-//       <label style={{ fontSize: "small" }} htmlFor="label">
-//         Choose Color
-//       </label>
-//       <div
-//         style={{
-//           display: "flex",
-//           alignItems: "center",
-//           gap: "10px",
-//         }}
-//         id="label"
-//       >
-//         <MdColorLens style={{ cursor: "pointer" }} onClick={handleButtonClick} />
-//         <AddIcon sx={{ cursor: "pointer" }} onClick={handleAddColor} />
-//       </div>
-//       <div style={{ display: "flex", width: "100%" }}>
-//         {colors.map((c, index) => (
-//           <div
-//             key={index}
-//             title={"Click to remove color"}
-//             onClick={() => handleRemoveColor(index)}
-//             style={{
-//               cursor: "pointer",
-//               width: "30px",
-//               height: "30px",
-//               backgroundColor: c,
-//               marginRight: "5px",
-//               borderRadius: "50%",
-//               border: "1px solid grey",
-//             }}
-//           ></div>
-//         ))}
-//       </div>
-//       <CustomButton
-//         background={"inherit"}
-//         backgroundhover={"grey"}
-//         height={"4vh"}
-//         component="label"
-//         role={undefined}
-//         variant="contained"
-//         tabIndex={-1}
-//         size={"small"}
-//         title={`upload colors`}
-//         startIcon={isUpdatingColor === "pending" ? <Loader1 /> : <CloudUploadIcon />}
-//         onClick={() => updateColor(colors)}
-//       >
-//         {isUpdatingColor === "pending" ? `updating colors` : `update colors`}
-//       </CustomButton>
-//       <Popover
-//         id={id}
-//         open={open}
-//         anchorEl={anchorEl}
-//         onClose={handleClose}
-//         anchorOrigin={{
-//           vertical: "bottom",
-//           horizontal: "left",
-//         }}
-//         transformOrigin={{
-//           vertical: "top",
-//           horizontal: "left",
-//         }}
-//       >
-//         <ChromePicker color={color} onChange={handleColorChange} />
-//       </Popover>
-//     </div>
-//   );
-// };
 // User Input Component
 UserInput.propTypes = {
   name: PropTypes.string.isRequired,
@@ -532,10 +422,7 @@ UserInput.propTypes = {
   validationError: PropTypes.bool,
   message: PropTypes.string,
 };
-// Color picker
-// ColorPicker.propTypes = {
-//   color_id: PropTypes.string,
-// };
+
 // Phone Input Component
 PhoneInputs.propTypes = {
   type: PropTypes.string,
