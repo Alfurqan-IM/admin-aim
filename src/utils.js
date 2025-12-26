@@ -5,13 +5,13 @@ export function convertToDateOnly(dateString) {
 export const refreshToken = () =>
   //axios.post("http://localhost:3001/api/v2/authentication/refresh", {}, { withCredentials: true });
   axios.post(
-    "https://staging-alfurqaninternational.onrender.com/api/v2/authentication/refresh",
+    "https://api.staging.alfurqaninternational.org/api/v2/authentication/refresh",
     {},
     { withCredentials: true }
   );
 const customFetch = axios.create({
   //baseURL: "http://localhost:3001/api/v2/",
-  baseURL: "https://staging-alfurqaninternational.onrender.com/api/v2/",
+  baseURL: "https://api.staging.alfurqaninternational.org/api/v2/",
   withCredentials: true,
 });
 
