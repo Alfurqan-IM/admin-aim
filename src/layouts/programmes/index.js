@@ -349,7 +349,7 @@ export function SingleProgramme() {
                   about,
                   time,
                   year,
-                  start_date: convertToDateOnly(start_date),
+                 // start_date: convertToDateOnly(start_date),
                 }}
                 shadow={false}
               />
@@ -362,7 +362,7 @@ export function SingleProgramme() {
                 title=""
                 description=""
                 info={{
-                  end_date: convertToDateOnly(end_date),
+                 // end_date: convertToDateOnly(end_date),
                   outcome1,
                   outcome2,
                   outcome3,
