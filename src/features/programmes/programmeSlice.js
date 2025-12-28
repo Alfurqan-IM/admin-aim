@@ -22,6 +22,7 @@ const programmeSlice = createSlice({
     handleChangeProgramme: (state, { payload }) => {
       const { name, value } = payload;
       state[name] = value;
+      //console.log(name, value, typeof value);
     },
 
     handleDateProgramme: (state, { payload }) => {

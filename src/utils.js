@@ -3,15 +3,15 @@ export function convertToDateOnly(dateString) {
   return dateString.split("T")[0];
 }
 export const refreshToken = () =>
-  //axios.post("http://localhost:3001/api/v2/authentication/refresh", {}, { withCredentials: true });
-  axios.post(
-    "https://api.staging.alfurqaninternational.org/api/v2/authentication/refresh",
-    {},
-    { withCredentials: true }
-  );
+  axios.post("http://localhost:3001/api/v2/authentication/refresh", {}, { withCredentials: true });
+  // axios.post(
+  //   "https://api.staging.alfurqaninternational.org/api/v2/authentication/refresh",
+  //   {},
+  //   { withCredentials: true }
+  // );
 const customFetch = axios.create({
-  //baseURL: "http://localhost:3001/api/v2/",
-  baseURL: "https://api.staging.alfurqaninternational.org/api/v2/",
+  baseURL: "http://localhost:3001/api/v2/",
+ // baseURL: "https://api.staging.alfurqaninternational.org/api/v2/",
   withCredentials: true,
 });
 

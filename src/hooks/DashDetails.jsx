@@ -100,14 +100,19 @@ export const useProgrammesInputs = () => {
     dispatch(handleDateProgramme({ name, date: isoDate }));
   };
   const getInput = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     // console.log(name, value);
     // const numericFields = ["quantity", "price", "total_in_stock"];
     // let processedValue = numericFields.includes(name) ? Number(value) : value;
     // if (numericFields.includes(name) && processedValue < 1) {
     //   processedValue = 1;
     // }
-    dispatch(handleChangeProgramme({ name, value }));
+    dispatch(
+      handleChangeProgramme({
+        name,
+        value: type === "number" && value !== "" ? Number(value) : value,
+      })
+    );
   };
   const programmeInputs = [
     {
