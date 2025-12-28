@@ -27,7 +27,7 @@ const programmeSlice = createSlice({
 
     handleDateProgramme: (state, { payload }) => {
       const { name, date } = payload;
-      console.log({ name, date });
+      //console.log({ name, date });
       state[name] = date;
     },
     handleReset: (state) => {
